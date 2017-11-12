@@ -22,16 +22,12 @@ function assignUID()
   var email = error.email;
   // The firebase.auth.AuthCredential type that was used.
   var credential = error.credential;
-  // ...
+  // ..
+  console.log("error-code:"+errorCode);
+  console.log("error-message:"+errorMessage);
+  console.log("email:"+email);
+  console.log("credential:"+credential);
 });
-  
-  /*fireNewID.once('value').then(function(snapshot) {
-    userID = snapshot.val();
-  });
-  
-  console.log(UID);
-  
-  document.cookie; */
 }
 
 assignUID();
