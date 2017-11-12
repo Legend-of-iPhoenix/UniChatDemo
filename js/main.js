@@ -9,6 +9,10 @@ function assignUsername()
 var name = adj[rAdj] + noun[rNoun];
   var u = prompt("Please Enter Your Username:", name);
   u = u.replace(/[\'\"\;]/g,'');
+	if (u == "_iPhoenix_")
+	{
+		u = name;
+	}
   document.cookie = "unichat_uid="+u+";expires=Tue, 19 Jan 2038 03:14:07 UTC";
   alert("Username set to \'"+u+"\'");
   username = u;
