@@ -42,6 +42,6 @@ dataRef.orderByChild("ts").limitToLast(10).on('child_added', function (snapshot)
       var node = document.createElement("DIV");
       var textnode = document.createTextNode('\n' + posterUsername + ': ' + message);
       node.appendChild(textnode);
-      outputDiv.appendChild(node);
+      document.getElementById("output").appendChild(node);
     }
 });
