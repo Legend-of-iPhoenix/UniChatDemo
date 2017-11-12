@@ -19,10 +19,28 @@ assignUsername();
 function submitMessage() {
 	var database = firebase.database();
   var messageBox = document.getElementById("message");
-  database.ref("Data").push({
-    value: messageBox.value,
-    timestamp: Date.now(),
-    userName: username
-  });
+	if (messageBox.value != undefined)
+	{
+	  database.ref("Data").push({
+ 	      text: messageBox.value,
+	      ts: Date.now(),
+	      un: username
+ 	 });
   messageBox.value = "";
 }
+
+
+var dataRef = firebase.database().ref("Data");
+var outputDiv = document.getElementById("output");
+dataRef.orderByChild("ts").limitToLast(10).on('child_added', function (snapshot) {
+    var data = snapshot.val();
+    var message = data.text;
+    var posterUsername = data.un;
+    if (message != undefined)
+    {
+      var node = document.createElement("DIV");
+      var textnode = document.createTextNode('\n' + posterUsername + ': ' + message);
+      node.appendChild(textnode);
+      outputDiv.appendChild(node);
+    }
+});
