@@ -22,7 +22,7 @@ function submitMessage() {
   database.ref("Data").push({
     value: messageBox.value,
     timestamp: Date.now(),
-    userName: username;
+    userName: username
   });
   messageBox.value = "";
 }
