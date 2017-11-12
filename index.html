@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+      <script src="https://www.gstatic.com/firebasejs/4.6.2/firebase.js"></script>
+      <script>
+      // Initialize Firebase
+      var config = {
+        apiKey: "AIzaSyC9eUkCvbKv7nzQocRelivvyvWAlmiORsg",
+        authDomain: "unichat-10bbd.firebaseapp.com",
+        databaseURL: "https://unichat-10bbd.firebaseio.com",
+        projectId: "unichat-10bbd",
+        storageBucket: "unichat-10bbd.appspot.com",
+        messagingSenderId: "847148140589"
+      };
+      firebase.initializeApp(config);
+    </script>
+    <script src="js/main.js"></script>
+  </head>
+  <body>
+    <input type="text" id="message">
+    <input type="button" value="Submit" onclick="submitMessage()">
+  </body>
+</html>
