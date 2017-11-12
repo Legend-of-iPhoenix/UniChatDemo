@@ -32,7 +32,6 @@ function submitMessage() {
 
 
 var dataRef = firebase.database().ref("Data");
-var outputDiv = document.getElementById("output");
 dataRef.orderByChild("ts").limitToLast(10).on('child_added', function (snapshot) {
     var data = snapshot.val();
     var message = data.text;
