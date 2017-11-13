@@ -24,7 +24,7 @@ assignUsername();
 function submitMessage() {
 	var database = firebase.database();
   var messageBox = document.getElementById("message");
-	if (messageBox.value != undefined && messageBox.value != "" && messageBox.value != '')
+	if (messageBox.value != undefined && messageBox.value != "" && messageBox.value != '' && messageBox.value.length < 256)
 	{
 	  database.ref("Data").push({
  	      text: messageBox.value,
