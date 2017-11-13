@@ -1,0 +1,18 @@
+* {
+  font-family: Helvetica, sans-serif;
+}
+
+body {
+  background-color: #333;
+  color: #0e0;
+}
+
+ol {
+  color: #0c0;
+  background-color: #555;
+}
+
+#output {
+  color: #3e3;
+}
+
