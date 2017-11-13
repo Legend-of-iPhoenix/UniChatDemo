@@ -39,12 +39,16 @@ var dataRef = firebase.database().ref("Data");
 dataRef.orderByChild("ts").limitToLast(10).on('child_added', function (snapshot) {
     var data = snapshot.val();
     var message = data.text;
-    var datePosted = data.ts
+	
+    var datePosted = data.ts;
+    var dateFinal = new Date;
+    dateFinal = Date.setTime(datePosted);
+	
     var posterUsername = data.un;
     if (message != undefined)
     {
       var node = document.createElement("DIV");
-      var textnode = document.createTextNode('\n' + "[" + datePosted.toDateString + "]  " + posterUsername + ': ' + message);
+      var textnode = document.createTextNode('\n' + "[" + dateFinal.toDateString + "]  " + posterUsername + ': ' + message);
       node.appendChild(textnode);
       document.getElementById("output").appendChild(node);
     }
