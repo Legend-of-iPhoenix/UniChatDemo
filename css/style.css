@@ -1,5 +1,6 @@
 * {
-  font-family: Helvetica, sans-serif;
+  font-family: 'Lato', sans-serif;
+  color: #aaa;
 }
 
 body {
@@ -9,7 +10,7 @@ body {
 
 ol {
   width: 33%;
-  color: #0c0;
+  color: #fff;
   background-color: #222;
   border-radius:5px;
   box-shadow:0 1px 5px #222 inset,0 1px 0 #666
@@ -25,7 +26,23 @@ ol {
 #output {
   width: 75%;
   border-radius:5px;
-  box-shadow:0 1px 5px #222 inset,0 1px 0 #666
+  background-color: #222
+  box-shadow:0 1px 5px #222 inset,0 1px 0 #666;
+}
+
+input[type=text] {
+    width: 100%;
+    padding: 5px 5px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    border: 3px solid #ccc;
+    -webkit-transition: 0.5s;
+    transition: 0.5s;
+    outline: none;
+}
+
+input[type=text]:focus {
+    border: 3px solid #555;
 }
 
 h1 {
