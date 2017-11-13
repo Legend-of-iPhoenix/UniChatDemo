@@ -65,6 +65,27 @@ function submitMessage() {
 
  document.getElementById("message") .addEventListener("keyup", function(event) { event.preventDefault(); if (event.keyCode === 13) { submitMessage(); } });
 
+var formatTime = function(unixTimestamp) {
+    var dt = new Date(unixTimestamp * 1000);
+
+    var hours = dt.getHours();
+    var minutes = dt.getMinutes();
+    var seconds = dt.getSeconds();
+
+    // the above dt.get...() functions return a single digit
+    // so I prepend the zero here when needed
+    if (hours < 10) 
+     hours = '0' + hours;
+
+    if (minutes < 10) 
+     minutes = '0' + minutes;
+
+    if (seconds < 10) 
+     seconds = '0' + seconds;
+
+    return hours + ":" + minutes + ":" + seconds;
+}
+
 var dataRef = firebase.database().ref("Data");
 dataRef.orderByChild("ts").limitToLast(10).on('child_added', function (snapshot) {
     var data = snapshot.val();
@@ -73,7 +94,7 @@ dataRef.orderByChild("ts").limitToLast(10).on('child_added', function (snapshot)
     var datePosted = data.ts;
     var tempDate = new Date;
     tempDate.setTime(datePosted);
-    var dateString = tempDate.getHours() + ":" + tempDate.getMinutes() + ":" + tempDate.getSeconds()
+    var dateString = formatTime(tempDate);
 
     var posterUsername = data.un;
     if (message != undefined)
@@ -94,7 +115,7 @@ dataRef.orderByChild("ts").limitToLast(10).on('child_added', function (snapshot)
 	var messagePM = message.substring(4+match[0].length,message.length);
 	if (messageHeader === "/pm" && match[0] == username)
 	{
-           textnode = document.createTextNode('\n' + "[" + dateString + "]  *" + posterUsername + ' whispers to you ' + messagePM);
+           textnode = document.createTextNode('\n' + "[" + dateString + "]  *" + posterUsername + ' whispers to you: ' + messagePM);
 	}
 	else
 	{
