@@ -65,8 +65,8 @@ function submitMessage() {
 
  document.getElementById("message") .addEventListener("keyup", function(event) { event.preventDefault(); if (event.keyCode === 13) { submitMessage(); } });
 
-var formatTime = function(unixTimestamp) {
-    var dt = new Date(unixTimestamp * 1000);
+var formatTime = function(ts) {
+    var dt = new Date(ts);
 
     var hours = dt.getHours();
     var minutes = dt.getMinutes();
