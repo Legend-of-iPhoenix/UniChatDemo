@@ -78,10 +78,10 @@ dataRef.orderByChild("ts").limitToLast(10).on('child_added', function (snapshot)
     if (message != undefined)
     {
       var node = document.createElement("DIV");
-      var messageHeader = message.substring(0,2);
-      if (messageHeader = "/me")
+      var messageHeader = message.substring(0,3);
+      if (messageHeader === "/me")
       {
-	var textnode = document.createTextNode('\n' + "[" + dateString + "]  *" + posterUsername + ' ' + message);
+	var textnode = document.createTextNode('\n' + "[" + dateString + "]  *" + posterUsername + ' ' + message.substring(3,message.length));
       }
       else
       {
