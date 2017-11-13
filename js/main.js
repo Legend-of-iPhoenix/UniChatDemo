@@ -20,6 +20,7 @@ var name = adj[rAdj] + noun[rNoun];
 
 assignUsername();
 
+
 function submitMessage() {
 	var database = firebase.database();
   var messageBox = document.getElementById("message");
@@ -34,6 +35,7 @@ function submitMessage() {
   messageBox.value = "";
 }
 
+ document.getElementById("message") .addEventListener("keyup", function(event) { event.preventDefault(); if (event.keyCode === 13) { submitMessage(); } });
 
 var dataRef = firebase.database().ref("Data");
 dataRef.orderByChild("ts").limitToLast(10).on('child_added', function (snapshot) {
