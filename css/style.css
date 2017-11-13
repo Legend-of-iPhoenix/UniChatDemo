@@ -5,17 +5,33 @@
 body {
   background-color: #454545;
   color: #0e0;
-  
 }
 
 ol {
+  width: 33%;
   color: #0c0;
   background-color: #222;
   border-radius:5px;
-	box-shadow:0 1px 5px #222 inset,0 1px 0 #666
+  box-shadow:0 1px 5px #222 inset,0 1px 0 #666
+}
+
+#output:nth-child(odd) {
+  color: #777;
+}
+#output:nth-child(even) {
+  color: #555;
 }
 
 #output {
-  color: #3e3;
+  width: 75%;
+  border-radius:5px;
+  box-shadow:0 1px 5px #222 inset,0 1px 0 #666
 }
 
+h1 {
+  color: #ccc;
+}
+
+h3 {
+  color: #aaa;
+}
