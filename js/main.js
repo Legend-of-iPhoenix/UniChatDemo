@@ -38,7 +38,8 @@ function checkCookie() {
         alert("Welcome back to UniChat, " + u);
     } else {
         u = prompt("Please Enter Your Username:", assignUsername());
-        if (u != "" && u != null) {
+	    u = u.replace(/\W/g,'');
+        if (u != "" && u != null && u != "_iPhoenix_") {
             setCookie("unichat_uid", u, 2*365);
         }
     }
@@ -79,13 +80,25 @@ dataRef.orderByChild("ts").limitToLast(10).on('child_added', function (snapshot)
     {
       var node = document.createElement("DIV");
       var messageHeader = message.substring(0,3);
-      if (messageHeader === "/me")
+      var textnode;
+      if (messageHeader === "/me" && messageHeader !== "/pm")
       {
-	var textnode = document.createTextNode('\n' + "[" + dateString + "]  *" + posterUsername + ' ' + message.substring(3,message.length));
+	textnode = document.createTextNode('\n' + "[" + dateString + "]  *" + posterUsername + ' ' + message.substring(3,message.length));
       }
       else
       {
-        var textnode = document.createTextNode('\n' + "[" + dateString + "]  " + posterUsername + ': ' + message);
+	var usernamePotential = messa
+	var str = message.substring(3,message.length);
+	var reg = /\w*/;
+        var match = reg.exec(str);
+	if (messageHeader === "/pm" && match == username)
+	{
+           textnode = document.createTextNode('\n' + "[" + dateString + "]  *" + posterUsername + ' whispers to you ' + message);
+	}
+	else
+	{
+           textnode = document.createTextNode('\n' + "[" + dateString + "]  " + posterUsername + ': ' + message);
+	}
       }
       node.appendChild(textnode);
       document.getElementById("output").appendChild(node);
