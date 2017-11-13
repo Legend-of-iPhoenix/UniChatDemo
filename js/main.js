@@ -49,7 +49,7 @@ dataRef.orderByChild("ts").limitToLast(10).on('child_added', function (snapshot)
     if (message != undefined)
     {
       var node = document.createElement("DIV");
-      var textnode = document.createTextNode('\n' + "[" + dateFinal + "]  " + posterUsername + ': ' + message);
+      var textnode = document.createTextNode('\n' + "[" + dateString + "]  " + posterUsername + ': ' + message);
       node.appendChild(textnode);
       document.getElementById("output").appendChild(node);
     }
