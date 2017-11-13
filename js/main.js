@@ -41,9 +41,9 @@ dataRef.orderByChild("ts").limitToLast(10).on('child_added', function (snapshot)
     var message = data.text;
 	
     var datePosted = data.ts;
-    var dateFinal = new Date;
-    dateFinal.setTime(datePosted);
-    dateFinal.toDateString;
+    var tempDate = new Date;
+    tempDate.setTime(datePosted);
+    var dateString = tempDate.getHours() + ":" + tempDate.getMinutes() + ":" + tempDate.getSeconds()
 
     var posterUsername = data.un;
     if (message != undefined)
