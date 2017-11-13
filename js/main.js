@@ -87,17 +87,21 @@ dataRef.orderByChild("ts").limitToLast(10).on('child_added', function (snapshot)
       }
       else
       {
-	var usernamePotential = messa
-	var str = message.substring(3,message.length);
+	//var usernamePotential = message.substring(0,3);
+	var str = message.substring(4,message.length);
 	var reg = /\w*/;
         var match = reg.exec(str);
-	if (messageHeader === "/pm" && match == username)
+	var messagePM = message.substring(4+match[0].length,message.length);
+	if (messageHeader === "/pm" && match[0] == username)
 	{
-           textnode = document.createTextNode('\n' + "[" + dateString + "]  *" + posterUsername + ' whispers to you ' + message);
+           textnode = document.createTextNode('\n' + "[" + dateString + "]  *" + posterUsername + ' whispers to you ' + messagePM);
 	}
 	else
 	{
-           textnode = document.createTextNode('\n' + "[" + dateString + "]  " + posterUsername + ': ' + message);
+           if (messageHeader !== "/pm")
+	   {
+              textnode = document.createTextNode('\n' + "[" + dateString + "]  " + posterUsername + ': ' + message);
+	   }
 	}
       }
       node.appendChild(textnode);
