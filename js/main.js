@@ -1,8 +1,8 @@
 var username = "anonymous";
 function assignUsername()
 {
-  var adj = ["Anonymous","Small", "Red","Orange","Yellow","Blue","Indigo","Violet","Shiny","Sparkly","Large","Hot","Cold","Evil","Kind","Ugly","Legendary"];
-  var noun = ["Bear", "Dog","Cat","Banana","Pepper","Bird","Lion","Apple","Phoenix","Diamond","Jewel","Person","Whale","Plant","Duckling","Thing"];
+  var adj = ["Anonymous","Small", "Red","Orange","Yellow","Blue","Indigo","Violet","Shiny","Sparkly","Large","Hot","Cold","Evil","Kind","Ugly","Legendary","Flaming"];
+  var noun = ["Bear", "Dog","Cat","Banana","Pepper","Bird","Lion","Apple","Phoenix","Diamond","Jewel","Person","Whale","Plant","Duckling","Thing","Flame"];
 
   var rAdj = Math.floor(Math.random()*adj.length);
   var rNoun = Math.floor(Math.random()*noun.length);
@@ -39,11 +39,12 @@ var dataRef = firebase.database().ref("Data");
 dataRef.orderByChild("ts").limitToLast(10).on('child_added', function (snapshot) {
     var data = snapshot.val();
     var message = data.text;
+    var datePosted = data.ts
     var posterUsername = data.un;
     if (message != undefined)
     {
       var node = document.createElement("DIV");
-      var textnode = document.createTextNode('\n' + posterUsername + ': ' + message);
+      var textnode = document.createTextNode('\n' + "[" + datePosted.toDateString + "]  " + posterUsername + ': ' + message);
       node.appendChild(textnode);
       document.getElementById("output").appendChild(node);
     }
