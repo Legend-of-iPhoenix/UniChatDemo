@@ -78,7 +78,14 @@ dataRef.orderByChild("ts").limitToLast(10).on('child_added', function (snapshot)
     if (message != undefined)
     {
       var node = document.createElement("DIV");
-      var textnode = document.createTextNode('\n' + "[" + dateString + "]  " + posterUsername + ': ' + message);
+      if (message.substring(0,2) == "/me")
+      {
+	var textnode = document.createTextNode('\n' + "[" + dateString + "]  *" + posterUsername + ' ' + message);
+      }
+      else
+      {
+        var textnode = document.createTextNode('\n' + "[" + dateString + "]  " + posterUsername + ': ' + message);
+      }
       node.appendChild(textnode);
       document.getElementById("output").appendChild(node);
     }
