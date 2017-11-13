@@ -42,13 +42,14 @@ dataRef.orderByChild("ts").limitToLast(10).on('child_added', function (snapshot)
 	
     var datePosted = data.ts;
     var dateFinal = new Date;
-    dateFinal = Date.setTime(datePosted);
-	
+    dateFinal.setTime(datePosted);
+    dateFinal.toDateString;
+
     var posterUsername = data.un;
     if (message != undefined)
     {
       var node = document.createElement("DIV");
-      var textnode = document.createTextNode('\n' + "[" + dateFinal.toDateString + "]  " + posterUsername + ': ' + message);
+      var textnode = document.createTextNode('\n' + "[" + dateFinal + "]  " + posterUsername + ': ' + message);
       node.appendChild(textnode);
       document.getElementById("output").appendChild(node);
     }
