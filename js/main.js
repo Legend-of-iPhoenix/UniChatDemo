@@ -113,7 +113,7 @@ function redirectFromHub() {
        selectedRoom = data[i].value;
  }
   username = checkCookie();
-  var dataref = firebase.database().ref("Data/"+selectedRoom);
+  var dataRef = firebase.database().ref("Data/"+selectedRoom);
   isSignedIn = true;
   dataRef.orderByChild("ts").limitToLast(10).on('child_added', function (snapshot) {
     var data = snapshot.val();
