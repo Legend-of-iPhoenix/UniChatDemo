@@ -1,3 +1,15 @@
+//      ________          _ _____  _                      _          
+//     /  ____  \        (_)  __ \| |                    (_)         
+//    /  / ___|  \        _| |__) | |__   ___   ___ _ __  ___  __    
+//   |  | |       |      | |  ___/| '_ \ / _ \ / _ \ '_ \| \ \/ /    
+//   |  | |___    |      | | |    | | | | (_) |  __/ | | | |>  <     
+//    \  \____|  /       |_|_|    |_| |_|\___/ \___|_| |_|_/_/\_\    
+//     \________/    ______                                   ______ 
+//                  |______|                                 |______|
+//
+// (just ask if you want to use my source, I probably won't say no.) 
+
+
 var selectedRoom = "Chat";
 var isSignedIn = false;
 
@@ -93,49 +105,7 @@ var formatTime = function(ts) {
 
     return hours + ":" + minutes + ":" + seconds;
 }
-var dataRef = firebase.database().ref("Data/"+selectedRoom);
-dataRef.orderByChild("ts").limitToLast(10).on('child_added', function (snapshot) {
-    var data = snapshot.val();
-    var message = data.text;
-	
-    var datePosted = data.ts;
-    var tempDate = new Date;
-    tempDate.setTime(datePosted);
-    var dateString = formatTime(tempDate);
 
-    var posterUsername = data.un;
-    if (message != undefined)
-    {
-      var node = document.createElement("DIV");
-      var messageHeader = message.substring(0,3);
-      var textnode;
-      if (messageHeader === "/me" && messageHeader !== "/pm")
-      {
-	textnode = document.createTextNode('\n' + "[" + dateString + "]  *" + posterUsername + ' ' + message.substring(3,message.length));
-      }
-      else
-      {
-	//var usernamePotential = message.substring(0,3);
-	var str = message.substring(4,message.length);
-	var reg = /\w*/;
-        var match = reg.exec(str);
-	var messagePM = message.substring(4+match[0].length,message.length);
-	if (messageHeader === "/pm" && match[0] == username)
-	{
-           textnode = document.createTextNode('\n' + "[" + dateString + "]  *" + posterUsername + ' whispers to you: ' + messagePM);
-	}
-	else
-	{
-           if (messageHeader !== "/pm")
-	   {
-              textnode = document.createTextNode('\n' + "[" + dateString + "]  " + posterUsername + ': ' + message);
-	   }
-	}
-      }
-      node.appendChild(textnode);
-      document.getElementById("output").appendChild(node);
-    }
-});
 function redirectFromHub() {
   var data = document.getElementsByName("hubSelect");
   for(var i = 0; i < data.length; i++) {
