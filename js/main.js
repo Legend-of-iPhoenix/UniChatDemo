@@ -145,4 +145,46 @@ function redirectFromHub() {
   username = checkCookie();
   dataref = firebase.database().ref("Data/"+selectedRoom);
   isSignedIn = true;
+  dataRef.orderByChild("ts").limitToLast(10).on('child_added', function (snapshot) {
+    var data = snapshot.val();
+    var message = data.text;
+	
+    var datePosted = data.ts;
+    var tempDate = new Date;
+    tempDate.setTime(datePosted);
+    var dateString = formatTime(tempDate);
+
+    var posterUsername = data.un;
+    if (message != undefined)
+    {
+      var node = document.createElement("DIV");
+      var messageHeader = message.substring(0,3);
+      var textnode;
+      if (messageHeader === "/me" && messageHeader !== "/pm")
+      {
+	textnode = document.createTextNode('\n' + "[" + dateString + "]  *" + posterUsername + ' ' + message.substring(3,message.length));
+      }
+      else
+      {
+	//var usernamePotential = message.substring(0,3);
+	var str = message.substring(4,message.length);
+	var reg = /\w*/;
+        var match = reg.exec(str);
+	var messagePM = message.substring(4+match[0].length,message.length);
+	if (messageHeader === "/pm" && match[0] == username)
+	{
+           textnode = document.createTextNode('\n' + "[" + dateString + "]  *" + posterUsername + ' whispers to you: ' + messagePM);
+	}
+	else
+	{
+           if (messageHeader !== "/pm")
+	   {
+              textnode = document.createTextNode('\n' + "[" + dateString + "]  " + posterUsername + ': ' + message);
+	   }
+	}
+      }
+      node.appendChild(textnode);
+      document.getElementById("output").appendChild(node);
+    }
+});
 }
