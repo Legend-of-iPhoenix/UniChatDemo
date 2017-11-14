@@ -136,7 +136,6 @@ dataRef.orderByChild("ts").limitToLast(10).on('child_added', function (snapshot)
       document.getElementById("output").appendChild(node);
     }
 });
-}
 function redirectFromHub() {
   var data = document.getElementsByName("hubSelect");
   for(var i = 0; i < data.length; i++) {
