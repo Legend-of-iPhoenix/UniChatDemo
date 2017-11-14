@@ -143,5 +143,6 @@ function redirectFromHub() {
        selectedRoom = data[i].value;
  }
   username = checkCookie();
+  dataref = firebase.database().ref("Data/"+selectedRoom);
   isSignedIn = true;
 }
