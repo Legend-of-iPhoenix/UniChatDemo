@@ -37,11 +37,15 @@ function checkCookie() {
     if (u != "") {
         alert("Welcome back to UniChat, " + u);
     } else {
-        u = prompt("Please Enter Your Username:", assignUsername());
+        u = prompt("Please Enter a Username:", assignUsername());
 	    u = u.replace(/\W/g,'');
-        if (u != "" && u != null && u != "_iPhoenix_") {
+        if (u != "" && u != null && u != "_iPhoenix_" && u != "Console" && u != "CONSOLE") {
             setCookie("unichat_uid", u, 2*365);
         }
+	else
+	{
+	    u = "_"+assignUsername();
+	}
     }
     return u;
 }
