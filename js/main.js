@@ -1,3 +1,6 @@
+var selectedRoom = "Chat";
+var isSignedIn = false;
+
 var username = "anonymous";
 function assignUsername()
 {
@@ -50,24 +53,25 @@ function checkCookie() {
     return u;
 }
 
-username = checkCookie();
-
 
 function submitMessage() {
+    if(isSignedIn)
+    {
 	var database = firebase.database();
   var messageBox = document.getElementById("message");
 	if (messageBox.value != undefined && messageBox.value != "" && messageBox.value != '' && messageBox.value.length < 256)
 	{
-	  database.ref("Data").push({
+	  database.ref("Data/"+selectedRoom).push({
  	      text: messageBox.value,
 	      ts: Date.now(),
 	      un: username
  	 });
 	}
   messageBox.value = "";
+    }
 }
 
- document.getElementById("message") .addEventListener("keyup", function(event) { event.preventDefault(); if (event.keyCode === 13) { submitMessage(); } });
+ document.getElementById("message") .addEventListener("keyup", function(event) { event.preventDefault(); if (event.keyCode === 13) { if (isSignedIn) {submitMessage();} } });
 
 var formatTime = function(ts) {
     var dt = new Date(ts);
@@ -89,8 +93,7 @@ var formatTime = function(ts) {
 
     return hours + ":" + minutes + ":" + seconds;
 }
-
-var dataRef = firebase.database().ref("Data");
+var dataRef = firebase.database().ref("Data/"+selectedRoom);
 dataRef.orderByChild("ts").limitToLast(10).on('child_added', function (snapshot) {
     var data = snapshot.val();
     var message = data.text;
@@ -133,3 +136,13 @@ dataRef.orderByChild("ts").limitToLast(10).on('child_added', function (snapshot)
       document.getElementById("output").appendChild(node);
     }
 });
+}
+function redirectFromHub() {
+  var data = document.getElementsByName("hubSelect");
+  for(var i = 0; i < data.length; i++) {
+   if(data[i].checked)
+       selectedRoom = data[i].value;
+ }
+  username = checkCookie();
+  isSignedIn = true;
+}
