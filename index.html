@@ -13,12 +13,24 @@
         storageBucket: "unichat-10bbd.appspot.com",
         messagingSenderId: "847148140589"
       };
+       
       firebase.initializeApp(config);
     </script>
   <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
   <link rel="stylesheet" type="text/css" href="css/style.css">
   </head>
   <body>
+    <form>
+    <div>
+    <input type="radio" name="hubSelect" value="Chat">
+    <p> For general chatting, or anything that doesn't fit into any of the other categories. </p>
+    <input type="radio" name="hubSelect" value="Meta">
+    <p> For discussions and suggestions for UniChat </p>
+    <input type="radio" name="hubSelect" value="Programming">
+    <p> For programming discussions, help, and optimization. </p>
+    </div>
+    </form>
+    <input type="button" value="Go!" onclick="redirectFromHub()">
     <h1>Enter your thoughts at the bottom!</h1>
     <br />
     <div id="output"></div>
