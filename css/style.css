@@ -9,7 +9,6 @@ body {
 }
 
 ol {
-  padding: 7px;
   width: 33%;
   color: #fff;
   background-color: #222;
@@ -18,12 +17,15 @@ ol {
 }
 
 ul {
-  padding: 7px;
   width: 33%;
   color: #fff;
   background-color: #222;
   border-radius:5px;
   box-shadow:0 1px 5px #222 inset,0 1px 0 #666;
+}
+
+.tutorial {
+  padding: 7px;
 }
 
 #output:nth-child(odd) {
