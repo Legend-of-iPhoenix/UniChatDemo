@@ -70,6 +70,7 @@ input[type=button] {
   text-align: center;
     text-decoration: none;
   background-color: #888;
+  border 1px solid #000/*#7a95fe*/;
   display: inline-block;
   -webkit-transition-duration: 0.4s;
   transition-duration: 0.4s;
