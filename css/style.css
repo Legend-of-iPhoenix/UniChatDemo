@@ -24,7 +24,7 @@ ul {
   box-shadow:0 1px 5px #222 inset,0 1px 0 #666;
 }
 
-.tutorial {
+.tutorial:.tags {
   padding: 7px;
 }
 
@@ -47,7 +47,7 @@ ul {
 input[type=text] {
     width: 100%;
     padding: 5px 5px;
-    margin: 8px 0;
+    margin: 20px;
     box-sizing: border-box;
     border: 3px solid #ccc;
     -webkit-transition: 0.5s;
@@ -64,12 +64,14 @@ input[type=text]:focus {
 input[type=button] {
   padding: 2px 10px;
   border: none;
+  border-radius: 9px;
+  margin: 4px;
   color: #000;
   font-size: 16px;
   cursor: pointer;
   text-align: center;
     text-decoration: none;
-  background-color: #888;
+  background-color: #e8e8e8;
   display: inline-block;
   -webkit-transition-duration: 0.4s;
   transition-duration: 0.4s;
