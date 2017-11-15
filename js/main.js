@@ -12,8 +12,10 @@
 
 var selectedRoom = "Chat";
 var isSignedIn = false;
+var dataRef;
 
 var username = "anonymous";
+
 function assignUsername()
 {
   var adj = ["Anonymous","Small", "Red","Orange","Yellow","Blue","Indigo","Violet","Shiny","Sparkly","Large","Hot","Cold","Evil","Kind","Ugly","Legendary","Flaming","Salty","Slippery"];
@@ -23,6 +25,17 @@ function assignUsername()
   var rNoun = Math.floor(Math.random()*noun.length);
   var name = adj[rAdj] + noun[rNoun];
   return name;
+}
+function unRegisterAllEventListeners(obj) {
+	if ( typeof obj._eventListeners == 'undefined' || obj._eventListeners.length == 0 ) {
+		return;	
+	}
+	for(var i = 0, len = obj._eventListeners.length; i < len; i++) {
+		var e = obj._eventListeners[i];
+		obj.removeEventListener(e.event, e.callback);
+	}
+
+	obj._eventListeners = [];
 }
 
 function setCookie(cname, cvalue, exdays) {
@@ -107,15 +120,23 @@ var formatTime = function(ts) {
 }
 
 function redirectFromHub() {
+	if (isSignedIn)
+	{
+		dataRef.off();
+	}
+  var n = document.getElementById('output');
+  while (n.hasChildNodes()) {
+    n.removeChild(n.firstChild);
+  }
   var data = document.getElementsByName("hubSelect");
   for(var i = 0; i < data.length; i++) {
    if(data[i].checked)
        selectedRoom = data[i].value;
  }
   username = checkCookie();
-  var dataRef = firebase.database().ref("Data/"+selectedRoom);
+  dataRef = firebase.database().ref("Data/"+selectedRoom);
   isSignedIn = true;
-  dataRef.orderByChild("ts").limitToLast(10).on('child_added', function (snapshot) {
+  dataRef.orderByChild("ts").limitToLast(25).on('child_added', function (snapshot) {
     var data = snapshot.val();
     var message = data.text;
 	
@@ -155,6 +176,9 @@ function redirectFromHub() {
       }
       node.appendChild(textnode);
       document.getElementById("output").appendChild(node);
+      
+var objDiv = document.getElementById("output");
+objDiv.scrollTop = objDiv.scrollHeight;
     }
 });
 }
