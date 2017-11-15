@@ -81,7 +81,7 @@ function checkCookie() {
 }
 
 function addTag(tag) {
-  currentMessageTags += tag;
+  currentMessageTags += tag.getAttribute("name");
 }
 
 function submitMessage() {
