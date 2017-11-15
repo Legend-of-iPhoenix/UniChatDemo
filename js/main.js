@@ -13,6 +13,8 @@
 var selectedRoom = "Chat";
 var isSignedIn = false;
 var dataRef;
+var filters = [];
+var currentMessageTags = [];
 
 var username = "anonymous";
 
@@ -67,7 +69,7 @@ function checkCookie() {
     } else {
         u = prompt("Please Enter a Username:", assignUsername());
 	    u = u.replace(/\W/g,'');
-        if (u != "" && u != null && u != "_iPhoenix_" && u != "Console" && u != "CONSOLE") {
+        if (u != "" && u != null && u != "_iPhoenix_" && u != "Console" && u != "CONSOLE" && u != "DKKing") {
             setCookie("unichat_uid", u, 2*365);
         }
 	else
@@ -78,6 +80,9 @@ function checkCookie() {
     return u;
 }
 
+function addTag(tag) {
+  currentMessageTags += tag;
+}
 
 function submitMessage() {
     if(isSignedIn)
@@ -86,13 +91,15 @@ function submitMessage() {
   var messageBox = document.getElementById("message");
 	if (messageBox.value != undefined && messageBox.value != "" && messageBox.value != '' && messageBox.value.length < 256)
 	{
-	  database.ref("Data/"+selectedRoom).push({
+	  database.ref("Data/").push({
  	      text: messageBox.value,
 	      ts: Date.now(),
-	      un: username
+	      un: username,
+	      tag: currentMessageTags
  	 });
 	}
   messageBox.value = "";
+  currentMessageTags = [];
     }
 }
 
@@ -119,6 +126,15 @@ var formatTime = function(ts) {
     return hours + ":" + minutes + ":" + seconds;
 }
 
+function contains(a, obj) {
+    for (var i = 0; i < a.length; i++) {
+        if (a[i] === obj) {
+            return true;
+        }
+    }
+    return false;
+}
+
 function redirectFromHub() {
 	if (isSignedIn)
 	{
@@ -134,7 +150,7 @@ function redirectFromHub() {
        selectedRoom = data[i].value;
  }
   username = checkCookie();
-  dataRef = firebase.database().ref("Data/"+selectedRoom);
+  dataRef = firebase.database().ref("Data/");
   isSignedIn = true;
   dataRef.orderByChild("ts").limitToLast(25).on('child_added', function (snapshot) {
     var data = snapshot.val();
@@ -146,7 +162,7 @@ function redirectFromHub() {
     var dateString = formatTime(tempDate);
 
     var posterUsername = data.un;
-    if (message != undefined)
+    if (message != undefined && contains(data.tag))
     {
       var node = document.createElement("DIV");
       var messageHeader = message.substring(0,3);
@@ -157,7 +173,6 @@ function redirectFromHub() {
       }
       else
       {
-	//var usernamePotential = message.substring(0,3);
 	var str = message.substring(4,message.length);
 	var reg = /\w*/;
         var match = reg.exec(str);
