@@ -93,7 +93,6 @@ function refresh() {
 function addTag(tag) {
   toggleArrayItem(currentMessageTags,tag.getAttribute("value"));
   refresh();
-  refreshOutput();
 }
 
 function toggleArrayItem(a, v) {
