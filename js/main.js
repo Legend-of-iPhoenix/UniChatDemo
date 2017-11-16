@@ -121,10 +121,10 @@ function submitMessage() {
         un: username,
         tag: currentMessageTags
       });
+      messageBox.value = "";
+      currentMessageTags = ["_default"];
+      refresh();
     }
-    messageBox.value = "";
-    currentMessageTags = ["_default"];
-    refresh();
   }
 }
 
