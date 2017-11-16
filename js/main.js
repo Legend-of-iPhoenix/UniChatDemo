@@ -89,6 +89,7 @@ function checkCookie() {
 
 function addTag(tag) {
   currentMessageTags.push(tag.getAttribute("value"));
+  document.getElementById("tagDisplay").innerText = currentMessageTags;
 }
 
 function toggleArrayItem(a, v) {
@@ -102,6 +103,7 @@ function toggleArrayItem(a, v) {
 function toggleFilter(filter) {
   var value = filter.getAttribute("value");
   toggleArrayItem(filters,value);
+  document.getElementById("filterDisplay").innerText = filters;
   refreshOutput();
 }
 
