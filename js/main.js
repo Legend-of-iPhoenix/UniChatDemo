@@ -26,18 +26,6 @@ function assignUsername() {
   return name;
 }
 
-function unRegisterAllEventListeners(obj) {
-  if (typeof obj._eventListeners == 'undefined' || obj._eventListeners.length == 0) {
-    return;
-  }
-  for (var i = 0, len = obj._eventListeners.length; i < len; i++) {
-    var e = obj._eventListeners[i];
-    obj.removeEventListener(e.event, e.callback);
-  }
-
-  obj._eventListeners = [];
-}
-
 function setCookie(cname, cvalue, exdays) {
   var d = new Date();
   d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
@@ -84,16 +72,22 @@ function checkCookie() {
 }
 
 function refresh() {
-  var filterList;
+  var filterList = "<span></span>";
   for (var filter = 1; filter < filters.length; filter++) {
     filterList += "<span>" + filters.slice(1, filters.length + 1) + "</span>";
   }
   document.getElementById("filterDisplay").innerHTML = filterList;
+  
+  var tagList = "<span></span>";
+  for (var tag = 1; tag < currentMessageTags.length; tag++) {
+    tagList += "<span>" + currentMessageTags.slice(1, currentMessageTags.length + 1) + "</span>";
+  }
+  document.getElementById("tagDisplay").innerHTML = tagList;
 }
 
 function addTag(tag) {
-  currentMessageTags.push(tag.getAttribute("value"));
-  document.getElementById("tagDisplay").innerText = currentMessageTags;
+  toggleArrayItem(currentMessageTags,tag.getAttribute("value"));
+  refresh();
 }
 
 function toggleArrayItem(a, v) {
