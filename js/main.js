@@ -102,6 +102,7 @@ function toggleArrayItem(a, v) {
 function toggleFilter(filter) {
   var value = filter.getAttribute("value");
   toggleArrayItem(filters,value);
+  refreshOutput();
 }
 
 function submitMessage() {
@@ -213,4 +214,52 @@ var objDiv = document.getElementById("output");
 objDiv.scrollTop = objDiv.scrollHeight;
     }
 });
+  }
+
+function refreshOutput() {
+  document.getElementById("output").innerHTML = "";
+  dataRef = firebase.database().ref("Data/");
+  isSignedIn = true;
+  dataRef.orderByChild("ts").limitToLast(25).once('value', function (snapshot) {
+    var data = snapshot.val();
+    var message = data.text;
+	
+    var datePosted = data.ts;
+    var tempDate = new Date;
+    tempDate.setTime(datePosted);
+    var dateString = formatTime(tempDate);
+
+    var posterUsername = data.un;
+    if (message != undefined && filter(data.tag,filters))
+    {
+      var node = document.createElement("DIV");
+      var messageHeader = message.substring(0,3);
+      var textnode;
+      if (messageHeader === "/me" && messageHeader !== "/pm")
+      {
+	textnode = document.createTextNode('\n' + "[" + dateString + "]  *" + posterUsername + ' ' + message.substring(3,message.length));
+      }
+      else
+      {
+	var str = message.substring(4,message.length);
+	var reg = /\w*/;
+        var match = reg.exec(str);
+	var messagePM = message.substring(4+match[0].length,message.length);
+	if (messageHeader === "/pm" && match[0] == username)
+	{
+           textnode = document.createTextNode('\n' + "[" + dateString + "]  *" + posterUsername + ' whispers to you: ' + messagePM);
+	}
+	else
+	{
+           if (messageHeader !== "/pm")
+	   {
+              textnode = document.createTextNode('\n' + "[" + dateString + "]  " + posterUsername + ': ' + message);
+	   }
+	}
+      }
+      node.appendChild(textnode);
+      document.getElementById("output").appendChild(node);
+      
+var objDiv = document.getElementById("output");
+objDiv.scrollTop = objDiv.scrollHeight;
 }
