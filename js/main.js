@@ -125,6 +125,13 @@ function submitMessage() {
       currentMessageTags = ["_default"];
       refresh();
     }
+    else
+    {
+      messageBox.style.border = "3px solid #f00";
+      window.setTimeout(function() {
+        messageBox.style.border = "3px solid #ccc";
+      }, 1000);
+    }
   }
 }
 
