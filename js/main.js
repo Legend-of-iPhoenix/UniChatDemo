@@ -72,17 +72,25 @@ function checkCookie() {
 }
 
 function refresh() {
+  var span, text;
+  document.getElementById("filterDisplay").innerHTML = "";
+  document.getElementById("tagDisplay").innerHTML = "";
   var filterList = "<span></span>";
   for (var filter = 1; filter < filters.length; filter++) {
-    filterList += "<span>" + filters.slice(1, filters.length + 1) + "</span>";
+    span = document.createElement("SPAN");
+    text = document.createTextNode(filters[filter]);
+    span.appendChild(text);
+    document.getElementById("filterDisplay").appendChild(span);
   }
-  document.getElementById("filterDisplay").innerHTML = filterList;
   
-  var tagList = "<span></span>";
   for (var tag = 1; tag < currentMessageTags.length; tag++) {
-    tagList += "<span>" + currentMessageTags.slice(1, currentMessageTags.length + 1) + "</span>";
+    span = document.createElement("SPAN");
+    text = document.createTextNode(currentMessageTags[tag]);
+    span.appendChild(text);
+    document.getElementById("tagDisplay").appendChild(span);
+    text = null;
+    span = null;
   }
-  document.getElementById("tagDisplay").innerHTML = tagList;
 }
 
 function addTag(tag) {
