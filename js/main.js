@@ -91,6 +91,19 @@ function addTag(tag) {
   currentMessageTags.push(tag.getAttribute("value"));
 }
 
+function toggleArrayItem(a, v) {
+    var i = a.indexOf(v);
+    if (i === -1)
+        a.push(v);
+    else
+        a.splice(i,1);
+}
+
+function toggleFilter(filter) {
+  var value = filter.getAttribute("value");
+  toggleArrayItem(filters,value);
+}
+
 function submitMessage() {
     if(isSignedIn)
     {
@@ -133,7 +146,7 @@ var formatTime = function(ts) {
     return hours + ":" + minutes + ":" + seconds;
 }
 
-var filter = function (haystack, arr) {
+function filter(haystack, arr) {
     return arr.some(function (v) {
         return haystack.indexOf(v) >= 0;
     });
