@@ -13,7 +13,7 @@
 var selectedRoom = "Chat";
 var isSignedIn = false;
 var dataRef;
-var filters = [];
+var filters = ["_default"];
 var currentMessageTags = ["_default"];
 
 var username = "anonymous";
@@ -115,7 +115,7 @@ function submitMessage() {
 var formatTime = function(ts) {
     var dt = new Date(ts);
 
-    var hours = dt.getHours();
+    var hours = dt.getHours() % 12;
     var minutes = dt.getMinutes();
     var seconds = dt.getSeconds();
 
@@ -133,14 +133,11 @@ var formatTime = function(ts) {
     return hours + ":" + minutes + ":" + seconds;
 }
 
-function contains(a, obj) {
-    for (var i = 0; i < a.length; i++) {
-        if (a[i] === obj) {
-            return true;
-        }
-    }
-    return false;
-}
+var filter = function (haystack, arr) {
+    return arr.some(function (v) {
+        return haystack.indexOf(v) >= 0;
+    });
+};
 
 function redirectFromHub() {
 	if (isSignedIn)
@@ -169,7 +166,7 @@ function redirectFromHub() {
     var dateString = formatTime(tempDate);
 
     var posterUsername = data.un;
-    if (message != undefined && contains(data.tag))
+    if (message != undefined && filter(data.tag,filters))
     {
       var node = document.createElement("DIV");
       var messageHeader = message.substring(0,3);
