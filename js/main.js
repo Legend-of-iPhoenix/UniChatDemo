@@ -75,7 +75,6 @@ function refresh() {
   var span, text;
   document.getElementById("filterDisplay").innerHTML = "";
   document.getElementById("tagDisplay").innerHTML = "";
-  var filterList = "<span></span>";
   for (var filter = 1; filter < filters.length; filter++) {
     span = document.createElement("SPAN");
     text = document.createTextNode(filters[filter]);
@@ -88,8 +87,6 @@ function refresh() {
     text = document.createTextNode(currentMessageTags[tag]);
     span.appendChild(text);
     document.getElementById("tagDisplay").appendChild(span);
-    text = null;
-    span = null;
   }
 }
 
@@ -217,7 +214,7 @@ function redirectFromHub() {
       var textClass = "outputText";
       if (message.indexOf(username) != -1)
       {
-        textClass = " highlight";
+        textClass = "highlight";
       }
       node.setAttribute("class", textClass);
       document.getElementById("output").appendChild(node);
@@ -267,7 +264,7 @@ function refreshOutput() {
       var textClass = "outputText";
       if (message.indexOf(username) != -1)
       {
-        textClass = " highlight";
+        textClass = "highlight";
       }
       node.setAttribute("class", textClass);
       document.getElementById("output").appendChild(node);
