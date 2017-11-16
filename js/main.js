@@ -71,7 +71,7 @@ function checkCookie() {
  	      text: u + " has entered the room.",
 	      ts: Date.now(),
 	      un: "CONSOLE",
-	      tag: {"all"};
+	      tag: ["all"]
  	 });
     } else {
         u = prompt("Please Enter a Username:", assignUsername());
