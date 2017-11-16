@@ -14,7 +14,7 @@ var selectedRoom = "Chat";
 var isSignedIn = false;
 var dataRef;
 var filters = [];
-var currentMessageTags = [];
+var currentMessageTags = ["_default"];
 
 var username = "anonymous";
 
@@ -106,7 +106,7 @@ function submitMessage() {
  	 });
 	}
   messageBox.value = "";
-  currentMessageTags = [];
+  currentMessageTags = ["_default"];
     }
 }
 
