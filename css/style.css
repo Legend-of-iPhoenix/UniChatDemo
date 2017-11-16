@@ -8,6 +8,20 @@ body {
   color: #0e0;
 }
 
+span {
+  padding: 2px 10px;
+  border-radius: 2px;
+  margin: 4px;
+  color: #000;
+  font-size: 16px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  background-color: #c4c4c4;
+  border: 1px solid #000/*#7a95fe*/;
+  display: inline-block;
+}
+
 ol {
   width: 33%;
   color: #fff;
