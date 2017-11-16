@@ -5,8 +5,8 @@
     <!-- Google Tag Manager --> 
     <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start': new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0], j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src= 'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f); })(window,document,'script','dataLayer','GTM-NJR6RD8');</script> 
     <!-- End Google Tag Manager -->
-      <script src="https://www.gstatic.com/firebasejs/4.6.2/firebase.js"></script>
-      <script>
+    <script src="https://www.gstatic.com/firebasejs/4.6.2/firebase.js"></script>
+    <script>
       // Initialize Firebase
       var config = {
         apiKey: "AIzaSyC9eUkCvbKv7nzQocRelivvyvWAlmiORsg",
@@ -18,106 +18,107 @@
       };
       firebase.initializeApp(config);
     </script>
-  <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
-  <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
   </head>
   <body>
-    <form>
-    <div>
-    Chat: <input type="radio" name="hubSelect" value="Chat">
-    <p> For general chatting, or anything that doesn't fit into any of the other categories. </p>
-    Meta: <input type="radio" name="hubSelect" value="Meta">
-    <p> For discussions and suggestions for UniChat </p>
-    Programming: <input type="radio" name="hubSelect" value="Programming">
-    <p> For programming discussions, help, and optimization. </p>
-    </div>
-    </form>
-    <input type="button" value="Go!" onclick="redirectFromHub()">
-    <h1>Enter your thoughts at the bottom!</h1>
+    <!--<form>
+      <div>
+      Chat: <input type="radio" name="hubSelect" value="Chat">
+      <p> For general chatting, or anything that doesn't fit into any of the other categories. </p>
+      Meta: <input type="radio" name="hubSelect" value="Meta">
+      <p> For discussions and suggestions for UniChat </p>
+      Programming: <input type="radio" name="hubSelect" value="Programming">
+      <p> For programming discussions, help, and optimization. </p>
+      </div>
+      </form>
+      <input type="button" value="Go!" onclick="redirectFromHub()"> -->
+    <h1>Enter your thoughts at the bottom! (TAGS BETA)</h1>
     <br />
     <div id="output"></div>
     <input type="text" id="message">
     <input type="button" value="Submit" onclick="submitMessage()">
     <br />
     <div class="tags">
-    <p> Optionally, you can click on one or more of the tags below to make sure your message reaches your audience! </p>
-    <input type="button" value="Programming" onclick="addTag(this)">
-    <input type="button" value="Chat" onclick="addTag(this)">
-    <input type="button" value="HELP" onclick="addTag(this)">
-    <input type="button" value="Suggestions" onclick="addTag(this)">
-    <input type="button" value="Gaming" onclick="addTag(this)">
-    <input type="button" value="Rant" onclick="addTag(this)">
-    <input type="button" value="LOL" onclick="addTag(this)">
-    <input type="button" value="Athletics" onclick="addTag(this)">
-    <input type="button" value="School" onclick="addTag(this)">
-    <input type="button" value="TI-Basic" onclick="addTag(this)">
-    <input type="button" value="Assembly" onclick="addTag(this)">
-    <input type="button" value="C[++]" onclick="addTag(this)">
-    <input type="button" value="Java/C#" onclick="addTag(this)">
-    <input type="button" value="Hate-Mail" onclick="addTag(this)">
-    <input type="button" value="Music" onclick="addTag(this)">
-    <input type="button" value="Art" onclick="addTag(this)">
-    <input type="button" value="Languages" onclick="addTag(this)">
+      <p> Optionally, you can click on one or more of the tags below to make sure your message reaches your audience! </p>
+      <input type="button" value="Programming" onclick="addTag(this)">
+      <input type="button" value="Chat" onclick="addTag(this)">
+      <input type="button" value="HELP" onclick="addTag(this)">
+      <input type="button" value="Suggestions" onclick="addTag(this)">
+      <input type="button" value="Gaming" onclick="addTag(this)">
+      <input type="button" value="Rant" onclick="addTag(this)">
+      <input type="button" value="LOL" onclick="addTag(this)">
+      <input type="button" value="Athletics" onclick="addTag(this)">
+      <input type="button" value="School" onclick="addTag(this)">
+      <input type="button" value="TI-Basic" onclick="addTag(this)">
+      <input type="button" value="Assembly" onclick="addTag(this)">
+      <input type="button" value="C[++]" onclick="addTag(this)">
+      <input type="button" value="Java/C#" onclick="addTag(this)">
+      <input type="button" value="Hate-Mail" onclick="addTag(this)">
+      <input type="button" value="Music" onclick="addTag(this)">
+      <input type="button" value="Art" onclick="addTag(this)">
+      <input type="button" value="Languages" onclick="addTag(this)">
     </div>
     <p> Current Tags </p>
     <p id="tagDisplay"></p>
     <br />
     <div class="filters">
-      <p> To filter messagess 
+      <p> To filter messages, you can optionally select a tag. Only messages with that tag will be displayed, if it is not a PM directed at you. </p>
       <input type="button" value="Programming" onclick="toggleFilter(this)">
-    <input type="button" value="Chat" onclick="toggleFilter(this)">
-    <input type="button" value="HELP" onclick="toggleFilter(this)">
-    <input type="button" value="Suggestions" onclick="toggleFilter(this)">
-    <input type="button" value="Gaming" onclick="toggleFilter(this)">
-    <input type="button" value="Rant" onclick="toggleFilter(this)">
-    <input type="button" value="LOL" onclick="toggleFilter(this)">
-    <input type="button" value="Athletics" onclick="toggleFilter(this)">
-    <input type="button" value="School" onclick="toggleFilter(this)">
-    <input type="button" value="TI-Basic" onclick="toggleFilter(this)">
-    <input type="button" value="Assembly" onclick="toggleFilter(this)">
-    <input type="button" value="C[++]" onclick="toggleFilter(this)">
-    <input type="button" value="Java/C#" onclick="toggleFilter(this)">
-    <input type="button" value="Hate-Mail" onclick="toggleFilter(this)">
-    <input type="button" value="Music" onclick="toggleFilter(this)">
-    <input type="button" value="Art" onclick="toggleFilter(this)">
-    <input type="button" value="Languages" onclick="toggleFilter(this)">
+      <input type="button" value="Chat" onclick="toggleFilter(this)">
+      <input type="button" value="HELP" onclick="toggleFilter(this)">
+      <input type="button" value="Suggestions" onclick="toggleFilter(this)">
+      <input type="button" value="Gaming" onclick="toggleFilter(this)">
+      <input type="button" value="Rant" onclick="toggleFilter(this)">
+      <input type="button" value="LOL" onclick="toggleFilter(this)">
+      <input type="button" value="Athletics" onclick="toggleFilter(this)">
+      <input type="button" value="School" onclick="toggleFilter(this)">
+      <input type="button" value="TI-Basic" onclick="toggleFilter(this)">
+      <input type="button" value="Assembly" onclick="toggleFilter(this)">
+      <input type="button" value="C[++]" onclick="toggleFilter(this)">
+      <input type="button" value="Java/C#" onclick="toggleFilter(this)">
+      <input type="button" value="Hate-Mail" onclick="toggleFilter(this)">
+      <input type="button" value="Music" onclick="toggleFilter(this)">
+      <input type="button" value="Art" onclick="toggleFilter(this)">
+      <input type="button" value="Languages" onclick="toggleFilter(this)">
     </div>
     <p> Current Filters </p>
     <p id="filterDisplay"></p>
     <div class="tutorial">
-    <p>Rules:</p>
-    <ol>
-      <li> No Profanity. </li>
-      <li> No Spam/Abuse. </li>
-      <li> No Emoji's. </li>
-      <li> No impersonation, without explicit permission from _iPhoenix_, the site owner. </li>
-    </ol>
-    <h3>Breaking the rules may result in consequences</h3>
+      <p>Rules:</p>
+      <ol>
+        <li> No Profanity. </li>
+        <li> No Spam/Abuse. </li>
+        <li> No Emoji's. </li>
+        <li> No impersonation, without explicit permission from _iPhoenix_, the site owner. </li>
+      </ol>
+      <h3>Breaking the rules may result in consequences</h3>
     </div>
     <br />
     <div class="tutorial">
-    <p>My goal:</p>
-    <ol>
-      <li> Provide a free, friendly, and open experience for users to chat, connect, hang out, and work. </li>
-      <li> Create a bounty of anonymized, secure data that my machine-learning algorithms can learn human behavior from. </li>
-    </ol>
+      <p>My goal:</p>
+      <ol>
+        <li> Provide a free, friendly, and open experience for users to chat, connect, hang out, and work. </li>
+        <li> Create a bounty of anonymized, secure data that my machine-learning algorithms can learn human behavior from. </li>
+      </ol>
     </div>
     <script src="js/main.js"></script>
     <div class="tutorial">
-    <p>Commands:</p>
-    <ul>
-      <li> /me &ltaction>
+      <p>Commands:</p>
+      <ul>
+      <li>
+        /me &ltaction>
         <ul>
           <li> Appears to everyone as: *&ltyour username> &ltaction> </li>
         </ul>
       </li>
-      <li> /pm &ltuser> &ltmessage>
+      <li>
+        /pm &ltuser> &ltmessage>
         <ul>
           <li> Appears to &ltuser> as: *&ltyour username> whispers to you: &ltmessage></li>
           <li> Is not seen by <strong>anyone</strong> else. </li>
         </ul>
       </li>
-      </div>
-          
+    </div>
   </body>
 </html>
