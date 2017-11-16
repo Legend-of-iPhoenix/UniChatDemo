@@ -96,6 +96,7 @@ function refresh() {
 function addTag(tag) {
   toggleArrayItem(currentMessageTags,tag.getAttribute("value"));
   refresh();
+  refreshOutput();
 }
 
 function toggleArrayItem(a, v) {
@@ -110,7 +111,6 @@ function toggleFilter(filter) {
   var value = filter.getAttribute("value");
   toggleArrayItem(filters, value);
   refresh();
-  //document.getElementById("filterDisplay").innerText = filters;
   refreshOutput();
 }
 
@@ -128,6 +128,7 @@ function submitMessage() {
     }
     messageBox.value = "";
     currentMessageTags = ["_default"];
+    refresh();
   }
 }
 
@@ -193,7 +194,7 @@ function redirectFromHub() {
     var dateString = formatTime(tempDate);
 
     var posterUsername = data.un;
-    if (message != undefined && filter(data.tag, filters)) {
+    if (message != undefined && (filter(data.tag, filters) || (filters.length == 1)) ) {
       var node = document.createElement("DIV");
       var messageHeader = message.substring(0, 3);
       var textnode;
@@ -243,7 +244,7 @@ function refreshOutput() {
     var dateString = formatTime(tempDate);
 
     var posterUsername = data.un;
-    if (message != undefined && filter(data.tag, filters)) {
+    if (message != undefined && (filter(data.tag, filters) || (filters.length == 1))) {
       var node = document.createElement("DIV");
       var messageHeader = message.substring(0, 3);
       var textnode;
