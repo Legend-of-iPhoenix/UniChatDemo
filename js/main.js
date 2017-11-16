@@ -86,7 +86,7 @@ function checkCookie() {
 function refresh() {
   var filterList;
   for (var filter = 1; filter < filters.length; filter++) {
-    filterList += "<span>" + filters.slice(1, filters.length() + 1) + "</span>";
+    filterList += "<span>" + filters.slice(1, filters.length + 1) + "</span>";
   }
   document.getElementById("filterDisplay").innerHTML = filterList;
 }
@@ -254,6 +254,7 @@ function refreshOutput() {
         }
       }
       node.appendChild(textnode);
+      node.setAttribute("class", "outputText");
       document.getElementById("output").appendChild(node);
 
       var objDiv = document.getElementById("output");
