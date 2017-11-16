@@ -262,4 +262,6 @@ function refreshOutput() {
       
 var objDiv = document.getElementById("output");
 objDiv.scrollTop = objDiv.scrollHeight;
+    }
+  });
 }
