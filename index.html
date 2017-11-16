@@ -16,7 +16,6 @@
         storageBucket: "unichat-10bbd.appspot.com",
         messagingSenderId: "847148140589"
       };
-       
       firebase.initializeApp(config);
     </script>
   <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
@@ -41,6 +40,7 @@
     <input type="button" value="Submit" onclick="submitMessage()">
     <br />
     <div class="tags">
+    <p> Optionally, you can click on one or more of the tags below to make sure your message reaches your audience! </p>
     <input type="button" value="Programming" onclick="addTag(this)">
     <input type="button" value="Chat" onclick="addTag(this)">
     <input type="button" value="HELP" onclick="addTag(this)">
@@ -58,6 +58,27 @@
     <input type="button" value="Music" onclick="addTag(this)">
     <input type="button" value="Art" onclick="addTag(this)">
     <input type="button" value="Languages" onclick="addTag(this)">
+    </div>
+    <br />
+    <div class="filters">
+      <p> To filter messagess 
+      <input type="button" value="Programming" onclick="toggleFilter(this)">
+    <input type="button" value="Chat" onclick="toggleFilter(this)">
+    <input type="button" value="HELP" onclick="toggleFilter(this)">
+    <input type="button" value="Suggestions" onclick="toggleFilter(this)">
+    <input type="button" value="Gaming" onclick="toggleFilter(this)">
+    <input type="button" value="Rant" onclick="toggleFilter(this)">
+    <input type="button" value="LOL" onclick="toggleFilter(this)">
+    <input type="button" value="Athletics" onclick="toggleFilter(this)">
+    <input type="button" value="School" onclick="toggleFilter(this)">
+    <input type="button" value="TI-Basic" onclick="toggleFilter(this)">
+    <input type="button" value="Assembly" onclick="toggleFilter(this)">
+    <input type="button" value="C[++]" onclick="toggleFilter(this)">
+    <input type="button" value="Java/C#" onclick="toggleFilter(this)">
+    <input type="button" value="Hate-Mail" onclick="toggleFilter(this)">
+    <input type="button" value="Music" onclick="toggleFilter(this)">
+    <input type="button" value="Art" onclick="toggleFilter(this)">
+    <input type="button" value="Languages" onclick="toggleFilter(this)">
     </div>
     <div class="tutorial">
     <p>Rules:</p>
