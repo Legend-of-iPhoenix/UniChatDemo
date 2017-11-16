@@ -28,11 +28,11 @@ ul:.tags {
   padding: 7px;
 }
 
-#output:nth-child(odd) {
-  color: #777;
+#outputText:nth-child(odd) {
+  background-color: #555;
 }
-#output:nth-child(even) {
-  color: #555;
+#outputText:nth-child(even) {
+  background-color: #222;
 }
 
 #output {
@@ -58,7 +58,7 @@ input[type=text] {
 }
 
 input[type=text]:focus {
-    border: 3px solid #555;
+    border: 3px solid #454545;
 }
 
 input[type=button] {
@@ -70,7 +70,7 @@ input[type=button] {
   cursor: pointer;
   text-align: center;
   text-decoration: none;
-  background-color: #888;
+  background-color: #c4c4c4;
   border: 1px solid #000/*#7a95fe*/;
   display: inline-block;
   -webkit-transition-duration: 0.4s;
