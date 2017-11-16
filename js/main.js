@@ -212,8 +212,13 @@ function redirectFromHub() {
           }
         }
       }
-      node.setAttribute("class", "outputText");
       node.appendChild(textnode);
+      var extraClasses = "";
+      if (message.indexOf(username) != -1)
+      {
+        extraClasses = " highlight";
+      }
+      node.setAttribute("class", "outputText" + extraClasses);
       document.getElementById("output").appendChild(node);
 
       var objDiv = document.getElementById("output");
@@ -221,6 +226,8 @@ function redirectFromHub() {
     }
   });
 }
+
+redirectFromHub();
 
 function refreshOutput() {
   document.getElementById("output").innerHTML = "";
@@ -256,7 +263,12 @@ function refreshOutput() {
         }
       }
       node.appendChild(textnode);
-      node.setAttribute("class", "outputText");
+      var extraClasses = "";
+      if (message.indexOf(username) != -1)
+      {
+        extraClasses = " highlight";
+      }
+      node.setAttribute("class", "outputText" + extraClasses);
       document.getElementById("output").appendChild(node);
 
       var objDiv = document.getElementById("output");
