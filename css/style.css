@@ -42,10 +42,10 @@ ul:.tags {
   padding: 7px;
 }
 
-#outputText:nth-child(odd) {
+.outputText:nth-child(odd) {
   background-color: #555;
 }
-#outputText:nth-child(even) {
+.outputText:nth-child(even) {
   background-color: #222;
 }
 
