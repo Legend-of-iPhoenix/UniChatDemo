@@ -8,11 +8,19 @@
 //                  |______|                                 |______|
 //
 // (just ask if you want to use my source, I probably won't say no.) 
+// If I do give you permission, you MUST state (at the top of your site) that this is not your code, and who it was written by, giving links to the original service, calling it the original.
+// Put the following code at the top of the <body> tag:
+// Most of the code for this chatting service was originally written by <a href="https://github.com/Legend-of-iPhoenix">_iPhoenix_</a>. 
+// If you do not, then your site breaks international copyright law.
+//
+// All rights reserved.
+
 var selectedRoom = "Chat";
 var isSignedIn = false;
 var dataRef;
 var filters = ["_default"];
 var currentMessageTags = ["_default"];
+var keyUser;
 
 var username = "anonymous";
 
@@ -53,12 +61,15 @@ function checkCookie() {
   if (u != "") {
     alert("Welcome back to UniChat, " + u);
     var database = firebase.database();
-    //database.ref("Data/").push({
-    //  text: u + " has entered the room.",
-    //  ts: Date.now(),
-    //  un: "CONSOLE",
-    //  tag: ["all"]
-    //});
+    database.ref("Data/").push({
+      text: u + " has entered the room. :]",
+      ts: Date.now(),
+      un: "[",
+      tag: ["all"]
+    });
+    keyUser = database.ref("online-users/").push({
+      un: u
+    });
   } else {
     u = prompt("Please Enter a Username:", assignUsername());
     u = u.replace(/\W/g, '');
@@ -70,7 +81,11 @@ function checkCookie() {
   }
   return u;
 }
-
+function reset()
+{
+  document.cookie = ""
+  username = checkCookie();
+}
 function refresh() {
   var span, text;
   document.getElementById("filterDisplay").innerHTML = "";
@@ -167,8 +182,13 @@ var formatTime = function(ts) {
 
 function filter(haystack, arr) {
   return arr.some(function(v) {
-    return haystack.indexOf(v) >= 0;
+    return haystack.indexOf(v) > 0;
   });
+};
+
+window.onbeforeunload = function(e) {
+  var ref = firebase.database.ref("online-users/" + keyUser);
+  ref.remove();
 };
 
 function redirectFromHub() {
@@ -228,6 +248,14 @@ function redirectFromHub() {
       var objDiv = document.getElementById("output");
       objDiv.scrollTop = objDiv.scrollHeight;
     }
+  });
+  firebase.database().ref("online-users").on('value',function(snapshot) {
+    var data = snapshot.val();
+    var node = document.createElement("DIV");
+
+    var textnode = document.createTextNode(data.un);
+    node.appendChild(textnode);
+    document.getElementById("online-users").appendChild(node);
   });
 }
 
