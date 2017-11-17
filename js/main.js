@@ -250,12 +250,16 @@ function redirectFromHub() {
     }
   });
   firebase.database().ref("online-users").on('value',function(snapshot) {
-    var data = snapshot.val();
+    document.getElementById("online-users").innerHTML = ""
+    snapshot.forEach(function(childSnapshot) {
+    var data = childSnapshot.val();
+    console.log(data.un);
     var node = document.createElement("DIV");
 
     var textnode = document.createTextNode(data.un);
     node.appendChild(textnode);
     document.getElementById("online-users").appendChild(node);
+  });
   });
 }
 
