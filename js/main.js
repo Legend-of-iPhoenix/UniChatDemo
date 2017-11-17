@@ -53,12 +53,12 @@ function checkCookie() {
   if (u != "") {
     alert("Welcome back to UniChat, " + u);
     var database = firebase.database();
-    database.ref("Data/").push({
-      text: u + " has entered the room.",
-      ts: Date.now(),
-      un: "CONSOLE",
-      tag: ["all"]
-    });
+    //database.ref("Data/").push({
+    //  text: u + " has entered the room.",
+    //  ts: Date.now(),
+    //  un: "CONSOLE",
+    //  tag: ["all"]
+    //});
   } else {
     u = prompt("Please Enter a Username:", assignUsername());
     u = u.replace(/\W/g, '');
@@ -235,12 +235,12 @@ redirectFromHub();
 
 function refreshOutput() {
   document.getElementById("output").innerHTML = "";
-  dataRef = firebase.database().ref("Data/");
+  dataRef = firebase.database().ref("Data").orderByChild("ts").limitToLast(25);
   isSignedIn = true;
-  dataRef.orderByChild("ts").limitToLast(25).once('value', function(snapshot) {
-    var data = snapshot.val();
+  dataRef.once('value').then(function(snapshot) {
+    snapshot.forEach(function(childSnapshot) {
+    var data = childSnapshot.val();
     var message = data.text;
-
     var datePosted = data.ts;
     var tempDate = new Date;
     tempDate.setTime(datePosted);
@@ -278,5 +278,6 @@ function refreshOutput() {
       var objDiv = document.getElementById("output");
       objDiv.scrollTop = objDiv.scrollHeight;
     }
+    });
   });
 }
