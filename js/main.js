@@ -327,53 +327,7 @@ function redirectFromHub() {
     isSignedIn = true;
     dataRef.orderByChild("ts").limitToLast(25).on('child_added', function(snapshot) {
         var data = snapshot.val();
-        var message = data.text;
-
-        var datePosted = data.ts;
-        var tempDate = new Date;
-        tempDate.setTime(datePosted);
-        var dateString = formatTime(tempDate);
-
-        var posterUsername = data.un;
-        if (message != undefined && (filter(data.tag, filters) || (filters.length == 1))) {
-            var node = document.createElement("DIV");
-            var messageHeader = message.substring(0, 3);
-            var textnode;
-            if (messageHeader === "/me" && messageHeader !== "/pm") {
-                textnode = document.createTextNode('\n' + "[" + dateString + "]  *" + posterUsername + ' ' + message.substring(3, message.length));
-            } else {
-                var str = message.substring(4, message.length);
-                var reg = /\w*/;
-                var match = reg.exec(str);
-                var messagePM = message.substring(4 + match[0].length, message.length);
-                if (messageHeader === "/pm" && match[0] == username) {
-                    textnode = document.createTextNode('\n' + "[" + dateString + "][PM]  ~" + posterUsername + ' whispers to you: ' + messagePM);
-                } else {
-                    if (messageHeader !== "/pm") {
-                        textnode = document.createTextNode('\n' + "[" + dateString + "]  " + posterUsername + ': ' + message);
-                    }
-                }
-                if (match[0] == "TLM" && username == "TheLastMillennial") {
-                    textnode = document.createTextNode('\n' + "[" + dateString + "][PM]  ~" + posterUsername + ' whispers to you: ' + messagePM);
-                }
-            }
-            if (username == "_iPhoenix_" || username == "iPhoenix") {
-                notifyMe(posterUsername + ": " + message);
-            }
-            node.appendChild(textnode);
-            var textClass = "outputText";
-            if (message.indexOf(username) != -1) {
-                textClass = "highlight";
-            }
-            if (username == "TheLastMillennial" && message.indexOf("TLM") != -1) {
-                textClass = "highlight";
-            }
-            node.setAttribute("class", textClass);
-            document.getElementById("output").appendChild(node);
-
-            var objDiv = document.getElementById("output");
-            objDiv.scrollTop = objDiv.scrollHeight;
-        }
+        interpretMessage(data);
     });
 }
 window.onload = function() {
