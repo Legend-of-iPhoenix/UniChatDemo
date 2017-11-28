@@ -375,8 +375,9 @@ function redirectFromHub() {
         }
     });
 }
-
+window.onload = function() {
 redirectFromHub();
+};
 
 function refreshOutput() {
     document.getElementById("output").innerHTML = "";
