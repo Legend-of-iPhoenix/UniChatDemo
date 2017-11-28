@@ -53,8 +53,6 @@ function getCookie(cname) {
     }
     return "";
 }
-var usernameCallbackResult;
-
 function checkCookie() {
     var u = getCookie("unichat_uid");
     if (u != "") {
@@ -72,11 +70,17 @@ function checkCookie() {
             firebase.database().ref("usernames/" + u).set(q);
         }
     } else {
-        usernameCallbackResult = "";
-        u = "";
-        u = askForUsername();
-        u = checkAvailibility(u);
-        console.log(u);
+      document.getElementById("mainContentDiv").style.display = "none";
+      div = document.getElementById("usernameDiv");
+      div.innerHTML = "Please create a username: ";
+      var input = document.createElement("INPUT");
+      input.setAttribute("type", "text");
+      input.setAttribute("placeholder", "Username");
+      input.setAttribute("id", "username-text");
+      div.appendChild(input);
+      var button = document.createElement("BUTTON");
+      button.setAttribute("onclick", "checkAvailability()");
+      div.appendChild(button);
     }
     return u;
 }
@@ -87,34 +91,41 @@ function askForUsername() {
     return n;
 }
 
-function checkAvailability(username) {
-    var u = username;
-    firebase.database().ref("usernames/" + username).once('value').then(function(snapshot) {
-        console.log(snapshot.val());
+function checkAvailability() {
+    console.log("z");
+    var u = document.getElementById("username-text").value;
+    u = u.replace(/\W/g, '');
+    console.log("z");
+    console.log(u);
+    firebase.database().ref("usernames/" + u).once('value').then(function(snapshot) {
+        console.log("z");
         if (snapshot.val() == null) {
             if (u != "" && u != null && u != "_iPhoenix_" && u != "Console" && u != "CONSOLE" && u != "DKKing" && u != "iPhoenix") {
                 setCookie("unichat_uid", u, 2 * 365);
+                var n = new Date(Date.now());
+                var q = n.toString();
+                firebase.database().ref("usernames/" + u).set(q);
+                console.log(2);
+                document.getElementById("mainContentDiv").style.display = "block";
+                document.getElementById("usernameDiv").innerHTML = "";
             } else {
-                u = "_" + assignUsername();
+               var node = document.createElement("SPAN");
+               var text = document.createTextnode("Invalid username.");
+               node.appendChild(text);
+               node.setAttribute("id","error");
+               document.getElementById("usernameDiv").appendChild(node);
+               setTimeout(function(){document.getElementById("error").remove();},1000);
             }
-            var n = new Date(Date.now());
-            var q = n.toString();
-            firebase.database().ref("usernames/" + u).set(q);
-            console.log(2);
-            usernameCallback(u);
         } else {
-            usernameCallback("");
+           var node = document.createElement("SPAN");
+           var text = document.createTextnode("That username is already taken.");
+           node.appendChild(text);
+           node.setAttribute("id","error");
+           document.getElementById("usernameDiv").appendChild(node);
+           setTimeout(function(){document.getElementById("error").remove();},1000);
         }
     });
     console.log(1);
-}
-
-function usernameCallback(n) {
-    if (n == "") {
-        checkAvailibility(askForUsername());
-    } else {
-        usernameCallbackResult = n;
-    }
 }
 
 function reset() {
