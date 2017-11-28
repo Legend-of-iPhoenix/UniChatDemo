@@ -24,9 +24,11 @@
   <body>
     <h1>Welcome to UniChat!</h1>
     <br />
-    <div id="output"></div> <div id="online-users" style="display: inline-block;"></div>
-    <input type="text" id="message">
-    <input type="button" value="Submit" onclick="submitMessage()">
+    <div id="output"></div>
+    <div id="IN" style="width: 100%;">
+      <input type="text" id="message">
+      <input type="button" value="Submit" onclick="submitMessage()">
+    </div>
     <br />
     <div class="tags">
       <p> Optionally, you can click on one or more of the tags below to make sure your message reaches your audience! </p>
@@ -84,6 +86,7 @@
       <h3>Breaking the rules may result in consequences</h3>
     </div>
     <br />
+    <input type="button" value="Get recent PM's" onclick="getRecentPMs()">
     <div class="tutorial">
       <p>My goal:</p>
       <ol>
