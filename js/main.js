@@ -71,7 +71,7 @@ function checkCookie() {
         }
     } else {
       document.getElementById("mainContentDiv").style.display = "none";
-      div = document.getElementById("usernameDiv");
+      var div = document.getElementById("usernameDiv");
       div.innerHTML = "Please create a username: ";
       var input = document.createElement("INPUT");
       input.setAttribute("type", "text");
