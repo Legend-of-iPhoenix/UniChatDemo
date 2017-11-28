@@ -108,6 +108,7 @@ function checkAvailability() {
                 console.log(2);
                 document.getElementById("mainContentDiv").style.display = "block";
                 document.getElementById("usernameDiv").innerHTML = "";
+                username = u;
             } else {
                var node = document.createElement("SPAN");
                var text = document.createTextnode("Invalid username.");
@@ -320,7 +321,7 @@ function redirectFromHub() {
         if (data[i].checked)
             selectedRoom = data[i].value;
     }
-    username = checkCookie();
+    checkCookie();
     changeUsername();
     dataRef = firebase.database().ref("Data/");
     isSignedIn = true;
