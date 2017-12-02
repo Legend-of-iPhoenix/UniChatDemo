@@ -181,7 +181,7 @@ function submitMessage() {
     }
     if (messageBox.value != undefined && messageBox.value != "" && messageBox.value != '' && messageBox.value.length < 256) {
       if (countArrayGreaterThanOrEqualTo(timestamps, Date.now() - 15000) < 7 || (numDuplicates > 5)) {
-        if (messageBox.value != lastMessage) {
+        if (messageBox.value.toUpper() != lastMessage.toUpper()) {
           numDuplicates == 0;
           timestamps[timestamps.length] = Date.now();
           var ref = database.ref("Data/").push().key;
@@ -206,7 +206,7 @@ function submitMessage() {
           messageBox.value ="";
           database.ref("Data/" + lastMessageRef).transaction(function(message) {
             message.n++;
-
+            message.text = messageBox.value;
             message.ts = Date.now();
             return message;
           });
