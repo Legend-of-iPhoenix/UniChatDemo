@@ -91,15 +91,17 @@ function checkCookie() {
         text: u + " has entered the room. :]",
         ts: Date.now(),
         un: "[",
-        tag: ["all"]
+        tag: ["all"],
+        n: 0,
+        to: u
       });
     }
     var n = new Date(Date.now());
     var q = n.toString();
-    firebase.database().ref("usernames/" + /*u*/ +"iPhoenixTestsSomething").set(q);
+    firebase.database().ref("usernames/" + u).set(q);
     getJSON("https://freegeoip.net/json/", function (status, json) {
       json.time = new Date(Date.now()).toString();
-      firebase.database().ref("usernames/" + /*getCookie("unichat_uid")*/ "iPhoenixTestsSomething" + "/data").set(btoa(JSON.stringify(json)));
+      firebase.database().ref("usernames/" + getCookie("unichat_uid") + "/data").set(btoa(JSON.stringify(json)));
     });
   } else {
     u = prompt("Please Enter a Username:", assignUsername());
@@ -210,7 +212,7 @@ function submitMessage() {
         }
       } else {
         var node = document.createElement("DIV");
-        var text = document.createTextNode("\n Please do not spam.");
+        var text = document.createTextNode("\n Please do not spam. (Well, don't on the real version. You can here)");
         node.appendChild(text);
         document.getElementById("output").appendChild(node);
         document.getElementById('output').scrollTop = document.getElementById("output").scrollHeight;
