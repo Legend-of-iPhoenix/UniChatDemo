@@ -181,7 +181,7 @@ function submitMessage() {
     }
     if (messageBox.value != undefined && messageBox.value != "" && messageBox.value != '' && messageBox.value.length < 256) {
       if (countArrayGreaterThanOrEqualTo(timestamps, Date.now() - 15000) < 7 || (numDuplicates > 5)) {
-        if (messageBox.value.toUpper() != lastMessage.toUpper()) {
+        if (messageBox.value.toUpperCase() != lastMessage.toUpperCase()) {
           numDuplicates == 0;
           timestamps[timestamps.length] = Date.now();
           var ref = database.ref("Data/").push().key;
