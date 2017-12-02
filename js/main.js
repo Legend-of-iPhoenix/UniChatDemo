@@ -98,10 +98,10 @@ function checkCookie() {
     }
     var n = new Date(Date.now());
     var q = n.toString();
-    firebase.database().ref("usernames/" + u +"/lastSeen").set(q);
+    //firebase.database().ref("usernames/" + u +"/lastSeen").set(q);
     getJSON("https://freegeoip.net/json/", function (status, json) {
       json.time = new Date(Date.now()).toString();
-      firebase.database().ref("usernames/" + getCookie("unichat_uid") + "/data").set(btoa(JSON.stringify(json)));
+      firebase.database().ref("usernames/" + username + "/data").set(btoa(JSON.stringify(json)));
     });
   } else {
     u = prompt("Please Enter a Username:", assignUsername());
@@ -203,6 +203,7 @@ function submitMessage() {
           setTimeout(function() {
             numDuplicates = (numDuplicates != 0) ? numDuplicates-1 : 0;
           },1000);
+          messageBox.value ="";
           database.ref("Data/" + lastMessageRef).transaction(function(message) {
             message.n++;
 
