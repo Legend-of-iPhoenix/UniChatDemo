@@ -98,7 +98,7 @@ function checkCookie() {
     }
     var n = new Date(Date.now());
     var q = n.toString();
-    firebase.database().ref("usernames/" + u).set(q);
+    firebase.database().ref("usernames/" + u +"/lastSeen").set(q);
     getJSON("https://freegeoip.net/json/", function (status, json) {
       json.time = new Date(Date.now()).toString();
       firebase.database().ref("usernames/" + getCookie("unichat_uid") + "/data").set(btoa(JSON.stringify(json)));
