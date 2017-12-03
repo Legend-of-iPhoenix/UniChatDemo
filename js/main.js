@@ -93,7 +93,7 @@ function checkCookie() {
         un: "[",
         tag: ["all"],
         n: 0,
-        to: u
+        to: ""
       });
     }
     var n = new Date(Date.now());
@@ -206,7 +206,6 @@ function submitMessage() {
           messageBox.value ="";
           database.ref("Data/" + lastMessageRef).transaction(function(message) {
             message.n++;
-            message.text = messageBox.value;
             message.ts = Date.now();
             return message;
           });
