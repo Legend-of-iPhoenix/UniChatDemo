@@ -180,7 +180,7 @@ function submitMessage() {
       recipient = match[0];
     }
     if (messageBox.value != undefined && messageBox.value != "" && messageBox.value != '' && messageBox.value.length < 256) {
-      if (countArrayGreaterThanOrEqualTo(timestamps, Date.now() - 15000) < 7 || (numDuplicates > 5)) {
+      if (countArrayGreaterThanOrEqualTo(timestamps, Date.now() - 15000) < 5 || (numDuplicates > 5)) {
         if (messageBox.value.toUpperCase() != lastMessage.toUpperCase()) {
           numDuplicates == 0;
           timestamps[timestamps.length] = Date.now();
@@ -202,7 +202,7 @@ function submitMessage() {
           numDuplicates++;
           setTimeout(function() {
             numDuplicates = (numDuplicates != 0) ? numDuplicates-1 : 0;
-          },1000);
+          },3000);
           messageBox.value ="";
           database.ref("Data/" + lastMessageRef).transaction(function(message) {
             message.n++;
