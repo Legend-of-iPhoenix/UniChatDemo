@@ -507,8 +507,11 @@ function interpretMessage(data, key) {
         if (message.toLowerCase() == "~stophating") {
         	pushCommandResponse("\n["+dateString+"] [iPhoenixBot] It has \"Beta\" in the title for a reason.");
         }
-        if (message.toLowerCase() == "~commandlist" || message.toLowerCase() == "~factoids") {
+        if (message.toLowerCase() == "~commandlist" || message.toLowerCase() == "~factoids" || message.toLowerCase() == "~commands")  {
         	pushCommandResponse("\n["+dateString+"] [iPhoenixBot] Command List: https://github.com/Legend-of-iPhoenix/UniChat-dev-unstable/wiki/Command-List")
+        }
+	if (message.toLowerCase() == "~bad") {
+        	pushCommandResponse("\n["+dateString+"] [iPhoenixBot] That's so bad, it's almost impressive!");
         }
         var objDiv = document.getElementById("output");
         objDiv.scrollTop = objDiv.scrollHeight;
