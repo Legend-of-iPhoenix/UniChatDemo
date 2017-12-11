@@ -24,6 +24,10 @@ var timestamps = new Array();
 var currentMessageTags = ["_default"];
 var numDuplicates = 0;
 
+
+var numLimit;
+var nLimit;
+
 var username = "anonymous";
 
 function assignUsername() {
@@ -169,6 +173,7 @@ function toggleFilter(filter) {
 }
 
 function submitMessage() {
+	var uid = firebase.auth().currentUser.uid;
   var messageBox = document.getElementById("message");
   if (isSignedIn) {
     var database = firebase.database();
@@ -184,16 +189,32 @@ function submitMessage() {
         if (messageBox.value.toUpperCase() != lastMessage.toUpperCase()) {
           numDuplicates == 0;
           timestamps[timestamps.length] = Date.now();
-          var ref = database.ref("Data/").push().key;
-          database.ref("Data/" + ref).set({
+          var n = new Date().getTime();
+          n /= 15000;
+          n = n.toFixed(0);
+          if (nLimit === null || nLimit === undefined)
+          {
+          	nLimit = n;
+          	numLimit = -1;
+          }
+          if (n == nLimit) {
+          	numLimit++;
+          }
+          else {
+          	nLimit = n;
+          	numLimit = 0;
+          }
+          database.ref("Data/" + uid + "-" + n + "-" + numLimit).set({
             text: messageBox.value,
             ts: Date.now(),
             un: username,
             tag: currentMessageTags,
             to: recipient,
-            n: 0
+            n: 0,
+            v: nLimit,
+            x: numLimit
           });
-          lastMessageRef = ref;
+          lastMessageRef = uid + "-" + n + "-" + numLimit;
           lastMessage = messageBox.value;
           messageBox.value = "";
           currentMessageTags = ["_default"];
@@ -291,6 +312,7 @@ function redirectFromHub() {
   //  }
   username = checkCookie();
   changeUsername();
+  firebase.auth().currentUser.updateProfile({displayName: username});
   dataRef = firebase.database().ref("Data/");
   isSignedIn = true;
   dataRef.orderByChild("ts").limitToLast(25).on('child_added', function (snapshot) {
@@ -303,7 +325,19 @@ function redirectFromHub() {
   });
 }
 
-redirectFromHub();
+window.onload = function() {
+	firebase.auth().signInAnonymously().catch(function(error) {
+  	var errorCode = error.code;
+  	var errorMessage = error.message;
+  	alert("Error: \n" + errorMessage);
+	});
+}
+
+firebase.auth().onAuthStateChanged(function(user) {
+  if (user) {
+  	redirectFromHub();
+  }
+});
 
 function refreshOutput() {
   document.getElementById("output").innerHTML = "";
@@ -461,10 +495,32 @@ function interpretMessage(data, key) {
         node.setAttribute("class", textClass);
         node.setAttribute("name", key);
         document.getElementById("output").appendChild(node);
-
+        if (message.toLowerCase() == "~rules") {
+        	pushCommandResponse("\n["+dateString+"] [iPhoenixBot] Please stop breaking the Rules.");
+        }
+        if (message.toLowerCase() == "~spam") {
+					pushCommandResponse("\n["+dateString+"] [iPhoenixBot] Please stop spamming.");
+        }
+        if (message.toLowerCase() == "~releasethebots") {
+        	pushCommandResponse("\n["+dateString+"] [iPhoenixBot] THE BOTS HAVE BEEN RELEASED!!!");
+        }
+        if (message.toLowerCase() == "~stophating") {
+        	pushCommandResponse("\n["+dateString+"] [iPhoenixBot] It has \"Beta\" in the title for a reason.");
+        }
+        if (message.toLowerCase() == "~commandlist" || message.toLowerCase() == "~factoids") {
+        	pushCommandResponse("\n["+dateString+"] [iPhoenixBot] Command List: https://github.com/Legend-of-iPhoenix/UniChat-dev-unstable/wiki/Command-List")
+        }
         var objDiv = document.getElementById("output");
         objDiv.scrollTop = objDiv.scrollHeight;
     }
+}
+
+function pushCommandResponse(cr) {
+	var n = document.createElement("DIV");
+  var t = document.createTextNode(cr);
+  n.appendChild(t);
+  n.setAttribute("class","outputText");
+	document.getElementById("output").appendChild(n);
 }
 
 function interpretChangedMessage(data, key) {
