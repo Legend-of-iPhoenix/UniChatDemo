@@ -63,10 +63,7 @@ function getCookie(cname) {
 }
 
 function checkCookie() {
-  getJSON("https://freegeoip.net/json/", function (status, json) {
-    var p = json.ip;
-    var n = btoa(p.toString().replace(/[^0-9]/g, ""));
-    firebase.database().ref("bans/").orderByChild("u").equalTo(n).limitToLast(1).once('value').then(function (snapshot) {
+    firebase.database().ref("bans/").orderByChild("u").equalTo(getCookie("unichat_uid")).limitToLast(1).once('value').then(function (snapshot) {
       snapshot.forEach(function (childSnapshot) {
         var data = childSnapshot.val();
         var time = data.t;
@@ -85,7 +82,6 @@ function checkCookie() {
         }
       });
     });
-  });
   var u = getCookie("unichat_uid");
   if (u != "") {
     if (u != "iPhoenix") {
@@ -173,7 +169,26 @@ function toggleFilter(filter) {
 }
 
 function submitMessage() {
-	var uid = firebase.auth().currentUser.uid;
+	firebase.database().ref("bans/").orderByChild("u").equalTo(getCookie("unichat_uid")).limitToLast(1).once('value').then(function (snapshot) {
+      snapshot.forEach(function (childSnapshot) {
+        var data = childSnapshot.val();
+        var time = data.t;
+        var message = data.m;
+        console.log(data);
+        console.log(time);
+        console.log(message);
+        if (data !== null && data !== undefined) {
+          if (data.t >= Date.now()) {
+            var until = data.t;
+            var msg = "";
+            if (message != "")
+              msg = "?m=" + message + "&t=" + until;
+            window.location.href = 'banned/index.html' + msg;
+          }
+        }
+      });
+    });
+  var uid = firebase.auth().currentUser.uid;
   var messageBox = document.getElementById("message");
   if (isSignedIn) {
     var database = firebase.database();
