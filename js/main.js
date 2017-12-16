@@ -7,7 +7,7 @@
 //     \________/    ______                                   ______ 
 //                  |______|                                 |______|
 //
-// V0.56
+// V0.56.1
 //
 // (just ask if you want to use my source, I probably won't say no.) 
 // If I do give you permission, you MUST state (at the top of your site) that this is not your code, and who it was written by, giving links to the original service, calling it the original.
@@ -229,7 +229,8 @@ function submitMessage() {
             to: recipient,
             n: 0,
             v: nLimit,
-            x: numLimit
+            x: numLimit,
+	    k: 0
           });
           lastMessageRef = uid + "-" + n + "-" + numLimit;
           lastMessage = messageBox.value;
