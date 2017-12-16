@@ -7,7 +7,7 @@
 //     \________/    ______                                   ______ 
 //                  |______|                                 |______|
 //
-// V0.55
+// V0.56
 //
 // (just ask if you want to use my source, I probably won't say no.) 
 // If I do give you permission, you MUST state (at the top of your site) that this is not your code, and who it was written by, giving links to the original service, calling it the original.
@@ -26,6 +26,8 @@ var timestamps = new Array();
 var currentMessageTags = ["_default"];
 var numDuplicates = 0;
 var isFirstMessage = true;
+var notificationStatus = false;
+var highlightNotificationStatus = false;
 
 var numLimit;
 var nLimit;
@@ -457,6 +459,15 @@ function countArrayGreaterThanOrEqualTo(array, number) {
   return n;
 }
 
+function toggleNotifications() {
+	notificationStatus = !notificationStatus;
+	console.log("Notifications: " + (notificationStatus ? "On" : "Off"));
+}
+
+function toggleNotificationOnHighlight() {
+	highlightNotificationStatus = !highlightNotificationStatus;
+	console.log("Highlight Notifications: " + (highlightNotificationStatus ? "On" : "Off"));
+}
 function interpretMessage(data, key) {
   var message = data.text;
   var datePosted = data.ts;
@@ -494,16 +505,20 @@ function interpretMessage(data, key) {
         textnode = document.createTextNode('\n' + "[" + dateString + "][PM]" + n + "  ~" + posterUsername + ' whispers to you: ' + messagePM);
       }
     }
-    if (username == "_iPhoenix_" || username == "iPhoenix") {
+    if (notificationStatus) {
       notifyMe(posterUsername + ": " + message);
     }
     node.appendChild(textnode);
     var textClass = "outputText";
     if (message.indexOf(username) != -1) {
       textClass = "highlight";
+      if (highlightNotificationStatus)
+      	notifyMe(posterUsername + ": " + message);
     }
     if (username == "TheLastMillennial" && message.indexOf("TLM") != -1) {
       textClass = "highlight";
+      if (highlightNotificationStatus)
+      	notifyMe(posterUsername + ": " + message);
     }
     node.setAttribute("class", textClass);
     node.setAttribute("name", key);
@@ -538,9 +553,13 @@ function pushCommandResponse(cr) {
   var textClass = "outputText";
   if (cr.indexOf(username) != -1) {
     textClass = "highlight";
+    if (highlightNotificationStatus)
+      	notifyMe(posterUsername + ": " + message);
   }
   if (username == "TheLastMillennial" && cr.indexOf("TLM") != -1) {
     textClass = "highlight";
+    if (highlightNotificationStatus)
+      	notifyMe(posterUsername + ": " + message);
   }
   var n = document.createElement("DIV");
   var t = document.createTextNode(cr);
