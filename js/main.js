@@ -7,7 +7,7 @@
 //     \________/    ______                                   ______ 
 //                  |______|                                 |______|
 //
-// V0.56.1
+// V0.57
 //
 // (just ask if you want to use my source, I probably won't say no.) 
 // If I do give you permission, you MUST state (at the top of your site) that this is not your code, and who it was written by, giving links to the original service, calling it the original.
@@ -229,8 +229,7 @@ function submitMessage() {
             to: recipient,
             n: 0,
             v: nLimit,
-            x: numLimit,
-	    k: 0
+            x: numLimit
           });
           lastMessageRef = uid + "-" + n + "-" + numLimit;
           lastMessage = messageBox.value;
@@ -544,6 +543,19 @@ function interpretMessage(data, key) {
     }
     if (message.toLowerCase().substring(0, 8) == "~profile") {
       pushCommandResponse("\n[" + dateString + "] [iPhoenixBot] " + posterUsername + ": " + window.location.href.replace("index.html", "") + "profileLink/index.html?u=" + encodeURI(message.substring(9, message.length)));
+    }
+    if (message.toLowerCase().substring(0, 6) == "~karma") {
+    	var username = message.substring(7, message.length);
+    	username = (username == "" ? posterUsername : username);
+    	var karma = 0;
+    	firebase.database().ref("usernames/"+username+"/karma").once('value').then(function(snapshot) {
+    		console.log(snapshot.val());
+    		karma = (snapshot.val() ? parseInt(snapshot.val()) : 0);
+    		pushCommandResponse("\n[" + dateString + "] [iPhoenixBot] " + posterUsername + ": " + username + " has "+karma+" karma.");
+    		var objDiv = document.getElementById("output");
+    		objDiv.scrollTop = objDiv.scrollHeight;
+    	});
+
     }
     var objDiv = document.getElementById("output");
     objDiv.scrollTop = objDiv.scrollHeight;
