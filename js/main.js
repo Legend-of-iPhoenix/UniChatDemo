@@ -229,7 +229,8 @@ function submitMessage() {
             to: recipient,
             n: 0,
             v: nLimit,
-            x: numLimit
+            x: numLimit,
+	    k: 0
           });
           lastMessageRef = uid + "-" + n + "-" + numLimit;
           lastMessage = messageBox.value;
