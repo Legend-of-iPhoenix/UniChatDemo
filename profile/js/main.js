@@ -1,7 +1,7 @@
 //file:///Users/homework/Desktop/UniChat-dev-unstable-master/profile/index.html?k=inf&u=iPhoenix&r=Admin
 
 //Thanks, guys. It means a lot. - The Development Team
-var closedBetaTesters = ["SM84CE","TheLastMillennial","TLM","Battlesqud","xMarminq_"];
+var closedBetaTesters = ["SM84CE","TheLastMillennial","TLM","Battlesquid","xMarminq_"];
 
 function getMessage(tag) {
     var href = window.location.href;
