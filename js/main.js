@@ -7,7 +7,7 @@
 //     \________/    ______                                   ______ 
 //                  |______|                                 |______|
 //
-// V0.54
+// V0.55
 //
 // (just ask if you want to use my source, I probably won't say no.) 
 // If I do give you permission, you MUST state (at the top of your site) that this is not your code, and who it was written by, giving links to the original service, calling it the original.
@@ -25,7 +25,7 @@ var lastMessageRef;
 var timestamps = new Array();
 var currentMessageTags = ["_default"];
 var numDuplicates = 0;
-
+var isFirstMessage = true;
 
 var numLimit;
 var nLimit;
@@ -65,25 +65,25 @@ function getCookie(cname) {
 }
 
 function checkCookie() {
-    firebase.database().ref("bans/").orderByChild("u").equalTo(getCookie("unichat_uid")).limitToLast(1).once('value').then(function (snapshot) {
-      snapshot.forEach(function (childSnapshot) {
-        var data = childSnapshot.val();
-        var time = data.t;
-        var message = data.m;
-        console.log(data);
-        console.log(time);
-        console.log(message);
-        if (data !== null && data !== undefined) {
-          if (data.t >= Date.now()) {
-            var until = data.t;
-            var msg = "";
-            if (message != "")
-              msg = "?m=" + message + "&t=" + until;
-            window.location.href = 'banned/index.html' + msg;
-          }
+  firebase.database().ref("bans/").orderByChild("u").equalTo(getCookie("unichat_uid")).limitToLast(1).once('value').then(function (snapshot) {
+    snapshot.forEach(function (childSnapshot) {
+      var data = childSnapshot.val();
+      var time = data.t;
+      var message = data.m;
+      console.log(data);
+      console.log(time);
+      console.log(message);
+      if (data !== null && data !== undefined) {
+        if (data.t >= Date.now()) {
+          var until = data.t;
+          var msg = "";
+          if (message != "")
+            msg = "?m=" + message + "&t=" + until;
+          window.location.href = 'banned/index.html' + msg;
         }
-      });
+      }
     });
+  });
   var u = getCookie("unichat_uid");
   if (u != "") {
     if (u != "iPhoenix") {
@@ -171,25 +171,25 @@ function toggleFilter(filter) {
 }
 
 function submitMessage() {
-	firebase.database().ref("bans/").orderByChild("u").equalTo(getCookie("unichat_uid")).limitToLast(1).once('value').then(function (snapshot) {
-      snapshot.forEach(function (childSnapshot) {
-        var data = childSnapshot.val();
-        var time = data.t;
-        var message = data.m;
-        console.log(data);
-        console.log(time);
-        console.log(message);
-        if (data !== null && data !== undefined) {
-          if (data.t >= Date.now()) {
-            var until = data.t;
-            var msg = "";
-            if (message != "")
-              msg = "?m=" + message + "&t=" + until;
-            window.location.href = 'banned/index.html' + msg;
-          }
+  firebase.database().ref("bans/").orderByChild("u").equalTo(getCookie("unichat_uid")).limitToLast(1).once('value').then(function (snapshot) {
+    snapshot.forEach(function (childSnapshot) {
+      var data = childSnapshot.val();
+      var time = data.t;
+      var message = data.m;
+      console.log(data);
+      console.log(time);
+      console.log(message);
+      if (data !== null && data !== undefined) {
+        if (data.t >= Date.now()) {
+          var until = data.t;
+          var msg = "";
+          if (message != "")
+            msg = "?m=" + message + "&t=" + until;
+          window.location.href = 'banned/index.html' + msg;
         }
-      });
+      }
     });
+  });
   var uid = firebase.auth().currentUser.uid;
   var messageBox = document.getElementById("message");
   if (isSignedIn) {
@@ -209,17 +209,15 @@ function submitMessage() {
           var n = new Date().getTime();
           n /= 15000;
           n = n.toFixed(0);
-          if (nLimit === null || nLimit === undefined)
-          {
-          	nLimit = n;
-          	numLimit = -1;
+          if (nLimit === null || nLimit === undefined) {
+            nLimit = n;
+            numLimit = -1;
           }
           if (n == nLimit) {
-          	numLimit++;
-          }
-          else {
-          	nLimit = n;
-          	numLimit = 0;
+            numLimit++;
+          } else {
+            nLimit = n;
+            numLimit = 0;
           }
           database.ref("Data/" + uid + "-" + n + "-" + numLimit).set({
             text: messageBox.value,
@@ -238,11 +236,11 @@ function submitMessage() {
           refresh();
         } else {
           numDuplicates++;
-          setTimeout(function() {
-            numDuplicates = (numDuplicates != 0) ? numDuplicates-1 : 0;
-          },3000);
-          messageBox.value ="";
-          database.ref("Data/" + lastMessageRef).transaction(function(message) {
+          setTimeout(function () {
+            numDuplicates = (numDuplicates != 0) ? numDuplicates - 1 : 0;
+          }, 3000);
+          messageBox.value = "";
+          database.ref("Data/" + lastMessageRef).transaction(function (message) {
             message.n++;
             message.ts = Date.now();
             return message;
@@ -319,9 +317,7 @@ function redirectFromHub() {
     dataRef.off();
   }
   var n = document.getElementById('output');
-  while (n.hasChildNodes()) {
-    n.removeChild(n.firstChild);
-  }
+  n.innerHTML = "";
   //var data = document.getElementsByName("hubSelect");
   // for (var i = 0; i < data.length; i++) {
   //   if (data[i].checked)
@@ -329,7 +325,9 @@ function redirectFromHub() {
   //  }
   username = checkCookie();
   changeUsername();
-  firebase.auth().currentUser.updateProfile({displayName: username});
+  firebase.auth().currentUser.updateProfile({
+    displayName: username
+  });
   dataRef = firebase.database().ref("Data/");
   isSignedIn = true;
   dataRef.orderByChild("ts").limitToLast(25).on('child_added', function (snapshot) {
@@ -342,17 +340,17 @@ function redirectFromHub() {
   });
 }
 
-window.onload = function() {
-	firebase.auth().signInAnonymously().catch(function(error) {
-  	var errorCode = error.code;
-  	var errorMessage = error.message;
-  	alert("Error: \n" + errorMessage);
-	});
+window.onload = function () {
+  firebase.auth().signInAnonymously().catch(function (error) {
+    var errorCode = error.code;
+    var errorMessage = error.message;
+    alert("Error: \n" + errorMessage);
+  });
 }
 
-firebase.auth().onAuthStateChanged(function(user) {
+firebase.auth().onAuthStateChanged(function (user) {
   if (user) {
-  	redirectFromHub();
+    redirectFromHub();
   }
 });
 
@@ -459,91 +457,106 @@ function countArrayGreaterThanOrEqualTo(array, number) {
   return n;
 }
 
-
 function interpretMessage(data, key) {
-    var message = data.text;
-    var datePosted = data.ts;
-    var n = "";
-    if (data.n != 0)
-    {
-      n = "[x"+(data.n+1)+"]";
+  var message = data.text;
+  var datePosted = data.ts;
+  var n = "";
+  if (data.n != 0) {
+    n = "[x" + (data.n + 1) + "]";
+  }
+  var tempDate = new Date;
+  tempDate.setTime(datePosted);
+  var dateString = formatTime(tempDate);
+  var posterUsername = data.un;
+  if (message != undefined && (filter(data.tag, filters) || (filters.length == 1))) {
+    var node = document.createElement("DIV");
+    var reg = /\/([\w]*)/;
+    var messageCommand = "";
+    if (message.match(reg) != null) {
+      messageCommand = message.match(reg)[1];
     }
-    var tempDate = new Date;
-    tempDate.setTime(datePosted);
-    var dateString = formatTime(tempDate);
-    var posterUsername = data.un;
-    if (message != undefined && (filter(data.tag, filters) || (filters.length == 1))) {
-        var node = document.createElement("DIV");
-        var reg = /\/([\w]*)/;
-        var messageCommand = "";
-        if (message.match(reg) != null) {
-            messageCommand = message.match(reg)[1];
+    var textnode;
+    if (messageCommand === "me" && messageCommand !== "pm") {
+      textnode = document.createTextNode('\n' + "[" + dateString + "]" + n + "  *" + posterUsername + ' ' + message.substring(3, message.length));
+    } else {
+      var str = message.substring(4, message.length);
+      var reg = /\w*/;
+      var match = reg.exec(str);
+      var messagePM = message.substring(4 + match[0].length, message.length);
+      if (messageCommand === "pm" && match[0] == username) {
+        textnode = document.createTextNode('\n' + "[" + dateString + "][PM]" + n + "  ~" + posterUsername + ' whispers to you: ' + messagePM);
+      } else {
+        if (messageCommand !== "pm") {
+          textnode = document.createTextNode('\n' + "[" + dateString + "]" + n + "  " + posterUsername + ': ' + message);
         }
-        var textnode;
-        if (messageCommand === "me" && messageCommand !== "pm") {
-            textnode = document.createTextNode('\n' + "[" + dateString + "]"+n+"  *" + posterUsername + ' ' + message.substring(3, message.length));
-        } else {
-            var str = message.substring(4, message.length);
-            var reg = /\w*/;
-            var match = reg.exec(str);
-            var messagePM = message.substring(4 + match[0].length, message.length);
-            if (messageCommand === "pm" && match[0] == username) {
-                textnode = document.createTextNode('\n' + "[" + dateString + "][PM]"+n+"  ~" + posterUsername + ' whispers to you: ' + messagePM);
-            } else {
-                if (messageCommand !== "pm") {
-                    textnode = document.createTextNode('\n' + "[" + dateString + "]"+n+"  " + posterUsername + ': ' + message);
-                }
-            }
-            if (match[0] == "TLM" && username == "TheLastMillennial") {
-                textnode = document.createTextNode('\n'+"[" + dateString + "][PM]"+n+"  ~" + posterUsername + ' whispers to you: ' + messagePM);
-            }
-        }
-        if (username == "_iPhoenix_" || username == "iPhoenix") {
-            notifyMe(posterUsername + ": " + message);
-        }
-        node.appendChild(textnode);
-        var textClass = "outputText";
-        if (message.indexOf(username) != -1) {
-            textClass = "highlight";
-        }
-        if (username == "TheLastMillennial" && message.indexOf("TLM") != -1) {
-            textClass = "highlight";
-        }
-        node.setAttribute("class", textClass);
-        node.setAttribute("name", key);
-        document.getElementById("output").appendChild(node);
-        if (message.toLowerCase() == "~rules") {
-        	pushCommandResponse("\n["+dateString+"] [iPhoenixBot] Please stop breaking the Rules.");
-        }
-        if (message.toLowerCase() == "~spam") {
-					pushCommandResponse("\n["+dateString+"] [iPhoenixBot] Please stop spamming.");
-        }
-        if (message.toLowerCase() == "~releasethebots") {
-        	pushCommandResponse("\n["+dateString+"] [iPhoenixBot] THE BOTS HAVE BEEN RELEASED!!!");
-        }
-        if (message.toLowerCase() == "~stophating") {
-        	pushCommandResponse("\n["+dateString+"] [iPhoenixBot] It has \"Beta\" in the title for a reason.");
-        }
-        if (message.toLowerCase() == "~commandlist" || message.toLowerCase() == "~factoids" || message.toLowerCase() == "~commands")  {
-        	pushCommandResponse("\n["+dateString+"] [iPhoenixBot] Command List: https://github.com/Legend-of-iPhoenix/UniChat-dev-unstable/wiki/Command-List")
-        }
-	if (message.toLowerCase() == "~bad") {
-        	pushCommandResponse("\n["+dateString+"] [iPhoenixBot] That's so bad, it's almost impressive!");
-        }
-        var objDiv = document.getElementById("output");
-        objDiv.scrollTop = objDiv.scrollHeight;
+      }
+      if (match[0] == "TLM" && username == "TheLastMillennial") {
+        textnode = document.createTextNode('\n' + "[" + dateString + "][PM]" + n + "  ~" + posterUsername + ' whispers to you: ' + messagePM);
+      }
     }
+    if (username == "_iPhoenix_" || username == "iPhoenix") {
+      notifyMe(posterUsername + ": " + message);
+    }
+    node.appendChild(textnode);
+    var textClass = "outputText";
+    if (message.indexOf(username) != -1) {
+      textClass = "highlight";
+    }
+    if (username == "TheLastMillennial" && message.indexOf("TLM") != -1) {
+      textClass = "highlight";
+    }
+    node.setAttribute("class", textClass);
+    node.setAttribute("name", key);
+    document.getElementById("output").appendChild(node);
+    if (message.toLowerCase() == "~rules") {
+      pushCommandResponse("\n[" + dateString + "] [iPhoenixBot] Please stop breaking the Rules.");
+    }
+    if (message.toLowerCase() == "~spam") {
+      pushCommandResponse("\n[" + dateString + "] [iPhoenixBot] Please stop spamming.");
+    }
+    if (message.toLowerCase() == "~releasethebots") {
+      pushCommandResponse("\n[" + dateString + "] [iPhoenixBot] THE BOTS HAVE BEEN RELEASED!!!");
+    }
+    if (message.toLowerCase() == "~stophating") {
+      pushCommandResponse("\n[" + dateString + "] [iPhoenixBot] It has \"Beta\" in the title for a reason.");
+    }
+    if (message.toLowerCase() == "~commandlist" || message.toLowerCase() == "~factoids" || message.toLowerCase() == "~commands") {
+      pushCommandResponse("\n[" + dateString + "] [iPhoenixBot] Command List: https://github.com/Legend-of-iPhoenix/UniChat-dev-unstable/wiki/Command-List")
+    }
+    if (message.toLowerCase() == "~bad") {
+      pushCommandResponse("\n[" + dateString + "] [iPhoenixBot] That's so bad, it's almost impressive!");
+    }
+    if (message.toLowerCase().substring(0, 8) == "~profile") {
+      pushCommandResponse("\n[" + dateString + "] [iPhoenixBot] " + posterUsername + ": " + window.location.href.replace("index.html", "") + "profileLink/index.html?u=" + encodeURI(message.substring(9, message.length)));
+    }
+    var objDiv = document.getElementById("output");
+    objDiv.scrollTop = objDiv.scrollHeight;
+  }
 }
 
 function pushCommandResponse(cr) {
-	var n = document.createElement("DIV");
+  var textClass = "outputText";
+  if (cr.indexOf(username) != -1) {
+    textClass = "highlight";
+  }
+  if (username == "TheLastMillennial" && cr.indexOf("TLM") != -1) {
+    textClass = "highlight";
+  }
+  var n = document.createElement("DIV");
   var t = document.createTextNode(cr);
   n.appendChild(t);
-  n.setAttribute("class","outputText");
-	document.getElementById("output").appendChild(n);
+  n.setAttribute("class", textClass);
+  document.getElementById("output").appendChild(n);
 }
 
 function interpretChangedMessage(data, key) {
   document.getElementsByName(key)[0].remove();
   interpretMessage(data, key);
+}
+//thx, stackoverflow.
+function HtmlEncode(s) {
+  var el = document.createElement("div");
+  el.innerText = el.textContent = s;
+  s = el.innerHTML;
+  return s;
 }
