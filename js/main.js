@@ -251,7 +251,7 @@ function submitMessage() {
         }
       } else {
         var node = document.createElement("DIV");
-        var text = document.createTextNode("\n Please do not spam. (Well, don't on the real version. You can here)");
+        var text = document.createTextNode("\n Please do not spam.");
         node.appendChild(text);
         document.getElementById("output").appendChild(node);
         document.getElementById('output').scrollTop = document.getElementById("output").scrollHeight;
@@ -431,9 +431,6 @@ function notifyMe(message) {
       }
     });
   }
-
-  // At last, if the user has denied notifications, and you 
-  // want to be respectful there is no need to bother them any more.
 }
 
 function getJSON(url, callback) {
@@ -537,7 +534,7 @@ function interpretMessage(data, key) {
       pushCommandResponse("\n[" + dateString + "] [iPhoenixBot] It has \"Beta\" in the title for a reason.");
     }
     if (message.toLowerCase() == "~commandlist" || message.toLowerCase() == "~factoids" || message.toLowerCase() == "~commands") {
-      pushCommandResponse("\n[" + dateString + "] [iPhoenixBot] Command List: https://github.com/Legend-of-iPhoenix/UniChat-dev-unstable/wiki/Command-List")
+      pushCommandResponse("\n[" + dateString + "] [iPhoenixBot] Command List: https://github.com/Legend-of-iPhoenix/UniChatDemo/wiki/Command-List")
     }
     if (message.toLowerCase() == "~bad") {
       pushCommandResponse("\n[" + dateString + "] [iPhoenixBot] That's so bad, it's almost impressive!");
