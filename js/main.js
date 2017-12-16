@@ -90,7 +90,7 @@ function checkCookie() {
   if (u != "") {
     if (u != "iPhoenix") {
       alert("Welcome back to UniChat, " + u);
-      var database = firebase.database();
+      /*var database = firebase.database();
       database.ref("Data/").push({
         text: u + " has entered the room. :]",
         ts: Date.now(),
@@ -98,7 +98,7 @@ function checkCookie() {
         tag: ["all"],
         n: 0,
         to: ""
-      });
+      });*/
     }
     var n = new Date(Date.now());
     var q = n.toString();
