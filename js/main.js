@@ -7,7 +7,7 @@
 //     \________/    ______                                   ______ 
 //                  |______|                                 |______|
 //
-// V0.57.1
+// V0.57.2
 //
 // (just ask if you want to use my source, I probably won't say no.) 
 // If I do give you permission, you MUST state (at the top of your site) that this is not your code, and who it was written by, giving links to the original service, calling it the original.
