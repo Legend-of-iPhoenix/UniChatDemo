@@ -521,6 +521,7 @@ function interpretMessage(data, key) {
     node.setAttribute("class", textClass);
     node.setAttribute("name", key);
     document.getElementById("output").appendChild(node);
+    document.getElementById("output").scrollTop = document.getElementById("output").scrollHeight;
   }
 }
 
