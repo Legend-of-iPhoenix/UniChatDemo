@@ -525,3 +525,7 @@ function interpretMessage(data, key) {
   }
 }
 
+function interpretChangedMessage(data, key) {
+  document.getElementsByName(key)[0].remove();
+  interpretMessage(data, key);
+}
