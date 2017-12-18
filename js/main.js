@@ -7,7 +7,7 @@
 //     \________/    ______                                   ______ 
 //                  |______|                                 |______|
 //
-// V0.57.2
+// V0.57.3
 //
 // (just ask if you want to use my source, I probably won't say no.) 
 // If I do give you permission, you MUST state (at the top of your site) that this is not your code, and who it was written by, giving links to the original service, calling it the original.
@@ -205,7 +205,7 @@ function submitMessage() {
     }
     if (messageBox.value != undefined && messageBox.value != "" && messageBox.value != '' && messageBox.value.length < 256) {
       if (countArrayGreaterThanOrEqualTo(timestamps, Date.now() - 15000) < 5 || (numDuplicates > 5)) {
-        if (messageBox.value.toUpperCase() != lastMessage.toUpperCase()) {
+        if (messageBox.value.toUpperCase() != lastMessage.toUpperCase() && (lastMessage.toUpperCase().replace(/[^\w]/g,"") != messageBox.value.toUpperCase().replace(/[^\w]/g,""))) {
           numDuplicates == 0;
           timestamps[timestamps.length] = Date.now();
           var n = new Date().getTime();
@@ -230,7 +230,7 @@ function submitMessage() {
             n: 0,
             v: nLimit,
             x: numLimit,
-	    k: 0
+            k: 0
           });
           lastMessageRef = uid + "-" + n + "-" + numLimit;
           lastMessage = messageBox.value;
@@ -369,6 +369,7 @@ function refreshOutput() {
   });
 }
 
+/*
 function getRecentPMs() {
   var output = document.getElementById("output");
   var node = document.createElement("DIV");
@@ -411,7 +412,7 @@ function getRecentPMs() {
       objDiv.scrollTop = objDiv.scrollHeight;
     }
   }, 1000);
-}
+}*/
 
 function notifyMe(message) {
   // Let's check if the browser supports notifications
@@ -458,13 +459,13 @@ function countArrayGreaterThanOrEqualTo(array, number) {
 }
 
 function toggleNotifications() {
-	notificationStatus = !notificationStatus;
-	console.log("Notifications: " + (notificationStatus ? "On" : "Off"));
+  notificationStatus = !notificationStatus;
+  console.log("Notifications: " + (notificationStatus ? "On" : "Off"));
 }
 
 function toggleNotificationOnHighlight() {
-	highlightNotificationStatus = !highlightNotificationStatus;
-	console.log("Highlight Notifications: " + (highlightNotificationStatus ? "On" : "Off"));
+  highlightNotificationStatus = !highlightNotificationStatus;
+  console.log("Highlight Notifications: " + (highlightNotificationStatus ? "On" : "Off"));
 }
 function interpretMessage(data, key) {
   var message = data.text;
@@ -486,37 +487,37 @@ function interpretMessage(data, key) {
     }
     var textnode;
     if (messageCommand === "me" && messageCommand !== "pm") {
-      textnode = document.createTextNode('\n' + "[" + dateString + "]" + n + "  *" + posterUsername + ' ' + message.substring(3, message.length));
+      textnode = "[" + dateString + "]" + n + "  *" + posterUsername + ' ' + message.substring(3, message.length);
     } else {
       var str = message.substring(4, message.length);
       var reg = /\w*/;
       var match = reg.exec(str);
       var messagePM = message.substring(4 + match[0].length, message.length);
       if (messageCommand === "pm" && match[0] == username) {
-        textnode = document.createTextNode('\n' + "[" + dateString + "][PM]" + n + "  ~" + posterUsername + ' whispers to you: ' + messagePM);
+        textnode = "[" + dateString + "][PM]" + n + "  ~" + posterUsername + ' whispers to you: ' + messagePM;
       } else {
         if (messageCommand !== "pm") {
-          textnode = document.createTextNode('\n' + "[" + dateString + "]" + n + "  " + posterUsername + ': ' + message);
+          textnode = "[" + dateString + "]" + n + "  " + posterUsername + ': ' + message;
         }
       }
       if (match[0] == "TLM" && username == "TheLastMillennial") {
-        textnode = document.createTextNode('\n' + "[" + dateString + "][PM]" + n + "  ~" + posterUsername + ' whispers to you: ' + messagePM);
+        textnode = "[" + dateString + "][PM]" + n + "  ~" + posterUsername + ' whispers to you: ' + messagePM;
       }
     }
     if (notificationStatus) {
       notifyMe(posterUsername + ": " + message);
     }
-    node.appendChild(textnode);
+    node.innerHTML = detectURL(textnode);
     var textClass = "outputText";
     if (message.indexOf(username) != -1) {
       textClass = "highlight";
       if (highlightNotificationStatus)
-      	notifyMe(posterUsername + ": " + message);
+        notifyMe(posterUsername + ": " + message);
     }
     if (username == "TheLastMillennial" && message.indexOf("TLM") != -1) {
       textClass = "highlight";
       if (highlightNotificationStatus)
-      	notifyMe(posterUsername + ": " + message);
+        notifyMe(posterUsername + ": " + message);
     }
     node.setAttribute("class", textClass);
     node.setAttribute("name", key);
@@ -528,4 +529,35 @@ function interpretMessage(data, key) {
 function interpretChangedMessage(data, key) {
   document.getElementsByName(key)[0].remove();
   interpretMessage(data, key);
+}
+
+function cleanse(message) {
+  var n = document.createElement("DIV");
+  n.innerText = message;
+  return n.innerHTML;
+}
+
+function detectURL(message) {
+  message = cleanse(message);
+  var result = "";
+  var n = "";
+  //I'm using SAX's URL detection regex, because it works.
+  var url_pattern = 'https?:\\/\\/[A-Za-z0-9\\.\\-\\/?&+=;:%#_~]+';
+  var pattern = new RegExp(url_pattern, 'g');
+  var match = message.match(pattern);
+  if (match) {
+    for (var i = 0; i < match.length; i++) {
+      var link = '<a href="' + match[i] + '">' + match[i] + '</a>';
+      var start = message.indexOf(match[i]);
+      var header = message.substring(n.length, start);
+      n += header;
+      n += match[i];
+      result = result.concat(header);
+      result = result.concat(link);
+    }
+    result += message.substring(n.length, message.length);
+  } else {
+    result = message;
+  }
+  return result
 }
