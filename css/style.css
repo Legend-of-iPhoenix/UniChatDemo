@@ -18,7 +18,7 @@ body {
 }
 
 a {
-  color: #bbb;
+  color: #aaa;
   -webkit-text-decoration-color: #ccc; /* Safari */    
   text-decoration-color: #ccc;
 }
@@ -30,15 +30,31 @@ a:hover {
 }
 
 a:visited {
-  color: #aaa;
+  color: #888;
   -webkit-text-decoration-color: #ccc; /* Safari */    
   text-decoration-color: #ccc;
 }
 
 a:visited:hover {
-  color: #bbb;
+  color: #ccc;
   -webkit-text-decoration-color: #fff; /* Safari */    
   text-decoration-color: #fff;
+}
+
+.highlight a {
+  color: #aaa;
+}
+
+.highlight a:hover {
+  color: #bbb;
+}
+
+.highlight a:visited {
+  color: #999;
+}
+
+.highlight a:hover {
+  color: #bbb;
 }
 
 span {
@@ -144,7 +160,6 @@ h3 {
   color: #aaa;
 }
 
-
 span {
   padding: 2px 10px;
   border-radius: 2px;
@@ -237,7 +252,7 @@ input[value="Submit"] {
 }
 
 input[type=button]:hover {
-  box-shadow: 0 12px 16px 0 rgba(0,0,0,0.8),0 17px 50px 0 rgba(0,0,0,0.7);
+  box-shadow: 0 12px 16px 0 rgba(0,0,0,0.8),0 17px 30px 0 rgba(0,0,0,0.7);
 }
 
 h1 {
