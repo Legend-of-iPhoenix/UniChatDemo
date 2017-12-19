@@ -7,13 +7,12 @@
 //     \________/    ______                                   ______ 
 //                  |______|                                 |______|
 //
-// V0.57.3
+// V0.57.4
 //
 // (just ask if you want to use my source, I probably won't say no.) 
 // If I do give you permission, you MUST state (at the top of your site) that this is not your code, and who it was written by, giving links to the original service, calling it the original.
 // Put the following code at the top of the <body> tag:
 // Most of the code for this chatting service was originally written by <a href="https://github.com/Legend-of-iPhoenix">_iPhoenix_</a>. 
-// If you do not, then your site breaks international copyright law.
 //
 // All rights reserved. (I really do hate writing such stringent licenses...)
 var selectedRoom = "Chat";
@@ -467,6 +466,7 @@ function toggleNotificationOnHighlight() {
   highlightNotificationStatus = !highlightNotificationStatus;
   console.log("Highlight Notifications: " + (highlightNotificationStatus ? "On" : "Off"));
 }
+
 function interpretMessage(data, key) {
   var message = data.text;
   var datePosted = data.ts;
@@ -504,7 +504,7 @@ function interpretMessage(data, key) {
         textnode = "[" + dateString + "][PM]" + n + "  ~" + posterUsername + ' whispers to you: ' + messagePM;
       }
     }
-    if (notificationStatus) {
+    if (notificationStatus && messageCommand != "pm") {
       notifyMe(posterUsername + ": " + message);
     }
     node.innerHTML = detectURL(textnode);
@@ -519,10 +519,12 @@ function interpretMessage(data, key) {
       if (highlightNotificationStatus)
         notifyMe(posterUsername + ": " + message);
     }
-    node.setAttribute("class", textClass);
-    node.setAttribute("name", key);
-    document.getElementById("output").appendChild(node);
-    document.getElementById("output").scrollTop = document.getElementById("output").scrollHeight;
+    if (node.innerHTML != "") {
+      node.setAttribute("class", textClass);
+      node.setAttribute("name", key);
+      document.getElementById("output").appendChild(node);
+      document.getElementById("output").scrollTop = document.getElementById("output").scrollHeight;
+    }
   }
 }
 
@@ -539,6 +541,7 @@ function cleanse(message) {
 
 function detectURL(message) {
   message = cleanse(message);
+  if (message !== undefined && message !== null) {
   var result = "";
   var n = "";
   //I'm using SAX's URL detection regex, because it works.
@@ -558,6 +561,9 @@ function detectURL(message) {
     result += message.substring(n.length, message.length);
   } else {
     result = message;
+  }
+  }else {
+    result = "";
   }
   return result
 }
