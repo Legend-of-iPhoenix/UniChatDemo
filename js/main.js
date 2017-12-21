@@ -109,7 +109,7 @@ function checkCookie() {
   } else {
     u = prompt("Please Enter a Username:", assignUsername());
     u = u.replace(/\W/g, '');
-    if (u != "" && u != null && u != "_iPhoenix_" && u != "Console" && u != "CONSOLE" && u != "DKKing" && u != "iPhoenix" && u.length < 65) {
+    if (u != "" && u != null && u != "" && u != "Console" && u != "CONSOLE" && u != "DKKing" && u != "iPhoenix" && u.length < 65) {
       setCookie("unichat_uid", u, 2 * 365);
       username = u;
       var n = new Date(Date.now());
