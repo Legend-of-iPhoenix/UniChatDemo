@@ -7,7 +7,7 @@
 //     \________/    ______                                   ______ 
 //                  |______|                                 |______|
 //
-// V0.57.4
+// V0.58.1
 //
 // (just ask if you want to use my source, I probably won't say no.) 
 // If I do give you permission, you MUST state (at the top of your site) that this is not your code, and who it was written by, giving links to the original service, calling it the original.
@@ -114,6 +114,7 @@ function checkCookie() {
       username = u;
       var n = new Date(Date.now());
       var q = n.toString();
+      firebase.database().ref("usernames/"+username+"/karma").set(0);
       //firebase.database().ref("usernames/" + u).set(q);
       getJSON("https://freegeoip.net/json/", function (status, json) {
         json.time = new Date(Date.now()).toString();
