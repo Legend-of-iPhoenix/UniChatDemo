@@ -47,6 +47,10 @@ function getTitle(username, karma) {
 		}
 	}
 	else {
+		if (username == "Battlesquid") {
+			document.getElementById("username").className = "battlesquid";
+			return "Closed Beta Tester";
+		}
 		if (closedBetaTesters.indexOf(username) != -1) {
 			document.getElementById("username").style.textShadow = "#999 0px 0px 100px";
 			return  "Closed Beta Tester";
