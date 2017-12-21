@@ -57,6 +57,12 @@ a:visited:hover {
   color: #bbb;
 }
 
+.battlesquid {
+  margin-top: 30px;
+  text-shadow: 0px 0px 10px #fefcc9, -4px -6px 15px #feec85, 11px 1px 20px #ffae34, 7px -14px 25px #ec760c, 8px -17px 30px #cd4606, -10px -20px 20px #973716, 2px -20px 50px #451b0e;
+  color: white;
+}
+
 span {
   padding: 2px 10px;
   border-radius: 2px;
