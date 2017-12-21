@@ -9,21 +9,19 @@ function getMessage(tag) {
 };
 
 window.onload = function () {
-  var user = decodeURI(getMessage("u"));
-  var karma = getMessage("k");
-  console.log(karma);
-  if (user !== "undefined" && karma !== "undefined" && rank !== "undefined" && user && rank && karma && user !== "null" && karma !== "null" && rank !== "null") {
+  getKarma(decodeURI(getMessage("u")));
+}
+
+function display(data) {
+  var user = data.u;
+  var karma = data.k;
+  if (user !== "undefined" && user !== "null"  && user && karma) {
     document.getElementById("username").innerText = user;
     document.getElementById("karma").innerText = "Karma: +" + karma;
     document.getElementById("rank").innerHTML = getTitle(user, karma);
   } else {
     document.getElementById("username").innerText = "That user does not appear in our database, or the request was badly formatted.";
     document.getElementById("rank").innerHTML = "Sorry!";
-  }
-  var uri = window.location.toString();
-  if (uri.indexOf("?") > 0) {
-    var clean_uri = uri.substring(0, uri.indexOf("?"));
-    window.history.replaceState({}, document.title, clean_uri);
   }
 }
 
@@ -66,4 +64,10 @@ function getTitle(username, karma) {
       return "^^ has no life";
     }
   }
+}
+
+function getKarma(user) {
+  firebase.database().ref("usernames/"+user+"/karma").once("value").then(function(snapshot) {
+      display({u: user, k: snapshot.val()});
+  });
 }

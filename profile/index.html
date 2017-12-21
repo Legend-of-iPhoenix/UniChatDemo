@@ -1,18 +1,44 @@
 <!DOCTYPE html>
 <html>
-  <head>
+    <head>
     <title> UniChat Beta </title>
     <!-- Google Tag Manager --> 
     <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start': new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0], j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src= 'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f); })(window,document,'script','dataLayer','GTM-NJR6RD8');</script> 
     <!-- End Google Tag Manager -->
+    <!--<script src="https://www.gstatic.com/firebasejs/4.6.2/firebase.js"></script>
+    <script>
+      // Initialize Firebase
+      var config = {
+        apiKey: "AIzaSyC9eUkCvbKv7nzQocRelivvyvWAlmiORsg",
+        authDomain: "unichat-10bbd.firebaseapp.com",
+        databaseURL: "https://unichat-10bbd.firebaseio.com",
+        projectId: "unichat-10bbd",
+        storageBucket: "unichat-10bbd.appspot.com",
+        messagingSenderId: "847148140589"
+      };
+      firebase.initializeApp(config);
+    </script>-->
     
+<script src="https://www.gstatic.com/firebasejs/4.8.0/firebase.js"></script>
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyBhhzNlObAwm6hqm62NI6BRikA2o5pYhkg",
+    authDomain: "unichat-demo.firebaseapp.com",
+    databaseURL: "https://unichat-demo.firebaseio.com",
+    projectId: "unichat-demo",
+    storageBucket: "",
+    messagingSenderId: "712992764474"
+  };
+  firebase.initializeApp(config);
+</script>
     <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="../css/style.css">
     <script src="js/main.js"></script>
   </head>
   <body>
-    <h1 id="username">Sorry, but this link has expired :/</h1>
-    <h2 id="rank"></h2>
+    <h1 id="username">Loading...</h1>
+    <h2 id="rank">If you can see this for longer than 10 seconds, then something has gone wrong, or you have a horrid internet connection.</h2>
     <p id="karma"></p>
   </body>
 </html>
