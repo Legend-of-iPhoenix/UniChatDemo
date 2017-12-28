@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title> UniChat Beta </title>
+    <!-- Google Tag Manager --> 
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start': new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0], j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src= 'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f); })(window,document,'script','dataLayer','GTM-NJR6RD8');</script> 
+    <!-- End Google Tag Manager -->
+    
+    
+<script src="https://www.gstatic.com/firebasejs/4.8.0/firebase.js"></script>
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyBhhzNlObAwm6hqm62NI6BRikA2o5pYhkg",
+    authDomain: "unichat-demo.firebaseapp.com",
+    databaseURL: "https://unichat-demo.firebaseio.com",
+    projectId: "unichat-demo",
+    storageBucket: "",
+    messagingSenderId: "712992764474"
+  };
+  firebase.initializeApp(config);
+</script>
+    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="../css/style.css">
+    <script src="js/main.js"></script>
+    <script src="js/bots/initialize.js"></script>
+    <script src="js/bots/iPhoenixBotAndKarmaBot.js"></script>
+    <script src="js/bots/wompBot.js"></script>
+  </head>
+  <body>
+    <h1>UniChat Admin Login.</h1>
+    <p>Only UniChat administrators and moderators can login here.</p>
+    <div id="login">
+      Email: <input type="text" name="email" placeholder="Email" style="width: 20%;"><br />
+      Password: <input type="password" name="password" style="width: 20%;"><br />
+      <input type="button" name="submitAdmin" value="login" onclick="login()">
+    </div>
+
+
+    <div id="adminDiv"></div>
+  </body>
+</html>
