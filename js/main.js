@@ -277,6 +277,8 @@ document.getElementById("message").addEventListener("keyup", function (event) {
 function changeUsername() {
   if (username == "TLM")
     username = "TheLastMillennial";
+  if (username == "LAX")
+    username = "LAX18";
   if (username == "VioletJewel")
     username = "Battlesquid";
   if (username == "xMarminq_________________________")
