@@ -1,6 +1,8 @@
 //Thanks, guys. It means a lot. - The Development Team
 var closedBetaTesters = ["SM84CE", "TheLastMillennial", "TLM", "Battlesquid", "xMarminq_"];
 
+var helpers = ["LAX18"];
+
 function getMessage(tag) {
   var href = window.location.href;
   var reg = new RegExp('[?&]' + tag + '=([^&#]*)', 'i');
@@ -43,6 +45,10 @@ function getTitle(username, karma) {
     if (username == "Battlesquid") {
       document.getElementById("username").className = "battlesquid";
       return "Closed Beta Tester";
+    }
+    if (helpers.indexOf(username) != -1) {
+      document.getElementById("username").style.textShadow = "#999 0px 0px 100px";
+      return "Contributor"
     }
     if (closedBetaTesters.indexOf(username) != -1) {
       document.getElementById("username").style.textShadow = "#999 0px 0px 100px";
