@@ -2,7 +2,7 @@
 
 ## Credits
 
-Mostly done by \_iPhoenix\_, with some styling help from MrDKKing, and some edits and awesomeness up by LAX18.
+Mostly done by \_iPhoenix\_, with some styling help from MrDKKing, and some edits and awesomeness by LAX18.
 
 Favicon and header image made by LAX18.
 
