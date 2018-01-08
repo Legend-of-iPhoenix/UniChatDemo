@@ -463,13 +463,13 @@ function countArrayGreaterThanOrEqualTo(array, number) {
 function toggleNotifications() {
   notificationStatus = !notificationStatus;
   console.log("Notifications: " + (notificationStatus ? "On" : "Off"));
-  alert("Notfications: " + (notificationsStatus ? "On" : "Off"));
+  alert("Notfications: " + (notificationStatus ? "On" : "Off"));
 }
 
 function toggleNotificationOnHighlight() {
   highlightNotificationStatus = !highlightNotificationStatus;
   console.log("Highlight Notifications: " + (highlightNotificationStatus ? "On" : "Off"));
-  alert("Highlight Notfications: " + (highlightNotificationsStatus ? "On" : "Off"));
+  alert("Highlight Notfications: " + (highlightNotificationStatus ? "On" : "Off"));
 }
 
 function interpretMessage(data, key) {
