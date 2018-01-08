@@ -5,10 +5,11 @@
 
 .centered {
   margin: 0 auto;
+  width: fit-content;
 }
 
 body {
-  color: #0e0;
+  color: #d8d8d8;
   background-color: #2d2d2d;
 }
 
