@@ -4,7 +4,8 @@
 }
 
 .centered {
-  margin: 0 auto;
+  margin-left: auto ;
+  margin-right: auto ;
 }
 
 body {
@@ -129,7 +130,7 @@ input[type=button], button {
   padding: 2px 10px;
 }
 
-input[value="Submit"] {
+input[value="Send"] {
   width: auto;
 }
 
