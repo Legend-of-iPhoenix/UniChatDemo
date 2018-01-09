@@ -425,7 +425,7 @@ function notifyMe(message) {
     var notification = new Notification("Unichat", {
         icon: 'https://i.imgur.com/7POdNS3.png',
         body: message
-        }));
+        });
   }
 
   // Otherwise, we need to ask the user for permission
@@ -436,7 +436,7 @@ function notifyMe(message) {
         var notification = new Notification("Unichat", {
         icon: 'https://i.imgur.com/7POdNS3.png',
         body: message
-        }));
+        });
       }
     });
   }
