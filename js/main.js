@@ -398,7 +398,6 @@ function getRecentPMs() {
       node.appendChild(textnode);
       node.setAttribute("class", "highlight");
       document.getElementById("output").appendChild(node);
-
       var objDiv = document.getElementById("output");
       objDiv.scrollTop = objDiv.scrollHeight;
     });
@@ -422,9 +421,7 @@ function notifyMe(message) {
   // Let's check whether notification permissions have already been granted
   if (Notification.permission === "granted") {
     // If it's okay let's create a notification
-        var notification = new Notification("Unichat", message, https://i.imgur.com/7POdNS3.png);
-   // var notification = new Notification(message);
-   // var icon = Notification.icon;
+    var notification = new Notification(message);
   }
 
   // Otherwise, we need to ask the user for permission
@@ -432,7 +429,7 @@ function notifyMe(message) {
     Notification.requestPermission(function (permission) {
       // If the user accepts, let's create a notification
       if (permission === "granted") {
-        var notification = new Notification("Unichat", message, https://i.imgur.com/7POdNS3.png);
+        var notification = new Notification(message);
       }
     });
   }
