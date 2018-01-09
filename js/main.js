@@ -422,7 +422,13 @@ function notifyMe(message) {
   // Let's check whether notification permissions have already been granted
   if (Notification.permission === "granted") {
     // If it's okay let's create a notification
-    var notification = new Notification(message);
+    var options = { 
+          body: message
+          icon: https://i.imgur.com/7POdNS3.png
+        }
+        var notification = new Notification("Unichat", options);
+   // var notification = new Notification(message);
+   // var icon = Notification.icon;
   }
 
   // Otherwise, we need to ask the user for permission
@@ -430,7 +436,11 @@ function notifyMe(message) {
     Notification.requestPermission(function (permission) {
       // If the user accepts, let's create a notification
       if (permission === "granted") {
-        var notification = new Notification(message);
+        var options = { 
+          body: message
+          icon: https://i.imgur.com/7POdNS3.png
+        }
+        var notification = new Notification("Unichat", options);
       }
     });
   }
