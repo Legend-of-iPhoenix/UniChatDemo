@@ -398,6 +398,7 @@ function getRecentPMs() {
       node.appendChild(textnode);
       node.setAttribute("class", "highlight");
       document.getElementById("output").appendChild(node);
+
       var objDiv = document.getElementById("output");
       objDiv.scrollTop = objDiv.scrollHeight;
     });
