@@ -17,7 +17,7 @@ window.onload = function () {
 function display(data) {
   var user = data.u;
   var karma = data.k;
-  if (user !== "undefined" && user !== "null"  && user && karma) {
+  if (user !== "undefined" && user !== "null"  && user) {
     document.getElementById("username").innerText = user;
     document.getElementById("karma").innerText = "Karma: +" + karma;
     document.getElementById("rank").innerHTML = getTitle(user, karma);
