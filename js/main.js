@@ -178,9 +178,6 @@ function submitMessage() {
       var data = childSnapshot.val();
       var time = data.t;
       var message = data.m;
-      console.log(data);
-      console.log(time);
-      console.log(message);
       if (data !== null && data !== undefined) {
         if (data.t >= Date.now()) {
           var until = data.t;
@@ -260,7 +257,7 @@ function submitMessage() {
       messageBox.style.border = "3px solid #f00";
       window.setTimeout(function () {
         messageBox.style.border = "3px solid #ccc";
-      }, 1000);
+      }, 1250);
     }
   }
 }
@@ -320,6 +317,11 @@ function filter(haystack, arr) {
 function redirectFromHub() {
   if (isSignedIn) {
     dataRef.off();
+  }
+  if !("Notification" in window) {
+    document.getElementById("settingsDiv").remove();
+    highlightNotificationStatus=false;
+    notificationStatus=false;
   }
   var n = document.getElementById('output');
   n.innerHTML = "";
@@ -417,8 +419,6 @@ function getRecentPMs() {
 }*/
 
 function notifyMe(message) {
-  // Let's check if the browser supports notifications
-
   // Let's check whether notification permissions have already been granted
   if (Notification.permission === "granted") {
     // If it's okay let's create a notification
