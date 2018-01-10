@@ -1,20 +1,16 @@
-//      ________          _ _____  _                      _          
-//     /  ____  \        (_)  __ \| |                    (_)         
-//    /  / ___|  \        _| |__) | |__   ___   ___ _ __  ___  __    
-//   |  | |       |      | |  ___/| '_ \ / _ \ / _ \ '_ \| \ \/ /    
-//   |  | |___    |      | | |    | | | | (_) |  __/ | | | |>  <     
-//    \  \____|  /       |_|_|    |_| |_|\___/ \___|_| |_|_/_/\_\    
-//     \________/    ______                                   ______ 
+//      ________          _ _____  _                      _
+//     /  ____  \        (_)  __ \| |                    (_)
+//    /  / ___|  \        _| |__) | |__   ___   ___ _ __  ___  __
+//   |  | |       |      | |  ___/| '_ \ / _ \ / _ \ '_ \| \ \/ /
+//   |  | |___    |      | | |    | | | | (_) |  __/ | | | |>  <
+//    \  \____|  /       |_|_|    |_| |_|\___/ \___|_| |_|_/_/\_\
+//     \________/    ______                                   ______
 //                  |______|                                 |______|
 //
 // V0.60.0b
 //
-// (just ask if you want to use my source, I probably won't say no.) 
-// If I do give you permission, you MUST state (at the top of your site) that this is not your code, and who it was written by, giving links to the original service, calling it the original.
-// Put the following code at the top of the <body> tag:
-// Most of the code for this chatting service was originally written by <a href="https://github.com/Legend-of-iPhoenix">_iPhoenix_</a>. 
-//
-// All rights reserved. (I really do hate writing such stringent licenses...)
+// (just ask if you want to use my source, I probably won't say no.)
+
 var selectedRoom = "Chat";
 var isSignedIn = false;
 var dataRef;
@@ -34,8 +30,8 @@ var nLimit;
 var username = "anonymous";
 
 function assignUsername() {
-  var adj = ["Anonymous", "Small", "Red", "Orange", "Yellow", "Blue", "Indigo", "Violet", "Shiny", "Sparkly", "Large", "Hot", "Cold", "Evil", "Kind", "Ugly", "Legendary", "Flaming", "Salty", "Slippery","Greasy","Intelligent","Heretic","Exploding"];
-  var noun = ["Bear", "Dog", "Cat", "Banana", "Pepper", "Bird", "Lion", "Apple", "Phoenix", "Diamond", "Person", "Whale", "Plant", "Duckling", "Thing", "Flame", "Number", "Cow", "Dragon", "Hedgehog","Grape","Lemon"];
+  var adj = ["Anonymous", "Small", "Red", "Orange", "Yellow", "Blue", "Indigo", "Violet", "Shiny", "Sparkly", "Large", "Hot", "Cold", "Evil", "Kind", "Ugly", "Legendary", "Flaming", "Salty", "Slippery","Greasy","Intelligent","Heretic","Exploding","Shimmering","Analytical"];
+  var noun = ["Bear", "Dog", "Cat", "Banana", "Pepper", "Bird", "Lion", "Apple", "Phoenix", "Diamond", "Person", "Whale", "Plant", "Duckling", "Thing", "Flame", "Number", "Cow", "Dragon", "Hedgehog","Grape","Lemon","Fish","Number","Dinosaur","Crystal"];
 
   var rAdj = Math.floor(Math.random() * adj.length);
   var rNoun = Math.floor(Math.random() * noun.length);
@@ -325,11 +321,6 @@ function redirectFromHub() {
   }
   var n = document.getElementById('output');
   n.innerHTML = "";
-  //var data = document.getElementsByName("hubSelect");
-  // for (var i = 0; i < data.length; i++) {
-  //   if (data[i].checked)
-  //      selectedRoom = data[i].value;
-  //  }
   username = checkCookie();
   changeUsername();
   firebase.auth().currentUser.updateProfile({
