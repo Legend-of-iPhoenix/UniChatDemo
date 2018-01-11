@@ -9,6 +9,10 @@
   "manifest_version": 2,
   "name": "My App",
   "version": "versionString",
+  "browser_action": {
+		"default_icon": "myicon.png",
+		"popup": "popup.html"
+	}
 
   // Recommended
   "default_locale": "en",
