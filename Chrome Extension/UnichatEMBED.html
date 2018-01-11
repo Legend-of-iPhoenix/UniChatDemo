@@ -33,7 +33,7 @@
   firebase.initializeApp(config);
 </script>
     <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="https://lax18.github.io/UniChatDemo/css/style.css">
+    <link rel="stylesheet" type="text/css" href="https://legend-of-iphoenix.github.io/UniChatDemo/css/style.css">
   </head>
   <link rel="icon" 
       type="image/png" 
@@ -41,11 +41,21 @@
   <body>
     <div id="output"></div>
     <div id="IN" style="width: 100%;">
-      <input type="text" id="message">
-      <input type="button" value="Send" onclick="submitMessage()">
+      <input type="text" id="message" style="width: 75%">
+      <input type="button" value="Send" onclick="submitMessage()" style="width: 25%">
     </div>
-   Settings: <br />
+   <h3> Settings: </h3><br />
+   <table>
+    <tr>
+     <td>
    <input type="button" value="Highlight Notifications" onclick="toggleNotificationOnHighlight()">
-  <script src="https://lax18.github.io/UniChatDemo/js/main.js"></script>
+     </td>
+     <td>
+      <h3>Unichat Extension</h3> <br />
+      <h5>by LAX18</h5>
+     </td>
+    </tr>
+   </table>
+  <script src="https://legend-of-iphoenix.github.io/UniChatDemo/js/main.js"></script>
   </body>
 </html>
