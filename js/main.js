@@ -24,6 +24,10 @@ var isFirstMessage = true;
 var notificationStatus = false;
 var highlightNotificationStatus = false;
 
+var sendAlert = function(text) {
+  alert(text);
+}
+
 var numLimit;
 var nLimit;
 
@@ -84,7 +88,7 @@ function checkCookie() {
   var u = getCookie("unichat_uid");
   if (u != "") {
     if (u != "iPhoenix") {
-      alert("Welcome back to UniChat, " + u);
+      sendAlert("Welcome back to UniChat, " + u);
       /*var database = firebase.database();
       database.ref("Data/").push({
         text: u + " has entered the room. :]",
@@ -253,7 +257,7 @@ function submitMessage() {
       messageBox.style.border = "3px solid #f00";
       window.setTimeout(function () {
         messageBox.style.border = "3px solid #ccc";
-      }, 1250);
+      }, 1000);
     }
   }
 }
@@ -342,7 +346,7 @@ window.onload = function () {
   firebase.auth().signInAnonymously().catch(function (error) {
     var errorCode = error.code;
     var errorMessage = error.message;
-    alert("Error: \n" + errorMessage);
+    sendAlert("Error: \n" + errorMessage);
   });
 }
 
@@ -454,13 +458,13 @@ function countArrayGreaterThanOrEqualTo(array, number) {
 function toggleNotifications() {
   notificationStatus = !notificationStatus;
   console.log("Notifications: " + (notificationStatus ? "On" : "Off"));
-  alert("Notfications: " + (notificationStatus ? "On" : "Off"));
+  sendAlert("Notfications: " + (notificationStatus ? "On" : "Off"));
 }
 
 function toggleNotificationOnHighlight() {
   highlightNotificationStatus = !highlightNotificationStatus;
   console.log("Highlight Notifications: " + (highlightNotificationStatus ? "On" : "Off"));
-  alert("Highlight Notfications: " + (highlightNotificationStatus ? "On" : "Off"));
+  sendAlert("Highlight Notfications: " + (highlightNotificationStatus ? "On" : "Off"));
 }
 
 function interpretMessage(data, key) {
@@ -566,4 +570,9 @@ function detectURL(message) {
 
 function redirect(url) {
   window.open(url, '_blank');
+}
+window.onload = function() {
+  if (window.chrome && chrome.runtime && chrome.runtime.id) {
+      sendAlert = function(text) {};
+  }
 }
