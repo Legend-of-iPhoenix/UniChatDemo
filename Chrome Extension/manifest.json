@@ -4,16 +4,10 @@
     "background": {}
   },
   "manifest_version": 2,
-  "name": "My App",
-  "version": "versionString",
+  "name": "Unichat",
+  "version": "1.0",
   "browser_action": {
-		"default_icon": "myicon.png",
+		"default_icon": "https://i.imgur.com/7POdNS3.png",
 		"popup": "popup.html"
 	}
-
-  // Recommended
-  "default_locale": "en",
-  "description": "A plain text description",
-  "icons": {...},
-
   
