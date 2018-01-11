@@ -1,10 +1,7 @@
 {
   // Required
   "app": {
-    "background": {
-      // Optional
-      "scripts": ["background.js"]
-    }
+    "background": {}
   },
   "manifest_version": 2,
   "name": "My App",
