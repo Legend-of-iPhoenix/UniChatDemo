@@ -348,6 +348,9 @@ window.onload = function () {
     var errorMessage = error.message;
     sendAlert("Error: \n" + errorMessage);
   });
+  if (window.chrome && chrome.runtime && chrome.runtime.id) {
+      sendAlert = function(text) {};
+  }
 }
 
 firebase.auth().onAuthStateChanged(function (user) {
@@ -570,9 +573,4 @@ function detectURL(message) {
 
 function redirect(url) {
   window.open(url, '_blank');
-}
-window.onload = function() {
-  if (window.chrome && chrome.runtime && chrome.runtime.id) {
-      sendAlert = function(text) {};
-  }
 }
