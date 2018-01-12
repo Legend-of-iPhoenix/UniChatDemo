@@ -25,10 +25,6 @@ var notificationStatus = false;
 var highlightNotificationStatus = false;
 var stopFurtherAlerts = false;
 
-// var sendAlert = function(text) {
-//  alert(text);
-// }
-
 var numLimit;
 var nLimit;
 
