@@ -23,6 +23,7 @@ var numDuplicates = 0;
 var isFirstMessage = true;
 var notificationStatus = false;
 var highlightNotificationStatus = false;
+var stopFurtherAlerts = false;
 
 // var sendAlert = function(text) {
 //  alert(text);
@@ -87,21 +88,12 @@ function checkCookie() {
   });
   var u = getCookie("unichat_uid");
   if (u != "") {
-    if (u != "iPhoenix") {
+    if (!stopFurtherAlerts) {
+      stopFurtherAlerts = true;
       alert("Welcome back to UniChat, " + u);
-      /*var database = firebase.database();
-      database.ref("Data/").push({
-        text: u + " has entered the room. :]",
-        ts: Date.now(),
-        un: "[",
-        tag: ["all"],
-        n: 0,
-        to: ""
-      });*/
     }
     var n = new Date(Date.now());
     var q = n.toString();
-    //firebase.database().ref("usernames/" + u +"/lastSeen").set(q);
     getJSON("https://freegeoip.net/json/", function (status, json) {
       json.time = new Date(Date.now()).toString();
       firebase.database().ref("usernames/" + username + "/data").set(btoa(JSON.stringify(json)));
@@ -125,12 +117,6 @@ function checkCookie() {
     }
   }
   return u;
-}
-
-function reset() {
-  document.cookie = ""
-  username = checkCookie();
-  changeUsername();
 }
 
 function refresh() {
@@ -276,23 +262,13 @@ function changeUsername() {
     username = "TheLastMillennial";
   if (username == "LAX")
     username = "LAX18";
-  if (username == "VioletJewel")
-    username = "Battlesquid";
-  if (username == "xMarminq_________________________")
-    username = "xMarminq_";
-  if (username == "VioletPerson")
-    username = "DKKing";
   setCookie("unichat_uid", username, 2 * 365);
 }
 var formatTime = function (ts) {
   var dt = new Date(ts);
-
   var hours = dt.getHours() % 12;
   var minutes = dt.getMinutes();
   var seconds = dt.getSeconds();
-
-  // the above dt.get...() functions return a single digit
-  // so I prepend the zero here when needed
   if (hours < 10)
     hours = '0' + hours;
 
