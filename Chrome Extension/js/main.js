@@ -83,17 +83,6 @@ function checkCookie() {
   });
   var u = getCookie("unichat_uid");
   if (u != "") {
-    if (u != "iPhoenix") {
-      /*var database = firebase.database();
-      database.ref("Data/").push({
-        text: u + " has entered the room. :]",
-        ts: Date.now(),
-        un: "[",
-        tag: ["all"],
-        n: 0,
-        to: ""
-      });*/
-    }
     var n = new Date(Date.now());
     var q = n.toString();
     //firebase.database().ref("usernames/" + u +"/lastSeen").set(q);
@@ -271,12 +260,6 @@ function changeUsername() {
     username = "TheLastMillennial";
   if (username == "LAX")
     username = "LAX18";
-  if (username == "VioletJewel")
-    username = "Battlesquid";
-  if (username == "xMarminq_________________________")
-    username = "xMarminq_";
-  if (username == "VioletPerson")
-    username = "DKKing";
   setCookie("unichat_uid", username, 2 * 365);
 }
 var formatTime = function (ts) {
@@ -285,9 +268,6 @@ var formatTime = function (ts) {
   var hours = dt.getHours() % 12;
   var minutes = dt.getMinutes();
   var seconds = dt.getSeconds();
-
-  // the above dt.get...() functions return a single digit
-  // so I prepend the zero here when needed
   if (hours < 10)
     hours = '0' + hours;
 
@@ -360,69 +340,6 @@ function refreshOutput() {
       interpretMessage(data, childSnapshot.key);
     });
   });
-}
-
-/*
-function getRecentPMs() {
-  var output = document.getElementById("output");
-  var node = document.createElement("DIV");
-  var textNode = document.createTextNode("Here are your recent PM's:");
-  var hasPMs = false;
-  node.appendChild(textNode);
-  node.setAttribute("class", "outputText");
-  output.appendChild(node);
-  output.scrollTop = output.scrollHeight;
-  dataRef = firebase.database().ref("Data").orderByChild("to").equalTo(username).limitToLast(25);
-  dataRef.once('value').then(function (snapshot) {
-    snapshot.forEach(function (childSnapshot) {
-      hasPMs = true;
-      node = document.createElement("DIV");
-      var data = childSnapshot.val();
-      var message = data.text;
-      var datePosted = data.ts;
-      var posterUsername = data.un;
-      var messagePM = message.substring(4 + data.to.length, message.length);
-      var tempDate = new Date;
-      tempDate.setTime(datePosted);
-      var dateString = formatTime(tempDate);
-      textnode = document.createTextNode('\n[PM]' + "[" + dateString + "]  ~" + posterUsername + ' whispers to you: ' + messagePM);
-      node.appendChild(textnode);
-      node.setAttribute("class", "highlight");
-      document.getElementById("output").appendChild(node);
-
-      var objDiv = document.getElementById("output");
-      objDiv.scrollTop = objDiv.scrollHeight;
-    });
-  });
-  window.setTimeout(function () {
-    if (!hasPMs) {
-      node = document.createElement("DIV");
-      textnode = document.createTextNode("You do not have any recent PM's.");
-      node.appendChild(textnode);
-      node.setAttribute("class", "highlight");
-      output.appendChild(textnode);
-      var objDiv = document.getElementById("output");
-      objDiv.scrollTop = objDiv.scrollHeight;
-    }
-  }, 1000);
-}*/
-
-function notifyMe(message) {
-  // Let's check whether notification permissions have already been granted
-  if (Notification.permission === "granted") {
-    // If it's okay let's create a notification
-    var notification = new Notification(message);
-  }
-
-  // Otherwise, we need to ask the user for permission
-  else if (Notification.permission !== "denied") {
-    Notification.requestPermission(function (permission) {
-      // If the user accepts, let's create a notification
-      if (permission === "granted") {
-        var notification = new Notification(message);
-      }
-    });
-  }
 }
 
 function getJSON(url, callback) {
