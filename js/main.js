@@ -346,11 +346,8 @@ window.onload = function () {
   firebase.auth().signInAnonymously().catch(function (error) {
     var errorCode = error.code;
     var errorMessage = error.message;
-    sendAlert("Error: \n" + errorMessage);
+    alert("Error: \n" + errorMessage);
   });
-  if (window.chrome && chrome.runtime && chrome.runtime.id) {
-      sendAlert = function(text) {};
-  }
 }
 
 firebase.auth().onAuthStateChanged(function (user) {
