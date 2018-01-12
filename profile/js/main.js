@@ -1,7 +1,7 @@
 //Thanks, guys. It means a lot. - The Development Team
 var closedBetaTesters = ["SM84CE", "TheLastMillennial", "TLM", "Battlesquid", "xMarminq_"];
 
-var helpers = ["LAX18"];
+var helpers = ["LAX18","DKKing"];
 
 function getMessage(tag) {
   var href = window.location.href;
@@ -47,7 +47,7 @@ function getTitle(username, karma) {
       return "Closed Beta Tester";
     }
     if (helpers.indexOf(username) != -1) {
-      document.getElementById("username").style.textShadow = "#999 0px 0px 100px";
+      document.getElementById("username").classList += "glowing";
       return "Contributor"
     }
     if (closedBetaTesters.indexOf(username) != -1) {
