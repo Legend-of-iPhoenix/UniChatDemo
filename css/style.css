@@ -3,6 +3,17 @@
   color: #aaa;
 }
 
+@keyframes rgb {
+  0% { color: #f00; }
+  33% { color: #0f0; }
+  66% { color: #00f; }
+  100% {color: #f00; }
+}
+
+.glowing {
+  animation: rgb 5000ms infinite;
+}
+
 .centered {
   margin: 0 auto;
   width: fit-content;
