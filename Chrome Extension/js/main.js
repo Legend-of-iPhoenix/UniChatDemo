@@ -1,13 +1,13 @@
-//      ________          _ _____  _                      _
-//     /  ____  \        (_)  __ \| |                    (_)
-//    /  / ___|  \        _| |__) | |__   ___   ___ _ __  ___  __
-//   |  | |       |      | |  ___/| '_ \ / _ \ / _ \ '_ \| \ \/ /
-//   |  | |___    |      | | |    | | | | (_) |  __/ | | | |>  <
-//    \  \____|  /       |_|_|    |_| |_|\___/ \___|_| |_|_/_/\_\
+//      ________          _ _____  _                      _                            _   _              __   ____  ___
+//     /  ____  \        (_|  __ \| |                    (_)                          | | | |        /\   \ \ / /_ |/ _ \
+//    /  / ___|  \        _| |__) | |__   ___   ___ _ __  ___  __       __ _ _ __   __| | | |       /  \   \ V / | | (_) |
+//   |  | |       |      | |  ___/| '_ \ / _ \ / _ | '_ \| \ \/ /      / _` | '_ \ / _` | | |      / /\ \   > <  | |> _ <
+//   |  | |___    |      | | |    | | | | (_) |  __| | | | |>  <      | (_| | | | | (_| | | |____ / ____ \ / . \ | | (_) _
+//    \  \____|  /       |_|_|    |_| |_|\___/ \___|_| |_|_/_/\_\      \__,_|_| |_|\__,_| |______/_/    \_/_/ \_\|_|\___(_)
 //     \________/    ______                                   ______
 //                  |______|                                 |______|
 //
-// V0.60.0b
+// V0.60.1 - Chrome Extension
 //
 // (just ask if you want to use my source, I probably won't say no.)
 
@@ -327,11 +327,11 @@ function redirectFromHub() {
   });
   dataRef = firebase.database().ref("Data/");
   isSignedIn = true;
-  dataRef.orderByChild("ts").limitToLast(25).on('child_added', function (snapshot) {
+  dataRef.orderByChild("ts").limitToLast(10).on('child_added', function (snapshot) {
     var data = snapshot.val();
     interpretMessage(data, snapshot.key);
   });
-  dataRef.orderByChild("ts").limitToLast(25).on('child_changed', function (snapshot) {
+  dataRef.orderByChild("ts").limitToLast(10).on('child_changed', function (snapshot) {
     var data = snapshot.val();
     interpretChangedMessage(data, snapshot.key);
   });
@@ -352,7 +352,7 @@ firebase.auth().onAuthStateChanged(function (user) {
 
 function refreshOutput() {
   document.getElementById("output").innerHTML = "";
-  dataRef = firebase.database().ref("Data").orderByChild("ts").limitToLast(25);
+  dataRef = firebase.database().ref("Data").orderByChild("ts").limitToLast(10);
   isSignedIn = true;
   dataRef.once('value').then(function (snapshot) {
     snapshot.forEach(function (childSnapshot) {
@@ -447,16 +447,6 @@ function countArrayGreaterThanOrEqualTo(array, number) {
       n++;
   }
   return n;
-}
-
-function toggleNotifications() {
-  notificationStatus = !notificationStatus;
-  console.log("Notifications: " + (notificationStatus ? "On" : "Off"));
-}
-
-function toggleNotificationOnHighlight() {
-  highlightNotificationStatus = !highlightNotificationStatus;
-  console.log("Highlight Notifications: " + (highlightNotificationStatus ? "On" : "Off"));
 }
 
 function interpretMessage(data, key) {
