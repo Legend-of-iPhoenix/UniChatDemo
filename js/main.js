@@ -24,9 +24,9 @@ var isFirstMessage = true;
 var notificationStatus = false;
 var highlightNotificationStatus = false;
 
-var sendAlert = function(text) {
-  alert(text);
-}
+// var sendAlert = function(text) {
+//  alert(text);
+// }
 
 var numLimit;
 var nLimit;
@@ -88,7 +88,7 @@ function checkCookie() {
   var u = getCookie("unichat_uid");
   if (u != "") {
     if (u != "iPhoenix") {
-      sendAlert("Welcome back to UniChat, " + u);
+      alert("Welcome back to UniChat, " + u);
       /*var database = firebase.database();
       database.ref("Data/").push({
         text: u + " has entered the room. :]",
@@ -458,13 +458,13 @@ function countArrayGreaterThanOrEqualTo(array, number) {
 function toggleNotifications() {
   notificationStatus = !notificationStatus;
   console.log("Notifications: " + (notificationStatus ? "On" : "Off"));
-  sendAlert("Notfications: " + (notificationStatus ? "On" : "Off"));
+  alert("Notfications: " + (notificationStatus ? "On" : "Off"));
 }
 
 function toggleNotificationOnHighlight() {
   highlightNotificationStatus = !highlightNotificationStatus;
   console.log("Highlight Notifications: " + (highlightNotificationStatus ? "On" : "Off"));
-  sendAlert("Highlight Notfications: " + (highlightNotificationStatus ? "On" : "Off"));
+  alert("Highlight Notfications: " + (highlightNotificationStatus ? "On" : "Off"));
 }
 
 function interpretMessage(data, key) {
