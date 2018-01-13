@@ -244,15 +244,6 @@ function submitMessage() {
   }
 }
 
-document.getElementById("message").addEventListener("keyup", function (event) {
-  event.preventDefault();
-  if (event.keyCode === 13) {
-    if (isSignedIn) {
-      submitMessage();
-    }
-  }
-});
-
 function changeUsername() {
   if (username == "TLM")
     username = "TheLastMillennial";
@@ -319,6 +310,14 @@ window.onload = function () {
     var errorCode = error.code;
     var errorMessage = error.message;
     alert("Error: \n" + errorMessage);
+  });
+  document.getElementById("message").addEventListener("keyup", function (event) {
+    event.preventDefault();
+    if (event.keyCode === 13) {
+      if (isSignedIn) {
+        submitMessage();
+      }
+    }
   });
 }
 
