@@ -25,6 +25,8 @@ var notificationStatus = false;
 var highlightNotificationStatus = false;
 var stopFurtherAlerts = false;
 var stopDoubleLoad_iOS = false;
+var lastMessageTime = 0;
+var hasLoaded = false;
 
 var numLimit;
 var nLimit;
@@ -212,6 +214,8 @@ function submitMessage() {
             x: numLimit,
             k: 0
           });
+          database.ref("online/"+username).set(new Date().getTime());
+          lastMessageTime = new Date().getTime();
           lastMessageRef = uid + "-" + n + "-" + numLimit;
           lastMessage = messageBox.value;
           messageBox.value = "";
@@ -305,6 +309,20 @@ function redirectFromHub() {
     var data = snapshot.val();
     interpretChangedMessage(data, snapshot.key);
   });
+  firebase.database().ref("online").on('child_added', function(snapshot) {
+  	var container = document.getElementById("online-users");
+  	var node = document.createElement("DIV");
+  	node.innerText = snapshot.key;
+  	container.appendChild(node);
+  	node.setAttribute("name", snapshot.key);
+  });
+  firebase.database().ref("online").on('child_removed', function(snapshot) {
+  	var elements = document.getElementsByName(snapshot.key);
+  	console.log(elements)
+  	elements.forEach(function(element) {
+  		element.remove();
+  	});
+  });
 }
 
 window.onload = function () {
@@ -313,6 +331,14 @@ window.onload = function () {
     var errorMessage = error.message;
     alert("Error: \n" + errorMessage);
   });
+
+	firebase.auth().onAuthStateChanged(function (user) {
+  	if (user && !hasLoaded) {
+  		hasLoaded = true;
+    	redirectFromHub();
+    	firebase.database().ref("online/"+username).set(new Date().getTime());
+  	}
+	});
   document.getElementById("message").addEventListener("keyup", function (event) {
     event.preventDefault();
     if (event.keyCode === 13) {
@@ -323,11 +349,16 @@ window.onload = function () {
   });
 }
 
-firebase.auth().onAuthStateChanged(function (user) {
-  if (user) {
-    redirectFromHub();
-  }
-});
+function isActive() {
+	var curTime = new Date().getTime();
+	if (curTime + 900000 < lastMessageTime) {
+		firebase.database().ref("online/"+username).remove();
+	}
+}
+
+window.onbeforeunload = function() {
+	firebase.database().ref("online/"+username).remove();
+}
 
 function refreshOutput() {
   document.getElementById("output").innerHTML = "";
