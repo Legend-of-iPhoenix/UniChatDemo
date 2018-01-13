@@ -24,6 +24,7 @@ var isFirstMessage = true;
 var notificationStatus = false;
 var highlightNotificationStatus = false;
 var stopFurtherAlerts = false;
+var stopDoubleLoad_iOS = false;
 
 var numLimit;
 var nLimit;
@@ -281,7 +282,8 @@ function redirectFromHub() {
   if (isSignedIn) {
     dataRef.off();
   }
-  if (!("Notification" in window)) {
+  if (!("Notification" in window) && !stopDoubleLoad_iOS) {
+    stopDoubleLoad_iOS = true;
     document.getElementById("settingsDiv").remove();
     highlightNotificationStatus=false;
     notificationStatus=false;
