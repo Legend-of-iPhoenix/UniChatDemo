@@ -42,12 +42,16 @@ function getTitle(username, karma) {
       return "Admin";
     }
   } else {
+    if (username == "jcgter777") {
+      document.getElementById("username").className = "glowing";
+      return "IRC Channel Hoster"
+    }
     if (username == "Battlesquid") {
       document.getElementById("username").className = "battlesquid";
       return "Closed Beta Tester";
     }
     if (helpers.indexOf(username) != -1) {
-      document.getElementById("username").classList += "glowing";
+      document.getElementById("username").className = "glowing";
       return "Contributor"
     }
     if (closedBetaTesters.indexOf(username) != -1) {

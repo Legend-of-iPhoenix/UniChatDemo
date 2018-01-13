@@ -119,21 +119,6 @@ function reset() {
 
 function refresh() {
   var span, text;
-  document.getElementById("filterDisplay").innerHTML = "";
-  document.getElementById("tagDisplay").innerHTML = "";
-  for (var filter = 1; filter < filters.length; filter++) {
-    span = document.createElement("SPAN");
-    text = document.createTextNode(filters[filter]);
-    span.appendChild(text);
-    document.getElementById("filterDisplay").appendChild(span);
-  }
-
-  for (var tag = 1; tag < currentMessageTags.length; tag++) {
-    span = document.createElement("SPAN");
-    text = document.createTextNode(currentMessageTags[tag]);
-    span.appendChild(text);
-    document.getElementById("tagDisplay").appendChild(span);
-  }
 }
 
 function addTag(tag) {

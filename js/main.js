@@ -24,10 +24,7 @@ var isFirstMessage = true;
 var notificationStatus = false;
 var highlightNotificationStatus = false;
 var stopFurtherAlerts = false;
-
-// var sendAlert = function(text) {
-//  alert(text);
-// }
+var stopDoubleLoad_iOS = false;
 
 var numLimit;
 var nLimit;
@@ -248,15 +245,6 @@ function submitMessage() {
   }
 }
 
-document.getElementById("message").addEventListener("keyup", function (event) {
-  event.preventDefault();
-  if (event.keyCode === 13) {
-    if (isSignedIn) {
-      submitMessage();
-    }
-  }
-});
-
 function changeUsername() {
   if (username == "TLM")
     username = "TheLastMillennial";
@@ -294,7 +282,8 @@ function redirectFromHub() {
   if (isSignedIn) {
     dataRef.off();
   }
-  if (!("Notification" in window)) {
+  if (!("Notification" in window) && !stopDoubleLoad_iOS) {
+    stopDoubleLoad_iOS = true;
     document.getElementById("settingsDiv").remove();
     highlightNotificationStatus=false;
     notificationStatus=false;
@@ -323,6 +312,14 @@ window.onload = function () {
     var errorCode = error.code;
     var errorMessage = error.message;
     alert("Error: \n" + errorMessage);
+  });
+  document.getElementById("message").addEventListener("keyup", function (event) {
+    event.preventDefault();
+    if (event.keyCode === 13) {
+      if (isSignedIn) {
+        submitMessage();
+      }
+    }
   });
 }
 
