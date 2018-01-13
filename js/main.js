@@ -334,6 +334,7 @@ window.onload = function () {
 
 	firebase.auth().onAuthStateChanged(function (user) {
   	if (user && !hasLoaded) {
+		setInterval(isActive,1000);
   		hasLoaded = true;
     	redirectFromHub();
     	firebase.database().ref("online/"+username).set(new Date().getTime());
