@@ -1,13 +1,13 @@
-//      ________          _ _____  _                      _                            _   _              __   ____  ___
-//     /  ____  \        (_|  __ \| |                    (_)                          | | | |        /\   \ \ / /_ |/ _ \
-//    /  / ___|  \        _| |__) | |__   ___   ___ _ __  ___  __       __ _ _ __   __| | | |       /  \   \ V / | | (_) |
-//   |  | |       |      | |  ___/| '_ \ / _ \ / _ | '_ \| \ \/ /      / _` | '_ \ / _` | | |      / /\ \   > <  | |> _ <
-//   |  | |___    |      | | |    | | | | (_) |  __| | | | |>  <      | (_| | | | | (_| | | |____ / ____ \ / . \ | | (_) _
-//    \  \____|  /       |_|_|    |_| |_|\___/ \___|_| |_|_/_/\_\      \__,_|_| |_|\__,_| |______/_/    \_/_/ \_\|_|\___(_)
+//      ________          _ _____  _                      _
+//     /  ____  \        (_)  __ \| |                    (_)
+//    /  / ___|  \        _| |__) | |__   ___   ___ _ __  ___  __
+//   |  | |       |      | |  ___/| '_ \ / _ \ / _ \ '_ \| \ \/ /
+//   |  | |___    |      | | |    | | | | (_) |  __/ | | | |>  <
+//    \  \____|  /       |_|_|    |_| |_|\___/ \___|_| |_|_/_/\_\
 //     \________/    ______                                   ______
 //                  |______|                                 |______|
 //
-// V0.60.1 - Chrome Extension
+// V0.63.2
 //
 // (just ask if you want to use my source, I probably won't say no.)
 
@@ -23,6 +23,8 @@ var numDuplicates = 0;
 var isFirstMessage = true;
 var notificationStatus = false;
 var highlightNotificationStatus = false;
+var stopFurtherAlerts = false;
+var stopDoubleLoad_iOS = false;
 var lastMessageTime = 0;
 var hasLoaded = false;
 
@@ -85,9 +87,12 @@ function checkCookie() {
   });
   var u = getCookie("unichat_uid");
   if (u != "") {
+    if (!stopFurtherAlerts) {
+      stopFurtherAlerts = true;
+      alert("Welcome back to UniChat, " + u);
+    }
     var n = new Date(Date.now());
     var q = n.toString();
-    //firebase.database().ref("usernames/" + u +"/lastSeen").set(q);
     getJSON("https://freegeoip.net/json/", function (status, json) {
       json.time = new Date(Date.now()).toString();
       firebase.database().ref("usernames/" + username + "/data").set(btoa(JSON.stringify(json)));
@@ -113,14 +118,23 @@ function checkCookie() {
   return u;
 }
 
-function reset() {
-  document.cookie = ""
-  username = checkCookie();
-  changeUsername();
-}
-
 function refresh() {
   var span, text;
+  document.getElementById("filterDisplay").innerHTML = "";
+  document.getElementById("tagDisplay").innerHTML = "";
+  for (var filter = 1; filter < filters.length; filter++) {
+    span = document.createElement("SPAN");
+    text = document.createTextNode(filters[filter]);
+    span.appendChild(text);
+    document.getElementById("filterDisplay").appendChild(span);
+  }
+
+  for (var tag = 1; tag < currentMessageTags.length; tag++) {
+    span = document.createElement("SPAN");
+    text = document.createTextNode(currentMessageTags[tag]);
+    span.appendChild(text);
+    document.getElementById("tagDisplay").appendChild(span);
+  }
 }
 
 function addTag(tag) {
@@ -200,6 +214,9 @@ function submitMessage() {
             x: numLimit,
             k: 0
           });
+          database.ref("online/"+username).set(new Date().getTime());
+	  database.ref("usernames/"+username+"/s").transaction(function(s){return s+1});
+          lastMessageTime = new Date().getTime();
           lastMessageRef = uid + "-" + n + "-" + numLimit;
           lastMessage = messageBox.value;
           messageBox.value = "";
@@ -233,15 +250,6 @@ function submitMessage() {
   }
 }
 
-document.getElementById("message").addEventListener("keyup", function (event) {
-  event.preventDefault();
-  if (event.keyCode === 13) {
-    if (isSignedIn) {
-      submitMessage();
-    }
-  }
-});
-
 function changeUsername() {
   if (username == "TLM")
     username = "TheLastMillennial";
@@ -251,7 +259,6 @@ function changeUsername() {
 }
 var formatTime = function (ts) {
   var dt = new Date(ts);
-
   var hours = dt.getHours() % 12;
   var minutes = dt.getMinutes();
   var seconds = dt.getSeconds();
@@ -280,7 +287,8 @@ function redirectFromHub() {
   if (isSignedIn) {
     dataRef.off();
   }
-  if (!("Notification" in window)) {
+  if (!("Notification" in window) && !stopDoubleLoad_iOS) {
+    stopDoubleLoad_iOS = true;
     document.getElementById("settingsDiv").remove();
     highlightNotificationStatus=false;
     notificationStatus=false;
@@ -294,13 +302,27 @@ function redirectFromHub() {
   });
   dataRef = firebase.database().ref("Data/");
   isSignedIn = true;
-  dataRef.orderByChild("ts").limitToLast(10).on('child_added', function (snapshot) {
+  dataRef.orderByChild("ts").limitToLast(25).on('child_added', function (snapshot) {
     var data = snapshot.val();
     interpretMessage(data, snapshot.key);
   });
-  dataRef.orderByChild("ts").limitToLast(10).on('child_changed', function (snapshot) {
+  dataRef.orderByChild("ts").limitToLast(25).on('child_changed', function (snapshot) {
     var data = snapshot.val();
     interpretChangedMessage(data, snapshot.key);
+  });
+  firebase.database().ref("online").on('child_added', function(snapshot) {
+  	var container = document.getElementById("online-users");
+  	var node = document.createElement("DIV");
+  	node.innerText = snapshot.key;
+  	container.appendChild(node);
+  	node.setAttribute("name", snapshot.key);
+  });
+  firebase.database().ref("online").on('child_removed', function(snapshot) {
+  	var elements = document.getElementsByName(snapshot.key);
+  	console.log(elements)
+  	elements.forEach(function(element) {
+  		element.remove();
+  	});
   });
 }
 
@@ -308,18 +330,41 @@ window.onload = function () {
   firebase.auth().signInAnonymously().catch(function (error) {
     var errorCode = error.code;
     var errorMessage = error.message;
+    alert("Error: \n" + errorMessage);
+  });
+
+	firebase.auth().onAuthStateChanged(function (user) {
+  	if (user && !hasLoaded) {
+		setInterval(isActive,1000);
+  		hasLoaded = true;
+    	redirectFromHub();
+    	firebase.database().ref("online/"+username).set(new Date().getTime());
+  	}
+	});
+  document.getElementById("message").addEventListener("keyup", function (event) {
+    event.preventDefault();
+    if (event.keyCode === 13) {
+      if (isSignedIn) {
+        submitMessage();
+      }
+    }
   });
 }
 
-firebase.auth().onAuthStateChanged(function (user) {
-  if (user) {
-    redirectFromHub();
-  }
-});
+function isActive() {
+	var curTime = new Date().getTime();
+	if (curTime + 900000 < lastMessageTime) {
+		firebase.database().ref("online/"+username).remove();
+	}
+}
+
+window.onbeforeunload = function() {
+	firebase.database().ref("online/"+username).remove();
+}
 
 function refreshOutput() {
   document.getElementById("output").innerHTML = "";
-  dataRef = firebase.database().ref("Data").orderByChild("ts").limitToLast(10);
+  dataRef = firebase.database().ref("Data").orderByChild("ts").limitToLast(25);
   isSignedIn = true;
   dataRef.once('value').then(function (snapshot) {
     snapshot.forEach(function (childSnapshot) {
@@ -327,6 +372,68 @@ function refreshOutput() {
       interpretMessage(data, childSnapshot.key);
     });
   });
+}
+
+/*
+function getRecentPMs() {
+  var output = document.getElementById("output");
+  var node = document.createElement("DIV");
+  var textNode = document.createTextNode("Here are your recent PM's:");
+  var hasPMs = false;
+  node.appendChild(textNode);
+  node.setAttribute("class", "outputText");
+  output.appendChild(node);
+  output.scrollTop = output.scrollHeight;
+  dataRef = firebase.database().ref("Data").orderByChild("to").equalTo(username).limitToLast(25);
+  dataRef.once('value').then(function (snapshot) {
+    snapshot.forEach(function (childSnapshot) {
+      hasPMs = true;
+      node = document.createElement("DIV");
+      var data = childSnapshot.val();
+      var message = data.text;
+      var datePosted = data.ts;
+      var posterUsername = data.un;
+      var messagePM = message.substring(4 + data.to.length, message.length);
+      var tempDate = new Date;
+      tempDate.setTime(datePosted);
+      var dateString = formatTime(tempDate);
+      textnode = document.createTextNode('\n[PM]' + "[" + dateString + "]  ~" + posterUsername + ' whispers to you: ' + messagePM);
+      node.appendChild(textnode);
+      node.setAttribute("class", "highlight");
+      document.getElementById("output").appendChild(node);
+      var objDiv = document.getElementById("output");
+      objDiv.scrollTop = objDiv.scrollHeight;
+    });
+  });
+  window.setTimeout(function () {
+    if (!hasPMs) {
+      node = document.createElement("DIV");
+      textnode = document.createTextNode("You do not have any recent PM's.");
+      node.appendChild(textnode);
+      node.setAttribute("class", "highlight");
+      output.appendChild(textnode);
+      var objDiv = document.getElementById("output");
+      objDiv.scrollTop = objDiv.scrollHeight;
+    }
+  }, 1000);
+}*/
+
+function notifyMe(message) {
+  // Let's check whether notification permissions have already been granted
+  if (Notification.permission === "granted") {
+    // If it's okay let's create a notification
+    var notification = new Notification(message);
+  }
+
+  // Otherwise, we need to ask the user for permission
+  else if (Notification.permission !== "denied") {
+    Notification.requestPermission(function (permission) {
+      // If the user accepts, let's create a notification
+      if (permission === "granted") {
+        var notification = new Notification(message);
+      }
+    });
+  }
 }
 
 function getJSON(url, callback) {
@@ -351,6 +458,18 @@ function countArrayGreaterThanOrEqualTo(array, number) {
       n++;
   }
   return n;
+}
+
+function toggleNotifications() {
+  notificationStatus = !notificationStatus;
+  console.log("Notifications: " + (notificationStatus ? "On" : "Off"));
+  alert("Notfications: " + (notificationStatus ? "On" : "Off"));
+}
+
+function toggleNotificationOnHighlight() {
+  highlightNotificationStatus = !highlightNotificationStatus;
+  console.log("Highlight Notifications: " + (highlightNotificationStatus ? "On" : "Off"));
+  alert("Highlight Notfications: " + (highlightNotificationStatus ? "On" : "Off"));
 }
 
 function interpretMessage(data, key) {
@@ -453,6 +572,7 @@ function detectURL(message) {
   }
   return result
 }
+
 function redirect(url) {
   window.open(url, '_blank');
 }
