@@ -7,3 +7,4 @@
 4. Remove Scrollbars in Extension and in Webpage (but still allow scrolling)
 5. Make Mozilla Firefox Extension - Temporary Chrome Port Is Functional!
 6. Make sure extension is working!  Done!
+

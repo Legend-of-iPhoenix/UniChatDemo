@@ -7,7 +7,7 @@
 //     \________/    ______                                   ______
 //                  |______|                                 |______|
 //
-// V0.63.2
+// V0.63.3
 //
 // (just ask if you want to use my source, I probably won't say no.)
 
@@ -319,7 +319,6 @@ function redirectFromHub() {
   });
   firebase.database().ref("online").on('child_removed', function(snapshot) {
   	var elements = document.getElementsByName(snapshot.key);
-  	console.log(elements)
   	elements.forEach(function(element) {
   		element.remove();
   	});
@@ -335,7 +334,7 @@ window.onload = function () {
 
 	firebase.auth().onAuthStateChanged(function (user) {
   	if (user && !hasLoaded) {
-		setInterval(isActive,1000);
+		setInterval(isActive,30000);
   		hasLoaded = true;
     	redirectFromHub();
     	firebase.database().ref("online/"+username).set(new Date().getTime());
@@ -352,10 +351,14 @@ window.onload = function () {
 }
 
 function isActive() {
-	var curTime = new Date().getTime();
-	if (curTime + 900000 < lastMessageTime) {
-		firebase.database().ref("online/"+username).remove();
-	}
+  var curTime = new Date().getTime();
+  firebase.database().ref("/online/").once('value').then(function(p) {
+    p.forEach(function(snapshot) {
+      if (curTime > 900000 + snapshot.val()) {
+        firebase.database().ref("online/"+snapshot.key).remove();
+      }
+    })
+  });
 }
 
 window.onbeforeunload = function() {
