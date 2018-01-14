@@ -215,6 +215,7 @@ function submitMessage() {
             k: 0
           });
           database.ref("online/"+username).set(new Date().getTime());
+	  database.ref("usernames/"+username+"/s").transaction(function(s){resturn s+1});
           lastMessageTime = new Date().getTime();
           lastMessageRef = uid + "-" + n + "-" + numLimit;
           lastMessage = messageBox.value;
