@@ -7,7 +7,7 @@
 //     \________/    ______                                   ______
 //                  |______|                                 |______|
 //
-// V0.63.2
+// V0.63.3
 //
 // (just ask if you want to use my source, I probably won't say no.)
 
@@ -354,7 +354,7 @@ function isActive() {
   var curTime = new Date().getTime();
   firebase.database().ref("/online/").once('value').then(function(p) {
     p.forEach(function(snapshot) {
-      if (curTime < 900000 + snapshot.val()) {
+      if (curTime > 900000 + snapshot.val()) {
         firebase.database().ref("online/"+snapshot.key).remove();
       }
     })
