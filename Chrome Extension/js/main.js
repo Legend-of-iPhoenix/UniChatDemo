@@ -30,20 +30,11 @@ var hasLoaded = false;
 
 var numLimit;
 var nLimit;
-// Start The Scrollbar Code
-#body::-webkit-scrollbar {
-        width: 0 !important;
-    }
-#IN::-webkit-scrollbar {
-        width: 0 !important;
-    }
-#output::-webkit-scrollbar {
-        width: 0 !important;
-    }
-#online-users::-webkit-scrollbar {
-        width: 0 !important;
-    }
-    // End The Scrollbar Code
+
+#body {
+overflow:hidden
+}
+
 function assignUsername() {
   var adj = ["Anonymous", "Small", "Red", "Orange", "Yellow", "Blue", "Indigo", "Violet", "Shiny", "Sparkly", "Large", "Hot", "Cold", "Evil", "Kind", "Ugly", "Legendary", "Flaming", "Salty", "Slippery","Greasy","Intelligent","Heretic","Exploding","Shimmering","Analytical"];
   var noun = ["Bear", "Dog", "Cat", "Banana", "Pepper", "Bird", "Lion", "Apple", "Phoenix", "Diamond", "Person", "Whale", "Plant", "Duckling", "Thing", "Flame", "Number", "Cow", "Dragon", "Hedgehog","Grape","Lemon","Fish","Number","Dinosaur","Crystal"];
