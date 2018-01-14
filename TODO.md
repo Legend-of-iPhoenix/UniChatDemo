@@ -6,4 +6,3 @@
 3. Remove Scrollbars in Extension and in Webpage (but still allow scrolling)
 4. Make Mozilla Firefox Extension (Might be complete?)
 5. Make IRC Bot - Linking from UniChat to IRC (might not be feasable w/o some server space :/)
-6. Fix active users bug - caused by internet lag.
