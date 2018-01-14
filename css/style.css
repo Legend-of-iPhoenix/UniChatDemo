@@ -58,15 +58,15 @@ a:before {
 
 a:hover:before {
   visibility: visible;
-  -webkit-transform: scaleX(1.05);
-  transform: scaleX(1.05);
+  -webkit-transform: scaleX(1);
+  transform: scaleX(1);
   height: 17px;
 }
 
 .battlesquid {
   margin-top: 30px;
   text-shadow: 0 0 10px #fefcc9, -4px -6px 15px #feec85, 11px 1px 20px #ffae34, 7px -14px 25px #ec760c, 8px -17px 30px #cd4606, -10px -20px 20px #973716, 2px -20px 50px #451b0e;
-  color: #FFF;
+  color: #fff;
 }
 
 span {
