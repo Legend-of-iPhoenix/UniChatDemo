@@ -354,7 +354,8 @@ function isActive() {
   var curTime = new Date().getTime();
   firebase.database().ref("/online/").once('value').then(function(p) {
     p.forEach(function(snapshot) {
-      if (curTime > 900000 + snapshot.val()) {
+      //5 minutes
+      if (curTime > 5*60*1000 + snapshot.val()) {
         firebase.database().ref("online/"+snapshot.key).remove();
       }
     })
