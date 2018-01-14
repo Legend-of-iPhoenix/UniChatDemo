@@ -23,6 +23,8 @@ var numDuplicates = 0;
 var isFirstMessage = true;
 var notificationStatus = false;
 var highlightNotificationStatus = false;
+var lastMessageTime = 0;
+var hasLoaded = false;
 
 var numLimit;
 var nLimit;
@@ -450,4 +452,7 @@ function detectURL(message) {
     result = "";
   }
   return result
+}
+function redirect(url) {
+  window.open(url, '_blank');
 }
