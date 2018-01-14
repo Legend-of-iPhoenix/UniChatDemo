@@ -6,3 +6,4 @@
 3. Add active user sidebar to Chrome Extension (LAX18 volunteered for this)
 4. Remove Scrollbars in Extension and in Webpage (but still allow scrolling)
 5. Make Mozilla Firefox Extension
+6. Make sure extension is working
