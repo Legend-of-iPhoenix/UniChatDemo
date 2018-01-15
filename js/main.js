@@ -313,14 +313,14 @@ function redirectFromHub() {
     var data = snapshot.val();
     interpretChangedMessage(data, snapshot.key);
   });
-  firebase.database().ref("online" + room + "/").on('child_added', function(snapshot) {
+  firebase.database().ref("online/" + room + "/").on('child_added', function(snapshot) {
     var container = document.getElementById("online-users");
     var node = document.createElement("DIV");
     node.innerText = snapshot.key;
     container.appendChild(node);
     node.setAttribute("name", snapshot.key);
   });
-  firebase.database().ref("online" + room + "/").on('child_removed', function(snapshot) {
+  firebase.database().ref("online/" + room + "/").on('child_removed', function(snapshot) {
     var elements = document.getElementsByName(snapshot.key);
     elements.forEach(function(element) {
       element.remove();
