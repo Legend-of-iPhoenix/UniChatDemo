@@ -8,7 +8,7 @@ function getMessage(tag) {
 window.onload = function() {
 	var message = getMessage("m");
 	var until = getMessage("t");
-	console.log(message);
+	console.warn(message);
 	if (message === null)
 	{
 		document.getElementById("adminMessage").innerHTML = "You were probably breaking the rules.";

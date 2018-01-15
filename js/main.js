@@ -29,8 +29,7 @@ var lastMessageTime = 0;
 var hasLoaded = false;
 var room = "_default";
 
-var numLimit;
-var nLimit;
+var numLimit, nLimit;
 
 var username = "anonymous";
 
