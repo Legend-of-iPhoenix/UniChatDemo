@@ -10,7 +10,6 @@
 // V0.63.5b1
 //
 // (just ask if you want to use my source, I probably won't say no.)
-
 var selectedRoom = "Chat";
 var isSignedIn = false;
 var dataRef;
@@ -34,8 +33,8 @@ var numLimit, nLimit;
 var username = "anonymous";
 
 function assignUsername() {
-  var adj = ["Anonymous", "Small", "Red", "Orange", "Yellow", "Blue", "Indigo", "Violet", "Shiny", "Sparkly", "Large", "Hot", "Cold", "Evil", "Kind", "Ugly", "Legendary", "Flaming", "Salty", "Slippery","Greasy","Intelligent","Heretic","Exploding","Shimmering","Analytical"];
-  var noun = ["Bear", "Dog", "Cat", "Banana", "Pepper", "Bird", "Lion", "Apple", "Phoenix", "Diamond", "Person", "Whale", "Plant", "Duckling", "Thing", "Flame", "Number", "Cow", "Dragon", "Hedgehog","Grape","Lemon","Fish","Number","Dinosaur","Crystal"];
+  var adj = ["Anonymous", "Small", "Red", "Orange", "Yellow", "Blue", "Indigo", "Violet", "Shiny", "Sparkly", "Large", "Hot", "Cold", "Evil", "Kind", "Ugly", "Legendary", "Flaming", "Salty", "Slippery", "Greasy", "Intelligent", "Heretic", "Exploding", "Shimmering", "Analytical"];
+  var noun = ["Bear", "Dog", "Cat", "Banana", "Pepper", "Bird", "Lion", "Apple", "Phoenix", "Diamond", "Person", "Whale", "Plant", "Duckling", "Thing", "Flame", "Number", "Cow", "Dragon", "Hedgehog", "Grape", "Lemon", "Fish", "Number", "Dinosaur", "Crystal"];
 
   var rAdj = Math.floor(Math.random() * adj.length);
   var rNoun = Math.floor(Math.random() * noun.length);
@@ -71,8 +70,8 @@ function getRoom() {
 }
 
 function checkCookie() {
-  firebase.database().ref("bans/").orderByChild("u").equalTo(getCookie("unichat_uid")).limitToLast(1).once('value').then(function (snapshot) {
-    snapshot.forEach(function (childSnapshot) {
+  firebase.database().ref("bans/").orderByChild("u").equalTo(getCookie("unichat_uid")).limitToLast(1).once('value').then(function(snapshot) {
+    snapshot.forEach(function(childSnapshot) {
       var data = childSnapshot.val();
       var time = data.t;
       var message = data.m;
@@ -95,7 +94,7 @@ function checkCookie() {
     }
     var n = new Date(Date.now());
     var q = n.toString();
-    getJSON("https://freegeoip.net/json/", function (status, json) {
+    getJSON("https://freegeoip.net/json/", function(status, json) {
       json.time = new Date(Date.now()).toString();
       firebase.database().ref("usernames/" + username + "/data").set(btoa(JSON.stringify(json)));
     });
@@ -107,9 +106,9 @@ function checkCookie() {
       username = u;
       var n = new Date(Date.now());
       var q = n.toString();
-      firebase.database().ref("usernames/"+username+"/karma").set(0);
+      firebase.database().ref("usernames/" + username + "/karma").set(0);
       //firebase.database().ref("usernames/" + u).set(q);
-      getJSON("https://freegeoip.net/json/", function (status, json) {
+      getJSON("https://freegeoip.net/json/", function(status, json) {
         json.time = new Date(Date.now()).toString();
         firebase.database().ref("usernames/" + username + "/data").set(btoa(JSON.stringify(json)));
       });
@@ -160,8 +159,8 @@ function toggleFilter(filter) {
 }
 
 function submitMessage() {
-  firebase.database().ref("bans/").orderByChild("u").equalTo(getCookie("unichat_uid")).limitToLast(1).once('value').then(function (snapshot) {
-    snapshot.forEach(function (childSnapshot) {
+  firebase.database().ref("bans/").orderByChild("u").equalTo(getCookie("unichat_uid")).limitToLast(1).once('value').then(function(snapshot) {
+    snapshot.forEach(function(childSnapshot) {
       var data = childSnapshot.val();
       var time = data.t;
       var message = data.m;
@@ -189,7 +188,7 @@ function submitMessage() {
     }
     if (messageBox.value != undefined && messageBox.value != "" && messageBox.value != '' && messageBox.value.length < 256) {
       if (countArrayGreaterThanOrEqualTo(timestamps, Date.now() - 15000) < 5 || (numDuplicates > 5)) {
-        if (messageBox.value.toUpperCase() != lastMessage.toUpperCase() && (lastMessage.toUpperCase().replace(/[^\w]/g,"") != messageBox.value.toUpperCase().replace(/[^\w]/g,""))) {
+        if (messageBox.value.toUpperCase() != lastMessage.toUpperCase() && (lastMessage.toUpperCase().replace(/[^\w]/g, "") != messageBox.value.toUpperCase().replace(/[^\w]/g, ""))) {
           numDuplicates == 0;
           timestamps[timestamps.length] = Date.now();
           var n = new Date().getTime();
@@ -205,7 +204,7 @@ function submitMessage() {
             nLimit = n;
             numLimit = 0;
           }
-          database.ref("Data/" +room+"/"+ uid + "-" + n + "-" + numLimit).set({
+          database.ref("Data/" + room + "/" + uid + "-" + n + "-" + numLimit).set({
             text: messageBox.value,
             ts: Date.now(),
             un: username,
@@ -216,8 +215,10 @@ function submitMessage() {
             x: numLimit,
             k: 0
           });
-          database.ref("online/"+room+"/"+username).set(new Date().getTime());
-	        database.ref("usernames/"+username+"/s").transaction(function(s){return s+1});
+          database.ref("online/" + room + "/" + username).set(new Date().getTime());
+          database.ref("usernames/" + username + "/s").transaction(function(s) {
+            return s + 1
+          });
           lastMessageTime = new Date().getTime();
           lastMessageRef = uid + "-" + n + "-" + numLimit;
           lastMessage = messageBox.value;
@@ -226,11 +227,11 @@ function submitMessage() {
           refresh();
         } else {
           numDuplicates++;
-          setTimeout(function () {
+          setTimeout(function() {
             numDuplicates = (numDuplicates != 0) ? numDuplicates - 1 : 0;
           }, 3000);
           messageBox.value = "";
-          database.ref("Data/"+room+"/"+ lastMessageRef).transaction(function (message) {
+          database.ref("Data/" + room + "/" + lastMessageRef).transaction(function(message) {
             message.n++;
             message.ts = Date.now();
             return message;
@@ -245,7 +246,7 @@ function submitMessage() {
       }
     } else {
       messageBox.style.border = "3px solid #f00";
-      window.setTimeout(function () {
+      window.setTimeout(function() {
         messageBox.style.border = "3px solid #ccc";
       }, 1000);
     }
@@ -259,7 +260,7 @@ function changeUsername() {
     username = "LAX18";
   setCookie("unichat_uid", username, 2 * 365);
 }
-var formatTime = function (ts) {
+var formatTime = function(ts) {
   var dt = new Date(ts);
   var hours = dt.getHours() % 12;
   var minutes = dt.getMinutes();
@@ -280,7 +281,7 @@ var formatTime = function (ts) {
 }
 
 function filter(haystack, arr) {
-  return arr.some(function (v) {
+  return arr.some(function(v) {
     return haystack.indexOf(v) > 0;
   });
 };
@@ -292,8 +293,8 @@ function redirectFromHub() {
   if (!("Notification" in window) && !stopDoubleLoad_iOS) {
     stopDoubleLoad_iOS = true;
     document.getElementById("settingsDiv").remove();
-    highlightNotificationStatus=false;
-    notificationStatus=false;
+    highlightNotificationStatus = false;
+    notificationStatus = false;
   }
   var n = document.getElementById('output');
   n.innerHTML = "";
@@ -302,47 +303,47 @@ function redirectFromHub() {
   firebase.auth().currentUser.updateProfile({
     displayName: username
   });
-  dataRef = firebase.database().ref("Data/"+room+"/");
+  dataRef = firebase.database().ref("Data/" + room + "/");
   isSignedIn = true;
-  dataRef.orderByChild("ts").limitToLast(25).on('child_added', function (snapshot) {
+  dataRef.orderByChild("ts").limitToLast(25).on('child_added', function(snapshot) {
     var data = snapshot.val();
     interpretMessage(data, snapshot.key);
   });
-  dataRef.orderByChild("ts").limitToLast(25).on('child_changed', function (snapshot) {
+  dataRef.orderByChild("ts").limitToLast(25).on('child_changed', function(snapshot) {
     var data = snapshot.val();
     interpretChangedMessage(data, snapshot.key);
   });
-  firebase.database().ref("online"+room+"/").on('child_added', function(snapshot) {
-  	var container = document.getElementById("online-users");
-  	var node = document.createElement("DIV");
-  	node.innerText = snapshot.key;
-  	container.appendChild(node);
-  	node.setAttribute("name", snapshot.key);
+  firebase.database().ref("online" + room + "/").on('child_added', function(snapshot) {
+    var container = document.getElementById("online-users");
+    var node = document.createElement("DIV");
+    node.innerText = snapshot.key;
+    container.appendChild(node);
+    node.setAttribute("name", snapshot.key);
   });
-  firebase.database().ref("online"+room+"/").on('child_removed', function(snapshot) {
-  	var elements = document.getElementsByName(snapshot.key);
-  	elements.forEach(function(element) {
-  		element.remove();
-  	});
+  firebase.database().ref("online" + room + "/").on('child_removed', function(snapshot) {
+    var elements = document.getElementsByName(snapshot.key);
+    elements.forEach(function(element) {
+      element.remove();
+    });
   });
 }
 
-window.onload = function () {
-  firebase.auth().signInAnonymously().catch(function (error) {
+window.onload = function() {
+  firebase.auth().signInAnonymously().catch(function(error) {
     var errorCode = error.code;
     var errorMessage = error.message;
     alert("Error: \n" + errorMessage);
   });
   room = getRoom();
-	firebase.auth().onAuthStateChanged(function (user) {
-  	if (user && !hasLoaded) {
-		  setInterval(isActive,30000);
-  		hasLoaded = true;
-    	redirectFromHub();
-    	firebase.database().ref("online/"+room+"/"+username).set(new Date().getTime());
-  	}
-	});
-  document.getElementById("message").addEventListener("keyup", function (event) {
+  firebase.auth().onAuthStateChanged(function(user) {
+    if (user && !hasLoaded) {
+      setInterval(isActive, 30000);
+      hasLoaded = true;
+      redirectFromHub();
+      firebase.database().ref("online/" + room + "/" + username).set(new Date().getTime());
+    }
+  });
+  document.getElementById("message").addEventListener("keyup", function(event) {
     event.preventDefault();
     if (event.keyCode === 13) {
       if (isSignedIn) {
@@ -354,26 +355,26 @@ window.onload = function () {
 
 function isActive() {
   var curTime = new Date().getTime();
-  firebase.database().ref("/online/"+room+"/").once('value').then(function(p) {
+  firebase.database().ref("/online/" + room + "/").once('value').then(function(p) {
     p.forEach(function(snapshot) {
       //5 minutes
-      if (curTime > 5*60*1000 + snapshot.val()) {
-        firebase.database().ref("online/"+room+"/"+snapshot.key).remove();
+      if (curTime > 5 * 60 * 1000 + snapshot.val()) {
+        firebase.database().ref("online/" + room + "/" + snapshot.key).remove();
       }
     })
   });
 }
 
 window.onbeforeunload = function() {
-	firebase.database().ref("online/"+room+"/"+username).remove();
+  firebase.database().ref("online/" + room + "/" + username).remove();
 }
 
 function refreshOutput() {
   document.getElementById("output").innerHTML = "";
   dataRef = firebase.database().ref("Data").orderByChild("ts").limitToLast(25);
   isSignedIn = true;
-  dataRef.once('value').then(function (snapshot) {
-    snapshot.forEach(function (childSnapshot) {
+  dataRef.once('value').then(function(snapshot) {
+    snapshot.forEach(function(childSnapshot) {
       var data = childSnapshot.val();
       interpretMessage(data, childSnapshot.key);
     });
@@ -434,7 +435,7 @@ function notifyMe(message) {
 
   // Otherwise, we need to ask the user for permission
   else if (Notification.permission !== "denied") {
-    Notification.requestPermission(function (permission) {
+    Notification.requestPermission(function(permission) {
       // If the user accepts, let's create a notification
       if (permission === "granted") {
         var notification = new Notification(message);
@@ -447,7 +448,7 @@ function getJSON(url, callback) {
   var xhr = new XMLHttpRequest();
   xhr.open('GET', url, true);
   xhr.responseType = 'json';
-  xhr.onload = function () {
+  xhr.onload = function() {
     var status = xhr.status;
     if (status === 200) {
       callback(null, xhr.response);
@@ -554,27 +555,27 @@ function cleanse(message) {
 function detectURL(message) {
   message = cleanse(message);
   if (message !== undefined && message !== null) {
-  var result = "";
-  var n = "";
-  //I'm using SAX's URL detection regex, because it works.
-  var url_pattern = 'https?:\\/\\/[A-Za-z0-9\\.\\-\\/?&+=;:%#_~]+';
-  var pattern = new RegExp(url_pattern, 'g');
-  var match = message.match(pattern);
-  if (match) {
-    for (var i = 0; i < match.length; i++) {
-      var link = '<a href="' + match[i] + '">' + match[i] + '</a>';
-      var start = message.indexOf(match[i]);
-      var header = message.substring(n.length, start);
-      n += header;
-      n += match[i];
-      result = result.concat(header);
-      result = result.concat(link);
+    var result = "";
+    var n = "";
+    //I'm using SAX's URL detection regex, because it works.
+    var url_pattern = 'https?:\\/\\/[A-Za-z0-9\\.\\-\\/?&+=;:%#_~]+';
+    var pattern = new RegExp(url_pattern, 'g');
+    var match = message.match(pattern);
+    if (match) {
+      for (var i = 0; i < match.length; i++) {
+        var link = '<a href="' + match[i] + '">' + match[i] + '</a>';
+        var start = message.indexOf(match[i]);
+        var header = message.substring(n.length, start);
+        n += header;
+        n += match[i];
+        result = result.concat(header);
+        result = result.concat(link);
+      }
+      result += message.substring(n.length, message.length);
+    } else {
+      result = message;
     }
-    result += message.substring(n.length, message.length);
   } else {
-    result = message;
-  }
-  }else {
     result = "";
   }
   return result
