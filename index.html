@@ -75,7 +75,14 @@
        <input type="button" value="Toggle Notifications" onclick="toggleNotifications()">
        <input type="button" value="Toggle Highlight Notifications" onclick="toggleNotificationOnHighlight()">
       <input type="button" value="Create Random Chatroom" onclick="redirectToNewPrivateRoom()">
+      <br />
+      <p>Go to Chatroom:</p>
+      <form action="/UniChatDemo/" method="GET">
+        <input type="text" name="room" style="width: 25%;float: left" placeholder="Chatroom Name" required pattern="\w{1,64}" minlength="1" maxlength="64">
+        <input type="submit" style="width: 10%;float: left">
+      </form>
     </div>
+    <br />
     <div class="tags">
       <p> Optionally, you can click on one or more of the tags below to make sure your message reaches your audience! </p>
       <input type="button" value="Programming" onclick="addTag(this)">
