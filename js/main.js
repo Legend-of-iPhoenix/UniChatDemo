@@ -330,9 +330,8 @@ window.onload = function() {
   });
   room = getRoom();
   firebase.auth().onAuthStateChanged(function(user) {
-    if (user && !hasLoaded) {
+    if (user) {
       setInterval(isActive, 30000);
-      hasLoaded = true;
       redirectFromHub();
       firebase.database().ref("online/" + room + "/" + username).set(new Date().getTime());
     }
