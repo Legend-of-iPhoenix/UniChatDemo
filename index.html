@@ -78,7 +78,7 @@
       <br />
       <p>Go to Chatroom:</p>
       <form action="/UniChatDemo/" method="GET">
-        <input type="text" name="room" style="width: 25%;float: left" placeholder="Chatroom Name" required minlength="1" maxlength="64">
+        <input type="text" name="room" style="width: 25%;float: left" placeholder="Chatroom Name" required pattern="\w{1,64}" minlength="1" maxlength="64">
         <input type="submit" style="width: 10%;float: left">
       </form>
     </div>
