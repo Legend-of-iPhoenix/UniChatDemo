@@ -66,7 +66,8 @@ function getCookie(cname) {
 
 function getRoom() {
   var str = location.href;
-  return str.match(/\?room=(\w*)/) ? str.match(/\?room=(\w*)/)[1] : "_default";
+  var match = str.match(/\?room=(\w*)/) ? str.match(/\?room=(\w*)/)[1] : "_default";
+  return /^(\w{1,64})/.test(match) ? match : "_default";
 }
 
 function checkCookie() {
