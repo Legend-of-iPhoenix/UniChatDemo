@@ -148,6 +148,7 @@ function submitMessage() {
       var match = reg.exec(str);
       recipient = match[0];
     }
+    ga('send', 'event', {eventCategory: 'Message', eventAction: 'extension_sent_attempt'});
     if (messageBox.value != undefined && messageBox.value != "" && messageBox.value != '' && messageBox.value.length < 256) {
       if (countArrayGreaterThanOrEqualTo(timestamps, Date.now() - 15000) < 5 || (numDuplicates > 5)) {
         if (messageBox.value.toUpperCase() != lastMessage.toUpperCase() && (lastMessage.toUpperCase().replace(/[^\w]/g,"") != messageBox.value.toUpperCase().replace(/[^\w]/g,""))) {
@@ -178,7 +179,8 @@ function submitMessage() {
             k: 0
           });
           database.ref("online/"+room+"/"+username).set(new Date().getTime());
-	  database.ref("usernames/"+username+"/t").transaction(function(s){return s+1});
+          ga('send', 'event', {eventCategory: 'Message', eventAction: 'extension_sent_success'});
+	        database.ref("usernames/"+username+"/t").transaction(function(s){return s+1});
           lastMessageTime = new Date().getTime();
           lastMessageRef = uid + "-" + n + "-" + numLimit;
           lastMessage = messageBox.value;
