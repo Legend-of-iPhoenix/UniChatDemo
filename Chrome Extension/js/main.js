@@ -193,7 +193,7 @@ function submitMessage() {
             nLimit = n;
             numLimit = 0;
           }
-          database.ref("Data/" + uid + "-" + n + "-" + numLimit).set({
+          database.ref("Data/"+room+"/" + uid + "-" + n + "-" + numLimit).set({
             text: messageBox.value,
             ts: Date.now(),
             un: username,
