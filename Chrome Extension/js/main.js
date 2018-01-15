@@ -191,7 +191,7 @@ function submitMessage() {
             numDuplicates = (numDuplicates != 0) ? numDuplicates - 1 : 0;
           }, 3000);
           messageBox.value = "";
-          database.ref("Data/" room+"/"+ lastMessageRef).transaction(function (message) {
+          database.ref("Data/"+room+"/"+ lastMessageRef).transaction(function (message) {
             message.n++;
             message.ts = Date.now();
             return message;
