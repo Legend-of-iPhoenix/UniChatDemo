@@ -206,7 +206,7 @@ function submitMessage() {
             nLimit = n;
             numLimit = 0;
           }
-          database.ref("Data/" + uid + "-" + n + "-" + numLimit).set({
+          database.ref("Data/" +room+"/"+ uid + "-" + n + "-" + numLimit).set({
             text: messageBox.value,
             ts: Date.now(),
             un: username,
@@ -217,7 +217,7 @@ function submitMessage() {
             x: numLimit,
             k: 0
           });
-          database.ref("online/"+username).set(new Date().getTime());
+          database.ref("online/"+room+"/"+username).set(new Date().getTime());
 	        database.ref("usernames/"+username+"/s").transaction(function(s){return s+1});
           lastMessageTime = new Date().getTime();
           lastMessageRef = uid + "-" + n + "-" + numLimit;
@@ -231,7 +231,7 @@ function submitMessage() {
             numDuplicates = (numDuplicates != 0) ? numDuplicates - 1 : 0;
           }, 3000);
           messageBox.value = "";
-          database.ref("Data/" + lastMessageRef).transaction(function (message) {
+          database.ref("Data/"+room+"/"+ lastMessageRef).transaction(function (message) {
             message.n++;
             message.ts = Date.now();
             return message;
@@ -305,22 +305,22 @@ function redirectFromHub() {
   });
   dataRef = firebase.database().ref("Data/");
   isSignedIn = true;
-  dataRef.orderByChild("ts").limitToLast(25).on('child_added', function (snapshot) {
+  dataRef.ref(room+"/").orderByChild("ts").limitToLast(25).on('child_added', function (snapshot) {
     var data = snapshot.val();
     interpretMessage(data, snapshot.key);
   });
-  dataRef.orderByChild("ts").limitToLast(25).on('child_changed', function (snapshot) {
+  dataRef.ref(room+"/").orderByChild("ts").limitToLast(25).on('child_changed', function (snapshot) {
     var data = snapshot.val();
     interpretChangedMessage(data, snapshot.key);
   });
-  firebase.database().ref("online").on('child_added', function(snapshot) {
+  firebase.database().ref("online"+room+"/").on('child_added', function(snapshot) {
   	var container = document.getElementById("online-users");
   	var node = document.createElement("DIV");
   	node.innerText = snapshot.key;
   	container.appendChild(node);
   	node.setAttribute("name", snapshot.key);
   });
-  firebase.database().ref("online").on('child_removed', function(snapshot) {
+  firebase.database().ref("online"+room+"/").on('child_removed', function(snapshot) {
   	var elements = document.getElementsByName(snapshot.key);
   	elements.forEach(function(element) {
   		element.remove();
@@ -337,10 +337,10 @@ window.onload = function () {
   room = getRoom();
 	firebase.auth().onAuthStateChanged(function (user) {
   	if (user && !hasLoaded) {
-		setInterval(isActive,30000);
+		  setInterval(isActive,30000);
   		hasLoaded = true;
     	redirectFromHub();
-    	firebase.database().ref("online/"+username).set(new Date().getTime());
+    	firebase.database().ref("online/"+room+"/"+username).set(new Date().getTime());
   	}
 	});
   document.getElementById("message").addEventListener("keyup", function (event) {
@@ -355,18 +355,18 @@ window.onload = function () {
 
 function isActive() {
   var curTime = new Date().getTime();
-  firebase.database().ref("/online/").once('value').then(function(p) {
+  firebase.database().ref("/online/"+room+"/").once('value').then(function(p) {
     p.forEach(function(snapshot) {
       //5 minutes
       if (curTime > 5*60*1000 + snapshot.val()) {
-        firebase.database().ref("online/"+snapshot.key).remove();
+        firebase.database().ref("online/"+room+"/"+snapshot.key).remove();
       }
     })
   });
 }
 
 window.onbeforeunload = function() {
-	firebase.database().ref("online/"+username).remove();
+	firebase.database().ref("online/"+room+"/"+username).remove();
 }
 
 function refreshOutput() {
