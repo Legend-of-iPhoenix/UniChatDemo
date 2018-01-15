@@ -530,7 +530,7 @@ function interpretMessage(data, key) {
           textnode = "[" + dateString + "][PM]["+posterUsername+"-> You]: " + messagePM;
         } else {
           if (posterUsername == username) {
-            textnode = "[" + dateString + "][PM][You -> "+posterUsername+"]: " + messagePM;
+            textnode = "[" + dateString + "][PM][You -> "+match[0]+"]: " + messagePM;
           }
         }
       } else {
