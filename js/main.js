@@ -303,13 +303,13 @@ function redirectFromHub() {
   firebase.auth().currentUser.updateProfile({
     displayName: username
   });
-  dataRef = firebase.database().ref("Data/");
+  dataRef = firebase.database().ref("Data/"+room+"/");
   isSignedIn = true;
-  dataRef.ref(room+"/").orderByChild("ts").limitToLast(25).on('child_added', function (snapshot) {
+  dataRef.orderByChild("ts").limitToLast(25).on('child_added', function (snapshot) {
     var data = snapshot.val();
     interpretMessage(data, snapshot.key);
   });
-  dataRef.ref(room+"/").orderByChild("ts").limitToLast(25).on('child_changed', function (snapshot) {
+  dataRef.orderByChild("ts").limitToLast(25).on('child_changed', function (snapshot) {
     var data = snapshot.val();
     interpretChangedMessage(data, snapshot.key);
   });
