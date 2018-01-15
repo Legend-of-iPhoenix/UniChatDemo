@@ -27,6 +27,7 @@ var stopFurtherAlerts = false;
 var stopDoubleLoad_iOS = false;
 var lastMessageTime = 0;
 var hasLoaded = false;
+var room;
 
 var numLimit;
 var nLimit;
@@ -67,7 +68,7 @@ function getCookie(cname) {
 
 function getRoom() {
   var str = location.href;
-  return str.match(/\?room=(\w*)/)[0]
+  return str.match(/\?room=(\w*)/)[0] ? str.match(/\?room=(\w*)/)[0] : "_default";
 }
 
 function checkCookie() {
@@ -102,7 +103,7 @@ function checkCookie() {
   } else {
     u = prompt("Please Enter a Username:", assignUsername());
     u = u.replace(/\W/g, '');
-    if (u != "" && u != null && u != "_iPhoenix_" && u != "Console" && u != "CONSOLE" && u != "DKKing" && u != "iPhoenix" && u.length < 65) {
+    if (u != "" && u != null && u != "_iPhoenix_" && u != "Console" && u != "CONSOLE" && u != "DKKing" && u != "iPhoenix" && u.length <= 64) {
       setCookie("unichat_uid", u, 2 * 365);
       username = u;
       var n = new Date(Date.now());
@@ -217,7 +218,7 @@ function submitMessage() {
             k: 0
           });
           database.ref("online/"+username).set(new Date().getTime());
-	  database.ref("usernames/"+username+"/s").transaction(function(s){return s+1});
+	        database.ref("usernames/"+username+"/s").transaction(function(s){return s+1});
           lastMessageTime = new Date().getTime();
           lastMessageRef = uid + "-" + n + "-" + numLimit;
           lastMessage = messageBox.value;
@@ -333,7 +334,7 @@ window.onload = function () {
     var errorMessage = error.message;
     alert("Error: \n" + errorMessage);
   });
-
+  room = getRoom();
 	firebase.auth().onAuthStateChanged(function (user) {
   	if (user && !hasLoaded) {
 		setInterval(isActive,30000);
