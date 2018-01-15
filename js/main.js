@@ -66,7 +66,7 @@ function getCookie(cname) {
 }
 
 function getRoom() {
-  varr str = location.href;
+  var str = location.href;
   return str.match(/\?room=(\w*)/)[0]
 }
 
