@@ -76,9 +76,9 @@
        <input type="button" value="Toggle Highlight Notifications" onclick="toggleNotificationOnHighlight()">
       <input type="button" value="Create Random Chatroom" onclick="redirectToNewPrivateRoom()">
       <br />
-      New Private Chatroom:
-      <form action="/UniChatDemo/" meythod="GET">
-        <input type="text" name="room" style="width: 25%;float: left">
+      <p>Go to Chatroom:</p>
+      <form action="/UniChatDemo/" method="GET">
+        <input type="text" name="room" style="width: 25%;float: left" placeholder="Chatroom Name" required minlength="1" maxlength="64">
         <input type="submit" style="width: 10%;float: left">
       </form>
     </div>
