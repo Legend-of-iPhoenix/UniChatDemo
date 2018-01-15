@@ -7,7 +7,7 @@
 //     \________/    ______                                   ______
 //                  |______|                                 |______|
 //
-// V0.63.3
+// V0.63.5b1
 //
 // (just ask if you want to use my source, I probably won't say no.)
 
@@ -71,9 +71,6 @@ function checkCookie() {
       var data = childSnapshot.val();
       var time = data.t;
       var message = data.m;
-      console.log(data);
-      console.log(time);
-      console.log(message);
       if (data !== null && data !== undefined) {
         if (data.t >= Date.now()) {
           var until = data.t;
