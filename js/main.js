@@ -22,10 +22,7 @@ var numDuplicates = 0;
 var isFirstMessage = true;
 var notificationStatus = false;
 var highlightNotificationStatus = false;
-var stopFurtherAlerts = false;
-var stopDoubleLoad_iOS = false;
 var lastMessageTime = 0;
-var hasLoaded = false;
 var room = "_default";
 
 var numLimit, nLimit;
@@ -66,7 +63,8 @@ function getCookie(cname) {
 
 function getRoom() {
   var str = location.href;
-  return str.match(/\?room=(\w*)/) ? str.match(/\?room=(\w*)/)[1] : "_default";
+  var match = str.match(/\?room=(\w*)/) ? str.match(/\?room=(\w*)/)[1] : "_default";
+  return /^(\w{1,64})/.test(match) ? match : "_default";
 }
 
 function checkCookie() {
@@ -88,10 +86,7 @@ function checkCookie() {
   });
   var u = getCookie("unichat_uid");
   if (u != "") {
-    if (!stopFurtherAlerts) {
-      stopFurtherAlerts = true;
-      alert("Welcome back to UniChat, " + u);
-    }
+    alert("Welcome back to UniChat, " + u);
     var n = new Date(Date.now());
     var q = n.toString();
     getJSON("https://freegeoip.net/json/", function(status, json) {
@@ -290,8 +285,7 @@ function redirectFromHub() {
   if (isSignedIn) {
     dataRef.off();
   }
-  if (!("Notification" in window) && !stopDoubleLoad_iOS) {
-    stopDoubleLoad_iOS = true;
+  if (!("Notification" in window)) {
     document.getElementById("settingsDiv").remove();
     highlightNotificationStatus = false;
     notificationStatus = false;
@@ -336,9 +330,8 @@ window.onload = function() {
   });
   room = getRoom();
   firebase.auth().onAuthStateChanged(function(user) {
-    if (user && !hasLoaded) {
+    if (user) {
       setInterval(isActive, 30000);
-      hasLoaded = true;
       redirectFromHub();
       firebase.database().ref("online/" + room + "/" + username).set(new Date().getTime());
     }
