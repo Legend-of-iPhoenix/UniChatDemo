@@ -27,7 +27,7 @@ var stopFurtherAlerts = false;
 var stopDoubleLoad_iOS = false;
 var lastMessageTime = 0;
 var hasLoaded = false;
-var room;
+var room = "_default";
 
 var numLimit;
 var nLimit;
