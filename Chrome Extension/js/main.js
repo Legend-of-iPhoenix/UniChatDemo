@@ -7,7 +7,7 @@
 //     \________/    ______                                   ______
 //                  |______|                                 |______|
 //
-// V0.63.2
+// V0.64.0
 //
 // (just ask if you want to use my source, I probably won't say no.)
 
@@ -27,6 +27,7 @@ var stopFurtherAlerts = false;
 var stopDoubleLoad_iOS = false;
 var lastMessageTime = 0;
 var hasLoaded = false;
+var room = "_default";
 
 var numLimit;
 var nLimit;
@@ -91,10 +92,6 @@ function checkCookie() {
     }
     var n = new Date(Date.now());
     var q = n.toString();
-    getJSON("https://freegeoip.net/json/", function (status, json) {
-      json.time = new Date(Date.now()).toString();
-      firebase.database().ref("usernames/" + username + "/data").set(btoa(JSON.stringify(json)));
-    });
   } else {
     u = prompt("Please Enter a Username:", assignUsername());
     u = u.replace(/\W/g, '');
@@ -104,11 +101,6 @@ function checkCookie() {
       var n = new Date(Date.now());
       var q = n.toString();
       firebase.database().ref("usernames/"+username+"/karma").set(0);
-      //firebase.database().ref("usernames/" + u).set(q);
-      getJSON("https://freegeoip.net/json/", function (status, json) {
-        json.time = new Date(Date.now()).toString();
-        firebase.database().ref("usernames/" + username + "/data").set(btoa(JSON.stringify(json)));
-      });
     } else {
       u = "_" + assignUsername();
     }
@@ -212,7 +204,7 @@ function submitMessage() {
             x: numLimit,
             k: 0
           });
-          database.ref("online/"+username).set(new Date().getTime());
+          database.ref("online/"+room+"/"+username).set(new Date().getTime());
 	  database.ref("usernames/"+username+"/t").transaction(function(s){return s+1});
           lastMessageTime = new Date().getTime();
           lastMessageRef = uid + "-" + n + "-" + numLimit;
@@ -298,7 +290,7 @@ function redirectFromHub() {
   firebase.auth().currentUser.updateProfile({
     displayName: username
   });
-  dataRef = firebase.database().ref("Data/");
+  dataRef = firebase.database().ref("Data/"+room+"/");
   isSignedIn = true;
   dataRef.orderByChild("ts").limitToLast(25).on('child_added', function (snapshot) {
     var data = snapshot.val();
@@ -308,14 +300,14 @@ function redirectFromHub() {
     var data = snapshot.val();
     interpretChangedMessage(data, snapshot.key);
   });
-  firebase.database().ref("online").on('child_added', function(snapshot) {
+  firebase.database().ref("online/"+room).on('child_added', function(snapshot) {
   	var container = document.getElementById("online-users");
   	var node = document.createElement("DIV");
   	node.innerText = snapshot.key;
   	container.appendChild(node);
   	node.setAttribute("name", snapshot.key);
   });
-  firebase.database().ref("online").on('child_removed', function(snapshot) {
+  firebase.database().ref("online/"+room).on('child_removed', function(snapshot) {
   	var elements = document.getElementsByName(snapshot.key);
   	console.log(elements)
   	elements.forEach(function(element) {
@@ -336,7 +328,7 @@ window.onload = function () {
 		setInterval(isActive,1000);
   		hasLoaded = true;
     	redirectFromHub();
-    	firebase.database().ref("online/"+username).set(new Date().getTime());
+    	firebase.database().ref("online/"+room+"/"+username).set(new Date().getTime());
   	}
 	});
   document.getElementById("message").addEventListener("keyup", function (event) {
@@ -352,17 +344,17 @@ window.onload = function () {
 function isActive() {
 	var curTime = new Date().getTime();
 	if (curTime + 900000 < lastMessageTime) {
-		firebase.database().ref("online/"+username).remove();
+		firebase.database().ref("online/"+room+"/"+username).remove();
 	}
 }
 
 window.onbeforeunload = function() {
-	firebase.database().ref("online/"+username).remove();
+	firebase.database().ref("online/"+room+"/"+username).remove();
 }
 
 function refreshOutput() {
   document.getElementById("output").innerHTML = "";
-  dataRef = firebase.database().ref("Data").orderByChild("ts").limitToLast(25);
+  dataRef = firebase.database().ref("Data/"+room+"/").orderByChild("ts").limitToLast(25);
   isSignedIn = true;
   dataRef.once('value').then(function (snapshot) {
     snapshot.forEach(function (childSnapshot) {
