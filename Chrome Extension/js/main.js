@@ -110,26 +110,6 @@ function checkCookie() {
 
 function refresh() {
   var span, text;
-  document.getElementById("filterDisplay").innerHTML = "";
-  document.getElementById("tagDisplay").innerHTML = "";
-  for (var filter = 1; filter < filters.length; filter++) {
-    span = document.createElement("SPAN");
-    text = document.createTextNode(filters[filter]);
-    span.appendChild(text);
-    document.getElementById("filterDisplay").appendChild(span);
-  }
-
-  for (var tag = 1; tag < currentMessageTags.length; tag++) {
-    span = document.createElement("SPAN");
-    text = document.createTextNode(currentMessageTags[tag]);
-    span.appendChild(text);
-    document.getElementById("tagDisplay").appendChild(span);
-  }
-}
-
-function addTag(tag) {
-  toggleArrayItem(currentMessageTags, tag.getAttribute("value"));
-  refresh();
 }
 
 function toggleArrayItem(a, v) {
@@ -138,13 +118,6 @@ function toggleArrayItem(a, v) {
     a.push(v);
   else
     a.splice(i, 1);
-}
-
-function toggleFilter(filter) {
-  var value = filter.getAttribute("value");
-  toggleArrayItem(filters, value);
-  refresh();
-  refreshOutput();
 }
 
 function submitMessage() {
@@ -218,7 +191,7 @@ function submitMessage() {
             numDuplicates = (numDuplicates != 0) ? numDuplicates - 1 : 0;
           }, 3000);
           messageBox.value = "";
-          database.ref("Data/" + lastMessageRef).transaction(function (message) {
+          database.ref("Data/" room+"/"+ lastMessageRef).transaction(function (message) {
             message.n++;
             message.ts = Date.now();
             return message;
