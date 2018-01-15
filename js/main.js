@@ -65,6 +65,11 @@ function getCookie(cname) {
   return "";
 }
 
+function getRoom() {
+  varr str = location.href;
+  return str.match(/\?room=(\w*)/)[0]
+}
+
 function checkCookie() {
   firebase.database().ref("bans/").orderByChild("u").equalTo(getCookie("unichat_uid")).limitToLast(1).once('value').then(function (snapshot) {
     snapshot.forEach(function (childSnapshot) {
