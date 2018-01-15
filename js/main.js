@@ -329,6 +329,32 @@ window.onload = function() {
     alert("Error: \n" + errorMessage);
   });
   room = getRoom();
+  if (room != "_default") {
+    var label = document.createElement("p");
+    label.innerText = "Click to copy the link to share this chatroom.";
+    document.getElementById("share-chatroom").appendChild(label);
+    var copy = document.createElement("input");
+    copy.setAttribute("type","text");
+    copy.readOnly = true;
+    document.getElementById("share-chatroom").appendChild(copy);
+    copy.value = "https://legend-of-iphoenix.github.io/UniChatDemo/?room="+room;
+    copy.id = "share-link";
+    copy.onclick = function() {
+      if (!document.getElementById("share-copied")) {
+        document.getElementById("share-link").select();
+        document.execCommand("copy");
+        document.getElementById("share-link").style.border = "3px solid #0f0";
+        var copied = document.createElement("p");
+        copied.innerText = "Link Copied!";
+        copied.id = "share-copied";
+        document.getElementById("share-chatroom").appendChild(copied);
+        window.setTimeout(function() {
+          document.getElementById("share-link").style.border = "3px solid #ccc";
+          document.getElementById("share-copied").remove();
+        }, 1000);
+      }
+    }
+  }
   firebase.auth().onAuthStateChanged(function(user) {
     if (user) {
       setInterval(isActive, 30000);
