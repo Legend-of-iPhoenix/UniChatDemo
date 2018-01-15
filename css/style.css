@@ -125,7 +125,7 @@ input[type=text]:focus,input[type=password]:focus {
   border: 3px solid #454545;
 }
 
-input[type=button], button {
+input[type=button], button, input[type=submit] {
   border-radius: 5px;
   color: #000;
   font-size: 16px;
@@ -145,7 +145,7 @@ input[value="Send"] {
   width: auto;
 }
 
-input[type=button]:hover, button:hover {
+input[type=button]:hover, button:hover, input[type=submit]:hover  {
   box-shadow: 5px 5px 10px 0 rgba(0,0,0,0.8);
 }
 
