@@ -444,7 +444,7 @@ function getJSON(url, callback) {
     }
   };
   xhr.send();
-};
+}
 
 function countArrayGreaterThanOrEqualTo(array, number) {
   var n = 0;
