@@ -461,15 +461,18 @@ function interpretMessage(data, key) {
       var reg = /\w*/;
       var match = reg.exec(str);
       var messagePM = message.substring(4 + match[0].length, message.length);
-      if (messageCommand === "pm" && match[0] == username) {
-        textnode = "[" + dateString + "][PM]" + n + "  ~" + posterUsername + ' whispers to you: ' + messagePM;
+      if (messageCommand === "pm") {
+        if(match[0] == username) {
+          textnode = "[" + dateString + "][PM]["+posterUsername+"-> You]: " + messagePM;
+        } else {
+          if (posterUsername == username) {
+            textnode = "[" + dateString + "][PM][You -> "+posterUsername+"]: " + messagePM;
+          }
+        }
       } else {
         if (messageCommand !== "pm") {
           textnode = "[" + dateString + "]" + n + "  " + posterUsername + ': ' + message;
         }
-      }
-      if (match[0] == "TLM" && username == "TheLastMillennial") {
-        textnode = "[" + dateString + "][PM]" + n + "  ~" + posterUsername + ' whispers to you: ' + messagePM;
       }
     }
     if (notificationStatus && messageCommand != "pm") {
@@ -487,7 +490,7 @@ function interpretMessage(data, key) {
       if (highlightNotificationStatus)
         notifyMe(posterUsername + ": " + message);
     }
-    if (node.innerHTML != "") {
+    if (node.innerHTML != "undefined") {
       node.setAttribute("class", textClass);
       node.setAttribute("name", key);
       document.getElementById("output").appendChild(node);
