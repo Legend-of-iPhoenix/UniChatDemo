@@ -50,6 +50,10 @@ function getTitle(username, karma) {
       document.getElementById("username").className = "battlesquid";
       return "Closed Beta Tester";
     }
+    if (username == "SM84CE") {
+      document.getElementById('username').style.color = "#94f3bd";
+      return "Closed Beta Tester";
+    }
     if (helpers.indexOf(username) != -1) {
       document.getElementById("username").className = "glowing";
       return "Contributor"
