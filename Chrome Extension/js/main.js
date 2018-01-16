@@ -238,12 +238,6 @@ var formatTime = function (ts) {
   return hours + ":" + minutes + ":" + seconds;
 }
 
-function filter(haystack, arr) {
-  return arr.some(function (v) {
-    return haystack.indexOf(v) > 0;
-  });
-};
-
 function redirectFromHub() {
   if (isSignedIn) {
     dataRef.off();
@@ -335,24 +329,6 @@ function refreshOutput() {
   });
 }
 
-function notifyMe(message) {
-  // Let's check whether notification permissions have already been granted
-  if (Notification.permission === "granted") {
-    // If it's okay let's create a notification
-    var notification = new Notification(message);
-  }
-
-  // Otherwise, we need to ask the user for permission
-  else if (Notification.permission !== "denied") {
-    Notification.requestPermission(function (permission) {
-      // If the user accepts, let's create a notification
-      if (permission === "granted") {
-        var notification = new Notification(message);
-      }
-    });
-  }
-}
-
 function getJSON(url, callback) {
   var xhr = new XMLHttpRequest();
   xhr.open('GET', url, true);
@@ -377,18 +353,6 @@ function countArrayGreaterThanOrEqualTo(array, number) {
   return n;
 }
 
-function toggleNotifications() {
-  notificationStatus = !notificationStatus;
-  console.log("Notifications: " + (notificationStatus ? "On" : "Off"));
-  alert("Notfications: " + (notificationStatus ? "On" : "Off"));
-}
-
-function toggleNotificationOnHighlight() {
-  highlightNotificationStatus = !highlightNotificationStatus;
-  console.log("Highlight Notifications: " + (highlightNotificationStatus ? "On" : "Off"));
-  alert("Highlight Notfications: " + (highlightNotificationStatus ? "On" : "Off"));
-}
-
 function interpretMessage(data, key) {
   var message = data.text;
   var datePosted = data.ts;
@@ -400,7 +364,7 @@ function interpretMessage(data, key) {
   tempDate.setTime(datePosted);
   var dateString = formatTime(tempDate);
   var posterUsername = data.un;
-  if (message != undefined && (filter(data.tag, filters) || (filters.length == 1))) {
+  if (message != undefined) {
     var node = document.createElement("DIV");
     var reg = /\/([\w]*)/;
     var messageCommand = "";
@@ -436,13 +400,9 @@ function interpretMessage(data, key) {
     var textClass = "outputText";
     if (message.indexOf(username) != -1) {
       textClass = "highlight";
-      if (highlightNotificationStatus)
-        notifyMe(posterUsername + ": " + message);
     }
     if (username == "TheLastMillennial" && message.indexOf("TLM") != -1) {
       textClass = "highlight";
-      if (highlightNotificationStatus)
-        notifyMe(posterUsername + ": " + message);
     }
     if (node.innerHTML != "undefined") {
       node.setAttribute("class", textClass);
