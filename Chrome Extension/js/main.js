@@ -21,8 +21,6 @@ var timestamps = new Array();
 var currentMessageTags = ["_default"];
 var numDuplicates = 0;
 var isFirstMessage = true;
-var notificationStatus = false;
-var highlightNotificationStatus = false;
 var stopFurtherAlerts = false;
 var stopDoubleLoad_iOS = false;
 var lastMessageTime = 0;
@@ -88,7 +86,6 @@ function checkCookie() {
   if (u != "") {
     if (!stopFurtherAlerts) {
       stopFurtherAlerts = true;
-     // alert("Welcome back to UniChat, " + u);
     }
     var n = new Date(Date.now());
     var q = n.toString();
@@ -245,8 +242,6 @@ function redirectFromHub() {
   if (!("Notification" in window) && !stopDoubleLoad_iOS) {
     stopDoubleLoad_iOS = true;
     document.getElementById("settingsDiv").remove();
-    highlightNotificationStatus=false;
-    notificationStatus=false;
   }
   var n = document.getElementById('output');
   n.innerHTML = "";
