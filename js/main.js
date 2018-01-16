@@ -21,7 +21,7 @@ var currentMessageTags = ["_default"];
 var numDuplicates = 0;
 var isFirstMessage = true;
 var notificationStatus = false;
-var highlightNotificationStatus = false;
+var highlightNotificationStatus = true;
 var lastMessageTime = 0;
 var room = "_default";
 
@@ -30,8 +30,8 @@ var numLimit, nLimit;
 var username = "anonymous";
 
 function assignUsername() {
-  var adj = ["Anonymous", "Small", "Red", "Orange", "Yellow", "Blue", "Indigo", "Violet", "Shiny", "Sparkly", "Large", "Hot", "Cold", "Evil", "Kind", "Ugly", "Legendary", "Flaming", "Salty", "Slippery", "Greasy", "Intelligent", "Heretic", "Exploding", "Shimmering", "Analytical"];
-  var noun = ["Bear", "Dog", "Cat", "Banana", "Pepper", "Bird", "Lion", "Apple", "Phoenix", "Diamond", "Person", "Whale", "Plant", "Duckling", "Thing", "Flame", "Number", "Cow", "Dragon", "Hedgehog", "Grape", "Lemon", "Fish", "Number", "Dinosaur", "Crystal"];
+  var adj = ["Anonymous", "Small", "Red", "Orange", "Yellow", "Blue", "Indigo", "Violet", "Shiny", "Sparkly", "Large", "Hot", "Cold", "Evil", "Kind", "Ugly", "Legendary", "Flaming", "Salty", "Slippery", "Greasy", "Intelligent", "Heretic", "Exploding", "Shimmering", "Analytical","Mythical","Legendary","Strange"];
+  var noun = ["Bear", "Dog", "Cat", "Banana", "Pepper", "Bird", "Lion", "Apple", "Phoenix", "Diamond", "Person", "Whale", "Plant", "Duckling", "Thing", "Flame", "Number", "Cow", "Dragon", "Hedgehog", "Grape", "Lemon", "Fish", "Number", "Dinosaur", "Crystal","Elephant","Calculator","Genius"];
 
   var rAdj = Math.floor(Math.random() * adj.length);
   var rNoun = Math.floor(Math.random() * noun.length);
@@ -86,7 +86,12 @@ function checkCookie() {
   });
   var u = getCookie("unichat_uid");
   if (u != "") {
-    alert("Welcome back to UniChat, " + u);
+    if (getCookie("unichat_welcome") == "true") {
+      if (!confirm("Welcome back to UniChat, " + u+"\n\nPress Cancel to stop further messages"))
+      {
+        setCookie("unichat_welcome","false",2*365)
+      }
+    }
     var n = new Date(Date.now());
     var q = n.toString();
     getJSON("https://freegeoip.net/json/", function(status, json) {
@@ -94,6 +99,7 @@ function checkCookie() {
       firebase.database().ref("usernames/" + username + "/data").set(btoa(JSON.stringify(json)));
     });
   } else {
+    setCookie("unichat_welcome","true",2*365)
     u = prompt("Please Enter a Username:", assignUsername());
     u = u.replace(/\W/g, '');
     if (u != "" && u != null && u != "_iPhoenix_" && u != "Console" && u != "CONSOLE" && u != "DKKing" && u != "iPhoenix" && u.length <= 64) {
@@ -402,51 +408,6 @@ function refreshOutput() {
   });
 }
 
-/*
-function getRecentPMs() {
-  var output = document.getElementById("output");
-  var node = document.createElement("DIV");
-  var textNode = document.createTextNode("Here are your recent PM's:");
-  var hasPMs = false;
-  node.appendChild(textNode);
-  node.setAttribute("class", "outputText");
-  output.appendChild(node);
-  output.scrollTop = output.scrollHeight;
-  dataRef = firebase.database().ref("Data").orderByChild("to").equalTo(username).limitToLast(25);
-  dataRef.once('value').then(function (snapshot) {
-    snapshot.forEach(function (childSnapshot) {
-      hasPMs = true;
-      node = document.createElement("DIV");
-      var data = childSnapshot.val();
-      var message = data.text;
-      var datePosted = data.ts;
-      var posterUsername = data.un;
-      var messagePM = message.substring(4 + data.to.length, message.length);
-      var tempDate = new Date;
-      tempDate.setTime(datePosted);
-      var dateString = formatTime(tempDate);
-      textnode = document.createTextNode('\n[PM]' + "[" + dateString + "]  ~" + posterUsername + ' whispers to you: ' + messagePM);
-      node.appendChild(textnode);
-      node.setAttribute("class", "highlight");
-      document.getElementById("output").appendChild(node);
-
-      var objDiv = document.getElementById("output");
-      objDiv.scrollTop = objDiv.scrollHeight;
-    });
-  });
-  window.setTimeout(function () {
-    if (!hasPMs) {
-      node = document.createElement("DIV");
-      textnode = document.createTextNode("You do not have any recent PM's.");
-      node.appendChild(textnode);
-      node.setAttribute("class", "highlight");
-      output.appendChild(textnode);
-      var objDiv = document.getElementById("output");
-      objDiv.scrollTop = objDiv.scrollHeight;
-    }
-  }, 1000);
-}*/
-
 function notifyMe(message) {
   // Let's check whether notification permissions have already been granted
   if (Notification.permission === "granted") {
@@ -611,24 +572,4 @@ function redirect(url) {
 function redirectToNewPrivateRoom() {
 	var roomID = Math.floor(Math.random() * 1048576).toString(16)+(new Date().getTime().toString(16).substring(2,8))+Math.floor(Math.random() * 1048576).toString(16);
 	window.open("https://legend-of-iphoenix.github.io/UniChatDemo/?room="+roomID)
-}
-function deleteAllCookies()
-{   
-    var cookies = document.cookie.split(";");
-    for (var i = 0; i < cookies.length; i++)
-    {   
-        var spcook =  cookies[i].split("=");
-        deleteCookie(spcook[0]);
-    }
-    function deleteCookie(cookiename)
-    {
-        var d = new Date();
-        d.setDate(d.getDate() - 1);
-        var expires = ";expires="+d;
-        var name=cookiename;
-        //alert(name);
-        var value="";
-        document.cookie = name + "=" + value + expires + "; path=/acc/html";                    
-    }
-    window.location = ""; // TO REFRESH THE PAGE
 }

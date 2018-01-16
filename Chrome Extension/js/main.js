@@ -108,10 +108,6 @@ function checkCookie() {
   return u;
 }
 
-function refresh() {
-  var span, text;
-}
-
 function toggleArrayItem(a, v) {
   var i = a.indexOf(v);
   if (i === -1)
@@ -338,50 +334,6 @@ function refreshOutput() {
     });
   });
 }
-
-/*
-function getRecentPMs() {
-  var output = document.getElementById("output");
-  var node = document.createElement("DIV");
-  var textNode = document.createTextNode("Here are your recent PM's:");
-  var hasPMs = false;
-  node.appendChild(textNode);
-  node.setAttribute("class", "outputText");
-  output.appendChild(node);
-  output.scrollTop = output.scrollHeight;
-  dataRef = firebase.database().ref("Data").orderByChild("to").equalTo(username).limitToLast(25);
-  dataRef.once('value').then(function (snapshot) {
-    snapshot.forEach(function (childSnapshot) {
-      hasPMs = true;
-      node = document.createElement("DIV");
-      var data = childSnapshot.val();
-      var message = data.text;
-      var datePosted = data.ts;
-      var posterUsername = data.un;
-      var messagePM = message.substring(4 + data.to.length, message.length);
-      var tempDate = new Date;
-      tempDate.setTime(datePosted);
-      var dateString = formatTime(tempDate);
-      textnode = document.createTextNode('\n[PM]' + "[" + dateString + "]  ~" + posterUsername + ' whispers to you: ' + messagePM);
-      node.appendChild(textnode);
-      node.setAttribute("class", "highlight");
-      document.getElementById("output").appendChild(node);
-      var objDiv = document.getElementById("output");
-      objDiv.scrollTop = objDiv.scrollHeight;
-    });
-  });
-  window.setTimeout(function () {
-    if (!hasPMs) {
-      node = document.createElement("DIV");
-      textnode = document.createTextNode("You do not have any recent PM's.");
-      node.appendChild(textnode);
-      node.setAttribute("class", "highlight");
-      output.appendChild(textnode);
-      var objDiv = document.getElementById("output");
-      objDiv.scrollTop = objDiv.scrollHeight;
-    }
-  }, 1000);
-}*/
 
 function notifyMe(message) {
   // Let's check whether notification permissions have already been granted
