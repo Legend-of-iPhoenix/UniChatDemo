@@ -606,9 +606,29 @@ function detectURL(message) {
 }
 
 function redirect(url) {
-  window.open(url, '_blank');
+  window.open(url, '_self');
 }
 function redirectToNewPrivateRoom() {
 	var roomID = Math.floor(Math.random() * 1048576).toString(16)+(new Date().getTime().toString(16).substring(2,8))+Math.floor(Math.random() * 1048576).toString(16);
 	window.open("https://legend-of-iphoenix.github.io/UniChatDemo/?room="+roomID)
+}
+function deleteAllCookies()
+{   
+    var cookies = document.cookie.split(";");
+    for (var i = 0; i < cookies.length; i++)
+    {   
+        var spcook =  cookies[i].split("=");
+        deleteCookie(spcook[0]);
+    }
+    function deleteCookie(cookiename)
+    {
+        var d = new Date();
+        d.setDate(d.getDate() - 1);
+        var expires = ";expires="+d;
+        var name=cookiename;
+        //alert(name);
+        var value="";
+        document.cookie = name + "=" + value + expires + "; path=/acc/html";                    
+    }
+    window.location = ""; // TO REFRESH THE PAGE
 }
