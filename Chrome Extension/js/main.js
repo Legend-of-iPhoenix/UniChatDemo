@@ -14,11 +14,9 @@
 var selectedRoom = "Chat";
 var isSignedIn = false;
 var dataRef;
-var filters = ["_default"];
 var lastMessage = "";
 var lastMessageRef;
 var timestamps = new Array();
-var currentMessageTags = ["_default"];
 var numDuplicates = 0;
 var isFirstMessage = true;
 var stopFurtherAlerts = false;
@@ -164,7 +162,7 @@ function submitMessage() {
             text: messageBox.value,
             ts: Date.now(),
             un: username,
-            tag: currentMessageTags,
+            tag: ["_default"],
             to: recipient,
             n: 0,
             v: nLimit,
@@ -178,7 +176,6 @@ function submitMessage() {
           lastMessageRef = uid + "-" + n + "-" + numLimit;
           lastMessage = messageBox.value;
           messageBox.value = "";
-          currentMessageTags = ["_default"];
           refresh();
         } else {
           numDuplicates++;
@@ -337,7 +334,7 @@ function getJSON(url, callback) {
     }
   };
   xhr.send();
-};
+}
 
 function countArrayGreaterThanOrEqualTo(array, number) {
   var n = 0;
@@ -363,7 +360,7 @@ function interpretMessage(data, key) {
     var node = document.createElement("DIV");
     var reg = /\/([\w]*)/;
     var messageCommand = "";
-    if (message.match(reg) != null) {
+    if (message.match(reg)) {
       messageCommand = message.match(reg)[1];
     }
     var textnode;
