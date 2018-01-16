@@ -13,4 +13,4 @@ When you are done, create a pull request with your changes.
 - Be patient. We might want to check your changes to make sure they work as-hyped, and we might even add commits of our own to improve what you have.
 - It saves us a lot of time if you set up (free) github pages for your repository, and link it in your pull request.
 - We do not accept contributions that are inappropriate or give benefits to a  UniChat user. In the latter scenerio, please create an issue.
-- If your contribution is accepted, you will be granted the contributor title on UniChat. Please include your UniChat username in your pull request so I (\_iPhoenix\_/Legend-of-iPhoenix) can grant you the title.
+- If your contribution is accepted, you will be granted the contributor title on UniChat. Please include your UniChat username in your pull request so I (\_iPhoenix\_/Legend-of-iPhoenix, or LAX18, if he is available) can grant you the title.
