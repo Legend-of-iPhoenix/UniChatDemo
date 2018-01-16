@@ -40,9 +40,6 @@ function getTitle(username, karma) {
       return "Admin";
     }
   } else {
-    if (username == "jcgter777") {
-      document.getElementById("username").className = "glowing";
-    }
     if (username == "Battlesquid") {
       document.getElementById("username").className = "battlesquid";
       return "Closed Beta Tester";
