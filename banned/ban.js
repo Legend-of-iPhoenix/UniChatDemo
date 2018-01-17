@@ -20,7 +20,6 @@ window.onload = function() {
 }
 
 function formatTime(ts) {
-	console.log(ts);
   if (ts > 0) {
 
   	var sec = ts / 1000,
@@ -38,7 +37,7 @@ function formatTime(ts) {
   	min = format(min,"minute");
   	hour = format(hour,"hour");
   	day = format(day,"day");
-  	sec.substring(0, sec.length - 2);
+  	sec = sec.substring(0, sec.length - 2);
   	var result = day + hour + min + sec + "."
     return result;
   } else {
