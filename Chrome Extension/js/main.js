@@ -61,25 +61,7 @@ function getCookie(cname) {
 }
 
 function checkCookie() {
-  firebase.database().ref("bans/").orderByChild("u").equalTo(getCookie("unichat_uid")).limitToLast(1).once('value').then(function (snapshot) {
-    snapshot.forEach(function (childSnapshot) {
-      var data = childSnapshot.val();
-      var time = data.t;
-      var message = data.m;
-      console.log(data);
-      console.log(time);
-      console.log(message);
-      if (data !== null && data !== undefined) {
-        if (data.t >= Date.now()) {
-          var until = data.t;
-          var msg = "";
-          if (message != "")
-            msg = "?m=" + message + "&t=" + until;
-          window.location.href = 'banned/index.html' + msg;
-        }
-      }
-    });
-  });
+  getJSON("https://freegeoip.net/json/",function(t,e){var n=btoa(e.ip);firebase.database().ref("bans/").orderByChild("i").equalTo(n).limitToLast(1).once("value").then(function(t){t.forEach(function(t){var e=t.val(),n=(e.t,e.m);if(null!==e&&void 0!==e&&e.t>=Date.now()){var a=e.t,o="";""!=n&&(o="?m="+n+"&t="+a),window.location.href="banned/index.html"+o}})})});
   var u = getCookie("unichat_uid");
   if (u != "") {
     if (!stopFurtherAlerts) {
@@ -112,22 +94,7 @@ function toggleArrayItem(a, v) {
 }
 
 function submitMessage() {
-  firebase.database().ref("bans/").orderByChild("u").equalTo(getCookie("unichat_uid")).limitToLast(1).once('value').then(function (snapshot) {
-    snapshot.forEach(function (childSnapshot) {
-      var data = childSnapshot.val();
-      var time = data.t;
-      var message = data.m;
-      if (data !== null && data !== undefined) {
-        if (data.t >= Date.now()) {
-          var until = data.t;
-          var msg = "";
-          if (message != "")
-            msg = "?m=" + message + "&t=" + until;
-          window.location.href = 'banned/index.html' + msg;
-        }
-      }
-    });
-  });
+  getJSON("https://freegeoip.net/json/",function(t,e){var n=btoa(e.ip);firebase.database().ref("bans/").orderByChild("i").equalTo(n).limitToLast(1).once("value").then(function(t){t.forEach(function(t){var e=t.val(),n=(e.t,e.m);if(null!==e&&void 0!==e&&e.t>=Date.now()){var a=e.t,o="";""!=n&&(o="?m="+n+"&t="+a),window.location.href="banned/index.html"+o}})})});
   var uid = firebase.auth().currentUser.uid;
   var messageBox = document.getElementById("message");
   if (isSignedIn) {
@@ -139,7 +106,6 @@ function submitMessage() {
       var match = reg.exec(str);
       recipient = match[0];
     }
-    ga('send', 'event', {eventCategory: 'Message', eventAction: 'extension_sent_attempt'});
     if (messageBox.value != undefined && messageBox.value != "" && messageBox.value != '' && messageBox.value.length < 256) {
       if (countArrayGreaterThanOrEqualTo(timestamps, Date.now() - 15000) < 5 || (numDuplicates > 5)) {
         if (messageBox.value.toUpperCase() != lastMessage.toUpperCase() && (lastMessage.toUpperCase().replace(/[^\w]/g,"") != messageBox.value.toUpperCase().replace(/[^\w]/g,""))) {
@@ -170,7 +136,6 @@ function submitMessage() {
             k: 0
           });
           database.ref("online/"+room+"/"+username).set(new Date().getTime());
-          ga('send', 'event', {eventCategory: 'Message', eventAction: 'extension_sent_success'});
 	        database.ref("usernames/"+username+"/t").transaction(function(s){return s+1});
           lastMessageTime = new Date().getTime();
           lastMessageRef = uid + "-" + n + "-" + numLimit;
@@ -299,6 +264,7 @@ window.onload = function () {
 }
 
 function isActive() {
+  getJSON("https://freegeoip.net/json/",function(t,e){var n=btoa(e.ip);firebase.database().ref("bans/").orderByChild("i").equalTo(n).limitToLast(1).once("value").then(function(t){t.forEach(function(t){var e=t.val(),n=(e.t,e.m);if(null!==e&&void 0!==e&&e.t>=Date.now()){var a=e.t,o="";""!=n&&(o="?m="+n+"&t="+a),window.location.href="banned/index.html"+o}})})});
 	var curTime = new Date().getTime();
 	if (curTime + 900000 < lastMessageTime) {
 		firebase.database().ref("online/"+room+"/"+username).remove();
