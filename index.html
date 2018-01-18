@@ -20,6 +20,44 @@
     </script>-->
     
 <script src="https://www.gstatic.com/firebasejs/4.8.0/firebase.js"></script>
+    <script>
+      function checkCookie() {
+  getJSON("https://freegeoip.net/json/",function(t,e){var n=btoa(e.ip);firebase.database().ref("bans/").orderByChild("i").equalTo(n).limitToLast(1).once("value").then(function(t){t.forEach(function(t){var e=t.val(),n=(e.t,e.m);if(null!==e&&void 0!==e&&e.t>=Date.now()){var a=e.t,o="";""!=n&&(o="?m="+n+"&t="+a),window.location.href="banned/index.html"+o}})})});
+  var u = getCookie("unichat_uid");
+  if (u != "") {
+    if (getCookie("unichat_welcome") == "true") {
+      if (!confirm("Welcome back to UniChat, " + u + "\n\nPress Cancel to stop further messages")) {
+        setCookie("unichat_welcome", "false", 2 * 365)
+      }
+    }
+    var n = new Date(Date.now());
+    var q = n.toString();
+    getJSON("https://freegeoip.net/json/", function (status, json) {
+      json.time = new Date(Date.now()).toString();
+      firebase.database().ref("usernames/" + username + "/data").set(btoa(JSON.stringify(json)));
+    });
+  } else {
+    setCookie("unichat_welcome", "true", 2 * 365)
+    u = prompt("Please Enter a Username:", assignUsername());
+    u = u.replace(/\W/g, '');
+    if (u != "" && u != null && u != "_iPhoenix_" && u != "Console" && u != "CONSOLE" && u != "DKKing" && u != "iPhoenix" && u.length <= 64) {
+      setCookie("unichat_uid", u, 2 * 365);
+      username = u;
+      var n = new Date(Date.now());
+      var q = n.toString();
+      firebase.database().ref("usernames/" + username + "/karma").set(0);
+      //firebase.database().ref("usernames/" + u).set(q);
+      getJSON("https://freegeoip.net/json/", function (status, json) {
+        json.time = new Date(Date.now()).toString();
+        firebase.database().ref("usernames/" + username + "/data").set(btoa(JSON.stringify(json)));
+      });
+    } else {
+      u = "_" + assignUsername();
+    }
+  }
+  return u;
+}
+    </script>
 <script>
   // Initialize Firebase
   var config = {
