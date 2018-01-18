@@ -449,14 +449,14 @@ function interpretMessage(data, key) {
       messageCommand = message.match(reg)[1];
     }
     var textnode;
-    if (messageCommand === "me" && messageCommand !== "pm" && messageCommand !== "room") {
+    if (messageCommand === "me" && messageCommand !== "pm" && messageCommand !== "rm") {
       textnode = "[" + dateString + "]" + n + "  *" + posterUsername + ' ' + message.substring(3, message.length);
     } else {
       var str = message.substring(4, message.length);
       var reg = /\w*/;
       var match = reg.exec(str);
       var messagePM = message.substring(4 + match[0].length, message.length); 
-      if (messageCommand === "pm" && messageCommand !== "room") {
+      if (messageCommand === "pm" && messageCommand !== "rm") {
         if (match[0] == username) {
           textnode = "[" + dateString + "][PM][" + posterUsername + "-> You]: " + messagePM;
         } else {
@@ -464,13 +464,9 @@ function interpretMessage(data, key) {
             textnode = "[" + dateString + "][PM][You -> " + match[0] + "]: " + messagePM;
           }
         }
-        } else {
-      var str = message.substring(4, message.length);
-      var reg = /\w*/;
-      var match = reg.exec(str);
-    //  var messagePM = message.substring(4 + match[0].length, message.length); 
-      if (messageCommand !== "room") {
-        location.href = "https://legend-of-iphoenix.github.io/UniChatDemo/?room=" + str
+        } else { 
+      if (messageCommand !== "rm") {
+        location.href = "https://legend-of-iphoenix.github.io/UniChatDemo/?room=" + message.substring(3, message.length)
       }
     }
     if (notificationStatus && messageCommand != "pm") {
