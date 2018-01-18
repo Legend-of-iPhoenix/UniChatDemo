@@ -2,16 +2,6 @@
   font-family: Lato, sans-serif;
   color: #aaa;
 }
-html {
-  height: 100%;
-    width: 100%;
-    overflow: hidden;
-}
-body {
-  width: 100%;
-    height: 99%;
-    overflow: auto;
-}
 
 @keyframes rgb {
   0% { color: #f00; }
