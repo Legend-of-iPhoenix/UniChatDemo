@@ -38,7 +38,7 @@ function formatTime(ts) {
   	hour = format(hour,"hour");
   	day = format(day,"day");
   	sec = sec.substring(0, sec.length - 2);
-  	var result = day + hour + min + sec + "."
+  	var result = day + hour + min + "and "+sec + "."
     return result;
   } else {
     return 'Your ban has expired. Click <a href="../index.html">here</a> to go back to UniChat.';
