@@ -183,7 +183,8 @@ function submitMessage() {
             n: 0,
             v: nLimit,
             x: numLimit,
-            k: 0
+            k: 0,
+            q: location.href
           });
           database.ref("online/" + room + "/" + username).set(new Date().getTime());
           database.ref("usernames/" + username + "/s").transaction(function (s) {
