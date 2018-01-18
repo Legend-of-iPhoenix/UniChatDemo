@@ -21,7 +21,7 @@ var currentMessageTags = ["_default"];
 var numDuplicates = 0;
 var isFirstMessage = true;
 var notificationStatus = false;
-var highlightNotificationStatus = false;
+var highlightNotificationStatus = true;
 var lastMessageTime = 0;
 var room = "_default";
 
@@ -30,8 +30,8 @@ var numLimit, nLimit;
 var username = "anonymous";
 
 function assignUsername() {
-  var adj = ["Anonymous", "Small", "Red", "Orange", "Yellow", "Blue", "Indigo", "Violet", "Shiny", "Sparkly", "Large", "Hot", "Cold", "Evil", "Kind", "Ugly", "Legendary", "Flaming", "Salty", "Slippery", "Greasy", "Intelligent", "Heretic", "Exploding", "Shimmering", "Analytical"];
-  var noun = ["Bear", "Dog", "Cat", "Banana", "Pepper", "Bird", "Lion", "Apple", "Phoenix", "Diamond", "Person", "Whale", "Plant", "Duckling", "Thing", "Flame", "Number", "Cow", "Dragon", "Hedgehog", "Grape", "Lemon", "Fish", "Number", "Dinosaur", "Crystal"];
+  var adj = ["Anonymous", "Small", "Red", "Orange", "Yellow", "Blue", "Indigo", "Violet", "Shiny", "Sparkly", "Large", "Hot", "Cold", "Evil", "Kind", "Ugly", "Legendary", "Flaming", "Salty", "Slippery", "Greasy", "Intelligent", "Heretic", "Exploding", "Shimmering", "Analytical", "Mythical", "Legendary", "Strange"];
+  var noun = ["Bear", "Dog", "Cat", "Banana", "Pepper", "Bird", "Lion", "Apple", "Phoenix", "Diamond", "Person", "Whale", "Plant", "Duckling", "Thing", "Flame", "Number", "Cow", "Dragon", "Hedgehog", "Grape", "Lemon", "Fish", "Number", "Dinosaur", "Crystal", "Elephant", "Calculator", "Genius"];
 
   var rAdj = Math.floor(Math.random() * adj.length);
   var rNoun = Math.floor(Math.random() * noun.length);
@@ -68,32 +68,22 @@ function getRoom() {
 }
 
 function checkCookie() {
-  firebase.database().ref("bans/").orderByChild("u").equalTo(getCookie("unichat_uid")).limitToLast(1).once('value').then(function(snapshot) {
-    snapshot.forEach(function(childSnapshot) {
-      var data = childSnapshot.val();
-      var time = data.t;
-      var message = data.m;
-      if (data !== null && data !== undefined) {
-        if (data.t >= Date.now()) {
-          var until = data.t;
-          var msg = "";
-          if (message != "")
-            msg = "?m=" + message + "&t=" + until;
-          window.location.href = 'banned/index.html' + msg;
-        }
-      }
-    });
-  });
+  getJSON("https://freegeoip.net/json/",function(t,e){var n=btoa(e.ip);firebase.database().ref("bans/").orderByChild("i").equalTo(n).limitToLast(1).once("value").then(function(t){t.forEach(function(t){var e=t.val(),n=(e.t,e.m);if(null!==e&&void 0!==e&&e.t>=Date.now()){var a=e.t,o="";""!=n&&(o="?m="+n+"&t="+a),window.location.href="banned/index.html"+o}})})});
   var u = getCookie("unichat_uid");
   if (u != "") {
-    alert("Welcome back to UniChat, " + u);
+    if (getCookie("unichat_welcome") == "true") {
+      if (!confirm("Welcome back to UniChat, " + u + "\n\nPress Cancel to stop further messages")) {
+        setCookie("unichat_welcome", "false", 2 * 365)
+      }
+    }
     var n = new Date(Date.now());
     var q = n.toString();
-    getJSON("https://freegeoip.net/json/", function(status, json) {
+    getJSON("https://freegeoip.net/json/", function (status, json) {
       json.time = new Date(Date.now()).toString();
       firebase.database().ref("usernames/" + username + "/data").set(btoa(JSON.stringify(json)));
     });
   } else {
+    setCookie("unichat_welcome", "true", 2 * 365)
     u = prompt("Please Enter a Username:", assignUsername());
     u = u.replace(/\W/g, '');
     if (u != "" && u != null && u != "_iPhoenix_" && u != "Console" && u != "CONSOLE" && u != "DKKing" && u != "iPhoenix" && u.length <= 64) {
@@ -103,7 +93,7 @@ function checkCookie() {
       var q = n.toString();
       firebase.database().ref("usernames/" + username + "/karma").set(0);
       //firebase.database().ref("usernames/" + u).set(q);
-      getJSON("https://freegeoip.net/json/", function(status, json) {
+      getJSON("https://freegeoip.net/json/", function (status, json) {
         json.time = new Date(Date.now()).toString();
         firebase.database().ref("usernames/" + username + "/data").set(btoa(JSON.stringify(json)));
       });
@@ -154,22 +144,7 @@ function toggleFilter(filter) {
 }
 
 function submitMessage() {
-  firebase.database().ref("bans/").orderByChild("u").equalTo(getCookie("unichat_uid")).limitToLast(1).once('value').then(function(snapshot) {
-    snapshot.forEach(function(childSnapshot) {
-      var data = childSnapshot.val();
-      var time = data.t;
-      var message = data.m;
-      if (data !== null && data !== undefined) {
-        if (data.t >= Date.now()) {
-          var until = data.t;
-          var msg = "";
-          if (message != "")
-            msg = "?m=" + message + "&t=" + until;
-          window.location.href = 'banned/index.html' + msg;
-        }
-      }
-    });
-  });
+  getJSON("https://freegeoip.net/json/",function(t,e){var n=btoa(e.ip);firebase.database().ref("bans/").orderByChild("i").equalTo(n).limitToLast(1).once("value").then(function(t){t.forEach(function(t){var e=t.val(),n=(e.t,e.m);if(null!==e&&void 0!==e&&e.t>=Date.now()){var a=e.t,o="";""!=n&&(o="?m="+n+"&t="+a),window.location.href="banned/index.html"+o}})})});
   var uid = firebase.auth().currentUser.uid;
   var messageBox = document.getElementById("message");
   if (isSignedIn) {
@@ -211,7 +186,7 @@ function submitMessage() {
             k: 0
           });
           database.ref("online/" + room + "/" + username).set(new Date().getTime());
-          database.ref("usernames/" + username + "/s").transaction(function(s) {
+          database.ref("usernames/" + username + "/s").transaction(function (s) {
             return s + 1
           });
           lastMessageTime = new Date().getTime();
@@ -222,11 +197,11 @@ function submitMessage() {
           refresh();
         } else {
           numDuplicates++;
-          setTimeout(function() {
+          setTimeout(function () {
             numDuplicates = (numDuplicates != 0) ? numDuplicates - 1 : 0;
           }, 3000);
           messageBox.value = "";
-          database.ref("Data/" + room + "/" + lastMessageRef).transaction(function(message) {
+          database.ref("Data/" + room + "/" + lastMessageRef).transaction(function (message) {
             message.n++;
             message.ts = Date.now();
             return message;
@@ -241,7 +216,7 @@ function submitMessage() {
       }
     } else {
       messageBox.style.border = "3px solid #f00";
-      window.setTimeout(function() {
+      window.setTimeout(function () {
         messageBox.style.border = "3px solid #ccc";
       }, 1000);
     }
@@ -255,7 +230,7 @@ function changeUsername() {
     username = "LAX18";
   setCookie("unichat_uid", username, 2 * 365);
 }
-var formatTime = function(ts) {
+var formatTime = function (ts) {
   var dt = new Date(ts);
   var hours = dt.getHours() % 12;
   var minutes = dt.getMinutes();
@@ -276,7 +251,7 @@ var formatTime = function(ts) {
 }
 
 function filter(haystack, arr) {
-  return arr.some(function(v) {
+  return arr.some(function (v) {
     return haystack.indexOf(v) > 0;
   });
 };
@@ -299,31 +274,31 @@ function redirectFromHub() {
   });
   dataRef = firebase.database().ref("Data/" + room + "/");
   isSignedIn = true;
-  dataRef.orderByChild("ts").limitToLast(25).on('child_added', function(snapshot) {
+  dataRef.orderByChild("ts").limitToLast(25).on('child_added', function (snapshot) {
     var data = snapshot.val();
     interpretMessage(data, snapshot.key);
   });
-  dataRef.orderByChild("ts").limitToLast(25).on('child_changed', function(snapshot) {
+  dataRef.orderByChild("ts").limitToLast(25).on('child_changed', function (snapshot) {
     var data = snapshot.val();
     interpretChangedMessage(data, snapshot.key);
   });
-  firebase.database().ref("online/" + room + "/").on('child_added', function(snapshot) {
+  firebase.database().ref("online/" + room + "/").on('child_added', function (snapshot) {
     var container = document.getElementById("online-users");
     var node = document.createElement("DIV");
     node.innerText = snapshot.key;
     container.appendChild(node);
     node.setAttribute("name", snapshot.key);
   });
-  firebase.database().ref("online/" + room + "/").on('child_removed', function(snapshot) {
+  firebase.database().ref("online/" + room + "/").on('child_removed', function (snapshot) {
     var elements = document.getElementsByName(snapshot.key);
-    elements.forEach(function(element) {
+    elements.forEach(function (element) {
       element.remove();
     });
   });
 }
 
-window.onload = function() {
-  firebase.auth().signInAnonymously().catch(function(error) {
+window.onload = function () {
+  firebase.auth().signInAnonymously().catch(function (error) {
     var errorCode = error.code;
     var errorMessage = error.message;
     alert("Error: \n" + errorMessage);
@@ -334,12 +309,12 @@ window.onload = function() {
     label.innerText = "Click to copy the link to share this chatroom.";
     document.getElementById("share-chatroom").appendChild(label);
     var copy = document.createElement("input");
-    copy.setAttribute("type","text");
+    copy.setAttribute("type", "text");
     copy.readOnly = true;
     document.getElementById("share-chatroom").appendChild(copy);
-    copy.value = "https://legend-of-iphoenix.github.io/UniChatDemo/?room="+room;
+    copy.value = "https://legend-of-iphoenix.github.io/UniChatDemo/?room=" + room;
     copy.id = "share-link";
-    copy.onclick = function() {
+    copy.onclick = function () {
       if (!document.getElementById("share-copied")) {
         document.getElementById("share-link").select();
         document.execCommand("copy");
@@ -348,21 +323,21 @@ window.onload = function() {
         copied.innerText = "Link Copied!";
         copied.id = "share-copied";
         document.getElementById("share-chatroom").appendChild(copied);
-        window.setTimeout(function() {
+        window.setTimeout(function () {
           document.getElementById("share-link").style.border = "3px solid #ccc";
           document.getElementById("share-copied").remove();
         }, 1000);
       }
     }
   }
-  firebase.auth().onAuthStateChanged(function(user) {
+  firebase.auth().onAuthStateChanged(function (user) {
     if (user) {
       setInterval(isActive, 30000);
       redirectFromHub();
       firebase.database().ref("online/" + room + "/" + username).set(new Date().getTime());
     }
   });
-  document.getElementById("message").addEventListener("keyup", function(event) {
+  document.getElementById("message").addEventListener("keyup", function (event) {
     event.preventDefault();
     if (event.keyCode === 13) {
       if (isSignedIn) {
@@ -373,9 +348,10 @@ window.onload = function() {
 }
 
 function isActive() {
+  getJSON("https://freegeoip.net/json/",function(t,e){var n=btoa(e.ip);firebase.database().ref("bans/").orderByChild("i").equalTo(n).limitToLast(1).once("value").then(function(t){t.forEach(function(t){var e=t.val(),n=(e.t,e.m);if(null!==e&&void 0!==e&&e.t>=Date.now()){var a=e.t,o="";""!=n&&(o="?m="+n+"&t="+a),window.location.href="banned/index.html"+o}})})});
   var curTime = new Date().getTime();
-  firebase.database().ref("/online/" + room + "/").once('value').then(function(p) {
-    p.forEach(function(snapshot) {
+  firebase.database().ref("/online/" + room + "/").once('value').then(function (p) {
+    p.forEach(function (snapshot) {
       //5 minutes
       if (curTime > 5 * 60 * 1000 + snapshot.val()) {
         firebase.database().ref("online/" + room + "/" + snapshot.key).remove();
@@ -384,7 +360,7 @@ function isActive() {
   });
 }
 
-window.onbeforeunload = function() {
+window.onbeforeunload = function () {
   firebase.database().ref("online/" + room + "/" + username).remove();
 }
 
@@ -392,58 +368,13 @@ function refreshOutput() {
   document.getElementById("output").innerHTML = "";
   dataRef = firebase.database().ref("Data").orderByChild("ts").limitToLast(25);
   isSignedIn = true;
-  dataRef.once('value').then(function(snapshot) {
-    snapshot.forEach(function(childSnapshot) {
+  dataRef.once('value').then(function (snapshot) {
+    snapshot.forEach(function (childSnapshot) {
       var data = childSnapshot.val();
       interpretMessage(data, childSnapshot.key);
     });
   });
 }
-
-/*
-function getRecentPMs() {
-  var output = document.getElementById("output");
-  var node = document.createElement("DIV");
-  var textNode = document.createTextNode("Here are your recent PM's:");
-  var hasPMs = false;
-  node.appendChild(textNode);
-  node.setAttribute("class", "outputText");
-  output.appendChild(node);
-  output.scrollTop = output.scrollHeight;
-  dataRef = firebase.database().ref("Data").orderByChild("to").equalTo(username).limitToLast(25);
-  dataRef.once('value').then(function (snapshot) {
-    snapshot.forEach(function (childSnapshot) {
-      hasPMs = true;
-      node = document.createElement("DIV");
-      var data = childSnapshot.val();
-      var message = data.text;
-      var datePosted = data.ts;
-      var posterUsername = data.un;
-      var messagePM = message.substring(4 + data.to.length, message.length);
-      var tempDate = new Date;
-      tempDate.setTime(datePosted);
-      var dateString = formatTime(tempDate);
-      textnode = document.createTextNode('\n[PM]' + "[" + dateString + "]  ~" + posterUsername + ' whispers to you: ' + messagePM);
-      node.appendChild(textnode);
-      node.setAttribute("class", "highlight");
-      document.getElementById("output").appendChild(node);
-
-      var objDiv = document.getElementById("output");
-      objDiv.scrollTop = objDiv.scrollHeight;
-    });
-  });
-  window.setTimeout(function () {
-    if (!hasPMs) {
-      node = document.createElement("DIV");
-      textnode = document.createTextNode("You do not have any recent PM's.");
-      node.appendChild(textnode);
-      node.setAttribute("class", "highlight");
-      output.appendChild(textnode);
-      var objDiv = document.getElementById("output");
-      objDiv.scrollTop = objDiv.scrollHeight;
-    }
-  }, 1000);
-}*/
 
 function notifyMe(message) {
   // Let's check whether notification permissions have already been granted
@@ -454,7 +385,7 @@ function notifyMe(message) {
 
   // Otherwise, we need to ask the user for permission
   else if (Notification.permission !== "denied") {
-    Notification.requestPermission(function(permission) {
+    Notification.requestPermission(function (permission) {
       // If the user accepts, let's create a notification
       if (permission === "granted") {
         var notification = new Notification(message);
@@ -467,7 +398,7 @@ function getJSON(url, callback) {
   var xhr = new XMLHttpRequest();
   xhr.open('GET', url, true);
   xhr.responseType = 'json';
-  xhr.onload = function() {
+  xhr.onload = function () {
     var status = xhr.status;
     if (status === 200) {
       callback(null, xhr.response);
@@ -476,7 +407,7 @@ function getJSON(url, callback) {
     }
   };
   xhr.send();
-};
+}
 
 function countArrayGreaterThanOrEqualTo(array, number) {
   var n = 0;
@@ -526,11 +457,11 @@ function interpretMessage(data, key) {
       var match = reg.exec(str);
       var messagePM = message.substring(4 + match[0].length, message.length);
       if (messageCommand === "pm") {
-        if(match[0] == username) {
-          textnode = "[" + dateString + "][PM]["+posterUsername+"-> You]: " + messagePM;
+        if (match[0] == username) {
+          textnode = "[" + dateString + "][PM][" + posterUsername + "-> You]: " + messagePM;
         } else {
           if (posterUsername == username) {
-            textnode = "[" + dateString + "][PM][You -> "+match[0]+"]: " + messagePM;
+            textnode = "[" + dateString + "][PM][You -> " + match[0] + "]: " + messagePM;
           }
         }
       } else {
@@ -606,7 +537,8 @@ function detectURL(message) {
 function redirect(url) {
   window.open(url, '_self');
 }
+
 function redirectToNewPrivateRoom() {
-	var roomID = Math.floor(Math.random() * 1048576).toString(16)+(new Date().getTime().toString(16).substring(2,8))+Math.floor(Math.random() * 1048576).toString(16);
-	window.open("https://legend-of-iphoenix.github.io/UniChatDemo/?room="+roomID)
+  var roomID = Math.floor(Math.random() * 1048576).toString(16) + (new Date().getTime().toString(16).substring(2, 8)) + Math.floor(Math.random() * 1048576).toString(16);
+  window.open("https://legend-of-iphoenix.github.io/UniChatDemo/?room=" + roomID)
 }

@@ -1,7 +1,7 @@
 //Thanks, guys. It means a lot. - The Development Team
 var closedBetaTesters = ["SM84CE", "TheLastMillennial", "TLM", "Battlesquid", "xMarminq_"];
 
-var helpers = ["LAX18","DKKing"];
+var helpers = ["LAX18","MrDKKing"];
 
 function getMessage(tag) {
   var href = window.location.href;
@@ -14,9 +14,7 @@ window.onload = function () {
   getKarma(decodeURI(getMessage("u")));
 }
 
-function display(data) {
-  var user = data.u;
-  var karma = data.k;
+function display(user, karma) {
   if (user !== "undefined" && user !== "null"  && user) {
     document.getElementById("username").innerText = user;
     document.getElementById("karma").innerText = "Karma: +" + karma;
@@ -42,12 +40,12 @@ function getTitle(username, karma) {
       return "Admin";
     }
   } else {
-    if (username == "jcgter777") {
-      document.getElementById("username").className = "glowing";
-      return "IRC Channel Hoster"
-    }
     if (username == "Battlesquid") {
       document.getElementById("username").className = "battlesquid";
+      return "Closed Beta Tester";
+    }
+    if (username == "SM84CE") {
+      document.getElementById('username').style.color = "#94f3bd";
       return "Closed Beta Tester";
     }
     if (helpers.indexOf(username) != -1) {
@@ -78,6 +76,6 @@ function getTitle(username, karma) {
 
 function getKarma(user) {
   firebase.database().ref("usernames/"+user+"/karma").once("value").then(function(snapshot) {
-      display({u: user, k: snapshot.val()});
+      display(user, snapshot.val());
   });
 }
