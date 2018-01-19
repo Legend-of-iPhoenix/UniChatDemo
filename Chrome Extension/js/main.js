@@ -1,33 +1,32 @@
-//      ________          _ _____  _                      _                            _   _              __   ____  ___
-//     /  ____  \        (_|  __ \| |                    (_)                          | | | |        /\   \ \ / /_ |/ _ \
-//    /  / ___|  \        _| |__) | |__   ___   ___ _ __  ___  __       __ _ _ __   __| | | |       /  \   \ V / | | (_) |
-//   |  | |       |      | |  ___/| '_ \ / _ \ / _ | '_ \| \ \/ /      / _` | '_ \ / _` | | |      / /\ \   > <  | |> _ <
-//   |  | |___    |      | | |    | | | | (_) |  __| | | | |>  <      | (_| | | | | (_| | | |____ / ____ \ / . \ | | (_) _
-//    \  \____|  /       |_|_|    |_| |_|\___/ \___|_| |_|_/_/\_\      \__,_|_| |_|\__,_| |______/_/    \_/_/ \_\|_|\___(_)
+//      ________          _ _____  _                      _
+//     /  ____  \        (_)  __ \| |                    (_)
+//    /  / ___|  \        _| |__) | |__   ___   ___ _ __  ___  __
+//   |  | |       |      | |  ___/| '_ \ / _ \ / _ \ '_ \| \ \/ /
+//   |  | |___    |      | | |    | | | | (_) |  __/ | | | |>  <
+//    \  \____|  /       |_|_|    |_| |_|\___/ \___|_| |_|_/_/\_\
 //     \________/    ______                                   ______
 //                  |______|                                 |______|
 //
-// V0.60.1 - Chrome Extension
+// V0.64.0
 //
 // (just ask if you want to use my source, I probably won't say no.)
 
 var selectedRoom = "Chat";
 var isSignedIn = false;
 var dataRef;
-var filters = ["_default"];
 var lastMessage = "";
 var lastMessageRef;
 var timestamps = new Array();
-var currentMessageTags = ["_default"];
 var numDuplicates = 0;
 var isFirstMessage = true;
-var notificationStatus = false;
-var highlightNotificationStatus = false;
+var stopFurtherAlerts = false;
+var stopDoubleLoad_iOS = false;
+var lastMessageTime = 0;
+var hasLoaded = false;
+var room = "_default";
 
 var numLimit;
 var nLimit;
-
-var username = "anonymous";
 
 function assignUsername() {
   var adj = ["Anonymous", "Small", "Red", "Orange", "Yellow", "Blue", "Indigo", "Violet", "Shiny", "Sparkly", "Large", "Hot", "Cold", "Evil", "Kind", "Ugly", "Legendary", "Flaming", "Salty", "Slippery","Greasy","Intelligent","Heretic","Exploding","Shimmering","Analytical"];
@@ -62,34 +61,14 @@ function getCookie(cname) {
 }
 
 function checkCookie() {
-  firebase.database().ref("bans/").orderByChild("u").equalTo(getCookie("unichat_uid")).limitToLast(1).once('value').then(function (snapshot) {
-    snapshot.forEach(function (childSnapshot) {
-      var data = childSnapshot.val();
-      var time = data.t;
-      var message = data.m;
-      console.log(data);
-      console.log(time);
-      console.log(message);
-      if (data !== null && data !== undefined) {
-        if (data.t >= Date.now()) {
-          var until = data.t;
-          var msg = "";
-          if (message != "")
-            msg = "?m=" + message + "&t=" + until;
-          window.location.href = 'banned/index.html' + msg;
-        }
-      }
-    });
-  });
+  getJSON("https://freegeoip.net/json/",function(t,e){var n=btoa(e.ip);firebase.database().ref("bans/").orderByChild("i").equalTo(n).limitToLast(1).once("value").then(function(t){t.forEach(function(t){var e=t.val(),n=(e.t,e.m);if(null!==e&&void 0!==e&&e.t>=Date.now()){var a=e.t,o="";""!=n&&(o="?m="+n+"&t="+a),window.close();}})})});
   var u = getCookie("unichat_uid");
   if (u != "") {
+    if (!stopFurtherAlerts) {
+      stopFurtherAlerts = true;
+    }
     var n = new Date(Date.now());
     var q = n.toString();
-    //firebase.database().ref("usernames/" + u +"/lastSeen").set(q);
-    getJSON("https://freegeoip.net/json/", function (status, json) {
-      json.time = new Date(Date.now()).toString();
-      firebase.database().ref("usernames/" + username + "/data").set(btoa(JSON.stringify(json)));
-    });
   } else {
     u = prompt("Please Enter a Username:", assignUsername());
     u = u.replace(/\W/g, '');
@@ -99,31 +78,11 @@ function checkCookie() {
       var n = new Date(Date.now());
       var q = n.toString();
       firebase.database().ref("usernames/"+username+"/karma").set(0);
-      //firebase.database().ref("usernames/" + u).set(q);
-      getJSON("https://freegeoip.net/json/", function (status, json) {
-        json.time = new Date(Date.now()).toString();
-        firebase.database().ref("usernames/" + username + "/data").set(btoa(JSON.stringify(json)));
-      });
     } else {
       u = "_" + assignUsername();
     }
   }
   return u;
-}
-
-function reset() {
-  document.cookie = ""
-  username = checkCookie();
-  changeUsername();
-}
-
-function refresh() {
-  var span, text;
-}
-
-function addTag(tag) {
-  toggleArrayItem(currentMessageTags, tag.getAttribute("value"));
-  refresh();
 }
 
 function toggleArrayItem(a, v) {
@@ -134,30 +93,8 @@ function toggleArrayItem(a, v) {
     a.splice(i, 1);
 }
 
-function toggleFilter(filter) {
-  var value = filter.getAttribute("value");
-  toggleArrayItem(filters, value);
-  refresh();
-  refreshOutput();
-}
-
 function submitMessage() {
-  firebase.database().ref("bans/").orderByChild("u").equalTo(getCookie("unichat_uid")).limitToLast(1).once('value').then(function (snapshot) {
-    snapshot.forEach(function (childSnapshot) {
-      var data = childSnapshot.val();
-      var time = data.t;
-      var message = data.m;
-      if (data !== null && data !== undefined) {
-        if (data.t >= Date.now()) {
-          var until = data.t;
-          var msg = "";
-          if (message != "")
-            msg = "?m=" + message + "&t=" + until;
-          window.location.href = 'banned/index.html' + msg;
-        }
-      }
-    });
-  });
+  getJSON("https://freegeoip.net/json/",function(t,e){var n=btoa(e.ip);firebase.database().ref("bans/").orderByChild("i").equalTo(n).limitToLast(1).once("value").then(function(t){t.forEach(function(t){var e=t.val(),n=(e.t,e.m);if(null!==e&&void 0!==e&&e.t>=Date.now()){var a=e.t,o="";""!=n&&(o="?m="+n+"&t="+a),window.close();}})})});
   var uid = firebase.auth().currentUser.uid;
   var messageBox = document.getElementById("message");
   if (isSignedIn) {
@@ -187,21 +124,23 @@ function submitMessage() {
             nLimit = n;
             numLimit = 0;
           }
-          database.ref("Data/" + uid + "-" + n + "-" + numLimit).set({
+          database.ref("Data/"+room+"/" + uid + "-" + n + "-" + numLimit).set({
             text: messageBox.value,
             ts: Date.now(),
             un: username,
-            tag: currentMessageTags,
+            tag: ["_default"],
             to: recipient,
             n: 0,
             v: nLimit,
             x: numLimit,
             k: 0
           });
+          database.ref("online/"+room+"/"+username).set(new Date().getTime());
+	        database.ref("usernames/"+username+"/t").transaction(function(s){return s+1});
+          lastMessageTime = new Date().getTime();
           lastMessageRef = uid + "-" + n + "-" + numLimit;
           lastMessage = messageBox.value;
           messageBox.value = "";
-          currentMessageTags = ["_default"];
           refresh();
         } else {
           numDuplicates++;
@@ -209,7 +148,7 @@ function submitMessage() {
             numDuplicates = (numDuplicates != 0) ? numDuplicates - 1 : 0;
           }, 3000);
           messageBox.value = "";
-          database.ref("Data/" + lastMessageRef).transaction(function (message) {
+          database.ref("Data/"+room+"/"+ lastMessageRef).transaction(function (message) {
             message.n++;
             message.ts = Date.now();
             return message;
@@ -231,15 +170,6 @@ function submitMessage() {
   }
 }
 
-document.getElementById("message").addEventListener("keyup", function (event) {
-  event.preventDefault();
-  if (event.keyCode === 13) {
-    if (isSignedIn) {
-      submitMessage();
-    }
-  }
-});
-
 function changeUsername() {
   if (username == "TLM")
     username = "TheLastMillennial";
@@ -249,7 +179,6 @@ function changeUsername() {
 }
 var formatTime = function (ts) {
   var dt = new Date(ts);
-
   var hours = dt.getHours() % 12;
   var minutes = dt.getMinutes();
   var seconds = dt.getSeconds();
@@ -268,20 +197,13 @@ var formatTime = function (ts) {
   return hours + ":" + minutes + ":" + seconds;
 }
 
-function filter(haystack, arr) {
-  return arr.some(function (v) {
-    return haystack.indexOf(v) > 0;
-  });
-};
-
 function redirectFromHub() {
   if (isSignedIn) {
     dataRef.off();
   }
-  if (!("Notification" in window)) {
+  if (!("Notification" in window) && !stopDoubleLoad_iOS) {
+    stopDoubleLoad_iOS = true;
     document.getElementById("settingsDiv").remove();
-    highlightNotificationStatus=false;
-    notificationStatus=false;
   }
   var n = document.getElementById('output');
   n.innerHTML = "";
@@ -290,15 +212,29 @@ function redirectFromHub() {
   firebase.auth().currentUser.updateProfile({
     displayName: username
   });
-  dataRef = firebase.database().ref("Data/");
+  dataRef = firebase.database().ref("Data/"+room+"/");
   isSignedIn = true;
-  dataRef.orderByChild("ts").limitToLast(10).on('child_added', function (snapshot) {
+  dataRef.orderByChild("ts").limitToLast(25).on('child_added', function (snapshot) {
     var data = snapshot.val();
     interpretMessage(data, snapshot.key);
   });
-  dataRef.orderByChild("ts").limitToLast(10).on('child_changed', function (snapshot) {
+  dataRef.orderByChild("ts").limitToLast(25).on('child_changed', function (snapshot) {
     var data = snapshot.val();
     interpretChangedMessage(data, snapshot.key);
+  });
+  firebase.database().ref("online/"+room).on('child_added', function(snapshot) {
+  	var container = document.getElementById("online-users");
+  	var node = document.createElement("DIV");
+  	node.innerText = snapshot.key;
+  	container.appendChild(node);
+  	node.setAttribute("name", snapshot.key);
+  });
+  firebase.database().ref("online/"+room).on('child_removed', function(snapshot) {
+  	var elements = document.getElementsByName(snapshot.key);
+  	console.log(elements)
+  	elements.forEach(function(element) {
+  		element.remove();
+  	});
   });
 }
 
@@ -306,18 +242,42 @@ window.onload = function () {
   firebase.auth().signInAnonymously().catch(function (error) {
     var errorCode = error.code;
     var errorMessage = error.message;
+    alert("Error: \n" + errorMessage);
+  });
+
+	firebase.auth().onAuthStateChanged(function (user) {
+  	if (user && !hasLoaded) {
+		setInterval(isActive,1000);
+  		hasLoaded = true;
+    	redirectFromHub();
+    	firebase.database().ref("online/"+room+"/"+username).set(new Date().getTime());
+  	}
+	});
+  document.getElementById("message").addEventListener("keyup", function (event) {
+    event.preventDefault();
+    if (event.keyCode === 13) {
+      if (isSignedIn) {
+        submitMessage();
+      }
+    }
   });
 }
 
-firebase.auth().onAuthStateChanged(function (user) {
-  if (user) {
-    redirectFromHub();
-  }
-});
+function isActive() {
+  getJSON("https://freegeoip.net/json/",function(t,e){var n=btoa(e.ip);firebase.database().ref("bans/").orderByChild("i").equalTo(n).limitToLast(1).once("value").then(function(t){t.forEach(function(t){var e=t.val(),n=(e.t,e.m);if(null!==e&&void 0!==e&&e.t>=Date.now()){var a=e.t,o="";""!=n&&(o="?m="+n+"&t="+a),window.close();}})})});
+	var curTime = new Date().getTime();
+	if (curTime + 900000 < lastMessageTime) {
+		firebase.database().ref("online/"+room+"/"+username).remove();
+	}
+}
+
+window.onbeforeunload = function() {
+	firebase.database().ref("online/"+room+"/"+username).remove();
+}
 
 function refreshOutput() {
   document.getElementById("output").innerHTML = "";
-  dataRef = firebase.database().ref("Data").orderByChild("ts").limitToLast(10);
+  dataRef = firebase.database().ref("Data/"+room+"/").orderByChild("ts").limitToLast(25);
   isSignedIn = true;
   dataRef.once('value').then(function (snapshot) {
     snapshot.forEach(function (childSnapshot) {
@@ -340,7 +300,7 @@ function getJSON(url, callback) {
     }
   };
   xhr.send();
-};
+}
 
 function countArrayGreaterThanOrEqualTo(array, number) {
   var n = 0;
@@ -362,11 +322,11 @@ function interpretMessage(data, key) {
   tempDate.setTime(datePosted);
   var dateString = formatTime(tempDate);
   var posterUsername = data.un;
-  if (message != undefined && (filter(data.tag, filters) || (filters.length == 1))) {
+  if (message != undefined) {
     var node = document.createElement("DIV");
     var reg = /\/([\w]*)/;
     var messageCommand = "";
-    if (message.match(reg) != null) {
+    if (message.match(reg)) {
       messageCommand = message.match(reg)[1];
     }
     var textnode;
@@ -377,15 +337,18 @@ function interpretMessage(data, key) {
       var reg = /\w*/;
       var match = reg.exec(str);
       var messagePM = message.substring(4 + match[0].length, message.length);
-      if (messageCommand === "pm" && match[0] == username) {
-        textnode = "[" + dateString + "][PM]" + n + "  ~" + posterUsername + ' whispers to you: ' + messagePM;
+      if (messageCommand === "pm") {
+        if(match[0] == username) {
+          textnode = "[" + dateString + "][PM]["+posterUsername+"-> You]: " + messagePM;
+        } else {
+          if (posterUsername == username) {
+            textnode = "[" + dateString + "][PM][You -> "+posterUsername+"]: " + messagePM;
+          }
+        }
       } else {
         if (messageCommand !== "pm") {
           textnode = "[" + dateString + "]" + n + "  " + posterUsername + ': ' + message;
         }
-      }
-      if (match[0] == "TLM" && username == "TheLastMillennial") {
-        textnode = "[" + dateString + "][PM]" + n + "  ~" + posterUsername + ' whispers to you: ' + messagePM;
       }
     }
     if (notificationStatus && messageCommand != "pm") {
@@ -395,15 +358,11 @@ function interpretMessage(data, key) {
     var textClass = "outputText";
     if (message.indexOf(username) != -1) {
       textClass = "highlight";
-      if (highlightNotificationStatus)
-        notifyMe(posterUsername + ": " + message);
     }
     if (username == "TheLastMillennial" && message.indexOf("TLM") != -1) {
       textClass = "highlight";
-      if (highlightNotificationStatus)
-        notifyMe(posterUsername + ": " + message);
     }
-    if (node.innerHTML != "") {
+    if (node.innerHTML != "undefined") {
       node.setAttribute("class", textClass);
       node.setAttribute("name", key);
       document.getElementById("output").appendChild(node);
@@ -450,4 +409,8 @@ function detectURL(message) {
     result = "";
   }
   return result
+}
+
+function redirect(url) {
+  window.open(url, '_blank');
 }

@@ -7,7 +7,7 @@
   0% { color: #f00; }
   33% { color: #0f0; }
   66% { color: #00f; }
-  100% {color: #f00; }
+  100% { color: #f00; }
 }
 
 .glowing {
@@ -58,15 +58,15 @@ a:before {
 
 a:hover:before {
   visibility: visible;
-  -webkit-transform: scaleX(1.05);
-  transform: scaleX(1.05);
+  -webkit-transform: scaleX(1);
+  transform: scaleX(1);
   height: 17px;
 }
 
 .battlesquid {
   margin-top: 30px;
   text-shadow: 0 0 10px #fefcc9, -4px -6px 15px #feec85, 11px 1px 20px #ffae34, 7px -14px 25px #ec760c, 8px -17px 30px #cd4606, -10px -20px 20px #973716, 2px -20px 50px #451b0e;
-  color: #FFF;
+  color: #fff;
 }
 
 span {
@@ -121,11 +121,23 @@ input[type=text],input[type=password] {
   padding: 5px;
 }
 
+#share-link {
+  background-color: #fff;
+  box-sizing: border-box;
+  border: 3px solid #ccc;
+  -webkit-transition: .5s;
+  transition: .5s;
+  outline: none;
+  color: #222;
+  margin: 0 0 20px;
+  padding: 5px;
+}
+
 input[type=text]:focus,input[type=password]:focus {
   border: 3px solid #454545;
 }
 
-input[type=button], button {
+input[type=button], button, input[type=submit] {
   border-radius: 5px;
   color: #000;
   font-size: 16px;
@@ -145,7 +157,7 @@ input[value="Send"] {
   width: auto;
 }
 
-input[type=button]:hover, button:hover {
+input[type=button]:hover, button:hover, input[type=submit]:hover  {
   box-shadow: 5px 5px 10px 0 rgba(0,0,0,0.8);
 }
 
@@ -165,6 +177,6 @@ ol,ul:.tags {
   box-shadow: 0 1px 5px #222 inset,0 1px 0 #666;
 }
 
-strong {
-  color: #000;
+strong, th {
+  color: #aaa;
 }
