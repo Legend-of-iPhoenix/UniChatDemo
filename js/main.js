@@ -72,7 +72,8 @@ function checkCookie() {
   var u = getCookie("unichat_uid");
   if (u != "") {
     if (getCookie("unichat_welcome") == "true") {
-      if (!confirm("Welcome back to UniChat, " + u + "\n\n By continuine, you agree to the Users Agreement avaible on the about page\n\nPress Cancel to stop further messages")) {
+      var confirm = !confirm("Welcome back to UniChat, " + u + "\n\n By continuing, you agree to the Users Agreement available on the about page\n\nPress Cancel to stop further messages")
+      if (!confirm) {
         setCookie("unichat_welcome", "false", 2 * 365)
       }
     }
