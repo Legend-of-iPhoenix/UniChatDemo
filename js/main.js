@@ -479,7 +479,7 @@ function interpretMessage(data, key) {
     }
     node.innerHTML = detectURL(textnode);
     var textClass = "outputText";
-    if (message.indexOf(username) != -1) {
+    if (message.indexOf(username.substring(0,Math.max(Math.min(username.length,4),4))) != -1) {
       textClass = "highlight";
       if (highlightNotificationStatus)
         notifyMe(posterUsername + ": " + message);
