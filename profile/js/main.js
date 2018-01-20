@@ -83,8 +83,8 @@ function getTitle(username, karma) {
 function getKarma(user) {
   firebase.database().ref("uids/"+user).once('value').then(function(s) {
     var k = s.val();
-  });
-  firebase.database().ref("users/"+user).once("value").then(function(snapshot) {
+    firebase.database().ref("users/"+user).once("value").then(function(snapshot) {
       display(snapshot.val().u, snapshot.val().karma);
+    });
   });
 }
