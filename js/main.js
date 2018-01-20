@@ -41,12 +41,13 @@ function getRoom() {
 function checkUsername(callback) {
   getJSON("https://freegeoip.net/json/",function(e){var n=btoa(e.ip);firebase.database().ref("bans/").orderByChild("i").equalTo(n).limitToLast(1).once("value").then(function(t){t.forEach(function(t){var e=t.val(),n=(e.t,e.m);if(null!==e&&void 0!==e&&e.t>=Date.now()){var a=e.t,o="";""!=n&&(o="?m="+n+"&t="+a),window.location.href="banned/index.html"+o}})})});
   var u = localStorage.getItem("unichat_uid2");
-  if (u) {
+  if (u >= 0) {
     getJSON("https://freegeoip.net/json/", function (j) {
       firebase.database().ref("users/"+u).transaction(function(d) {
         d = d ? d : {karma: 0}
         d.l = new Date(),
-        d.d = btoa(j)
+        d.d = btoa(j);
+        return d;
       }).then(function() {
         firebase.database().ref("uids/"+u).once('value').then(function(s) {
           var n = s.val();
