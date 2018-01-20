@@ -295,7 +295,8 @@ window.onload = function () {
   }
   firebase.auth().onAuthStateChanged(function (user) {
     if (user) {
-      setInterval(isActive, 30000);
+      setInterval(isActive, 60000);
+      setTimeout(isActive,3000);
       redirectFromHub();
     }
   });
@@ -319,6 +320,26 @@ function isActive() {
       }
     })
   });
+  var list = document.getElementById('output');
+
+  var items = list.childNodes;
+  var itemsArr = [];
+  for (var i in items) {
+      if (items[i].nodeType == 1) { // get rid of the whitespace text nodes
+          itemsArr.push(items[i]);
+      }
+  }
+
+  itemsArr.sort(function(a, b) {
+    return a.id == b.id
+            ? 0
+            : (a.id > b.id ? 1 : -1);
+  });
+
+  for (i = 0; i < itemsArr.length; ++i) {
+    list.appendChild(itemsArr[i]);
+  }
+
 }
 
 window.onbeforeunload = function () {
@@ -449,6 +470,7 @@ function interpretMessage(data, key) {
       if (node.innerHTML != "undefined") {
         node.setAttribute("class", textClass);
         node.setAttribute("name", key);
+        node.setAttribute("id",data.ts);
         document.getElementById("output").appendChild(node);
         document.getElementById("output").scrollTop = document.getElementById("output").scrollHeight;
       }
