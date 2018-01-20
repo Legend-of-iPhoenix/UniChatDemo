@@ -3,6 +3,22 @@
   color: #aaa;
 }
 
+input.valid[type=text] {
+  border: 3px solid #0f0;
+}
+
+input.invalid[type=text] {
+  border: 3px solid #f00;
+}
+
+input.valid[type=text]:focus {
+  border: 3px solid #0f0;
+}
+
+input.invalid[type=text]:focus {
+  border: 3px solid #f00;
+}
+
 @keyframes rgb {
   0% { color: #f00; }
   33% { color: #0f0; }
