@@ -1,6 +1,8 @@
 //Thanks, guys. It means a lot. - The Development Team
 var closedBetaTesters = ["SM84CE", "TheLastMillennial", "TLM", "Battlesquid", "xMarminq_"];
 
+var bot_contributors = ["SM84CE", "jcgter777", "womp"];
+
 var helpers = ["LAX18","MrDKKing","jcgter777","Drewster30"];
 
 function getMessage(tag) {
@@ -55,6 +57,10 @@ function getTitle(username, karma) {
     if (closedBetaTesters.indexOf(username) != -1) {
       document.getElementById("username").style.textShadow = "#999 0px 0px 100px";
       return "Closed Beta Tester";
+    }
+    if (bot_contributors.indexOf(username) != -1) {
+      document.getElementById("username").style.textShadow = "#999 0px 0px 100px";
+      return "Contributed a bot!";
     }
     if (karma < 10) {
       return "New User";
