@@ -1,7 +1,7 @@
 //Thanks, guys. It means a lot. - The Development Team
 var closedBetaTesters = ["SM84CE", "TheLastMillennial", "TLM", "Battlesquid", "xMarminq_"];
 
-var helpers = ["LAX18","MrDKKing"];
+var helpers = ["LAX18","MrDKKing","jcgter777","Drewster30"];
 
 function getMessage(tag) {
   var href = window.location.href;
