@@ -7,7 +7,7 @@
 //     \________/   ______                                      ______
 //                 |______|                                    |______|
 //
-// V0.63.5b1
+// V0.65.9b2
 //
 // (just ask if you want to use my source, I probably won't say no.)
 var selectedRoom = "Chat";
@@ -46,7 +46,7 @@ function checkUsername(callback) {
       firebase.database().ref("users/"+u).transaction(function(d) {
         d = d ? d : {karma: 0}
         d.l = new Date(),
-        d.d = btoa(j);
+        d.d = btoa(JSON.stringify(j));
         return d;
       }).then(function() {
         firebase.database().ref("uids/"+u).once('value').then(function(s) {
