@@ -43,7 +43,7 @@ function submit() {
           }).then(function () {
             uid = uuid;
             firebase.database().ref("uids/" + uid).set(value).then(function () {
-						  localStorage.setItem("unichat_uid2",uid)
+						  localStorage.setItem("unichat_uid2",uid);
               window.open("../");
             });
           });
