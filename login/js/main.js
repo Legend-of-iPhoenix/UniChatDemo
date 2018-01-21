@@ -47,7 +47,7 @@ function submit() {
   }
   var value = usernameDiv.value;
   if (usernameDiv.classList[0] == "valid") {
-    firebase.database().ref("uids/").rderByKey().equalTo(value).limitToLast(1).once('value').then(function(snapshot) {
+    firebase.database().ref("uids/").orderByKey().equalTo(value).limitToLast(1).once('value').then(function(snapshot) {
       console.log(snapshot);
       var uid = snapshot.key;
       firebase.database().ref("uids/" + uid).set(value).then(function () {
