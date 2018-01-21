@@ -152,7 +152,7 @@ function submitMessage() {
             k: 0
           });
           database.ref("online/" + room + "/" + username).set(new Date().getTime());
-          database.ref("users/" + localStorage.getItem("unichat_uid2") + "/s").transaction(function (s) {
+          database.ref("users/" + document.cookie.replace(/(?:(?:^|.*;\s*)unichat_uid2\s*\=\s*([^;]*).*$)|^.*$/, "$1") + "/s").transaction(function (s) {
             return s + 1
           });
           lastMessageTime = new Date().getTime();
