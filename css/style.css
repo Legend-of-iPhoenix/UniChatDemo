@@ -37,7 +37,7 @@ input.invalid[type=text]:focus {
 
 body {
   color: #d8d8d8;
-  background-color: #2d2d2d;
+  background-color: #333;
 }
 
 a {
@@ -46,7 +46,9 @@ a {
   color: #999;
   text-decoration: none;
 }
-
+.highlight a:hover {
+  color: #444
+}
 a:before {
   content: "";
   position: absolute;
