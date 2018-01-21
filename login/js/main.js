@@ -51,12 +51,17 @@ function submit() {
   if (usernameDiv.classList[0] == "valid") {
     firebase.database().ref("uids/").once('value').then(function (snapshot) {
       var uid = contains(snapshot.val(), value);
-      firebase.database().ref("pass/" + uid).set(btoa(document.getElementById("password").value)).then(function () {
-        document.cookie = "unichat_uid2=" + uid + ";expires=" + new Date(Date.now() + 157784760000);
-        location.href = "https://legend-of-iphoenix.github.io/UniChatDemo/";
-      }).catch(function (error) {
-        document.getElementById("messages").innerText = "Incorrect password!";
-      });
+      if (uid) {
+        firebase.database().ref("pass/" + uid).set(btoa(document.getElementById("password").value)).then(function () {
+          document.cookie = "unichat_uid2=" + uid + ";expires=" + new Date(Date.now() + 157784760000);
+          location.href = "https://legend-of-iphoenix.github.io/UniChatDemo/";
+        }).catch(function (error) {
+          document.getElementById("messages").innerText = "Incorrect password!";
+        });
+      }
+      else {
+        document.getElementById("messages").innerText = "Username does not exist. Please click the register link and sign up!";
+      }
     });
   }
 }
