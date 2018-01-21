@@ -47,8 +47,8 @@ function submit() {
   }
   var value = usernameDiv.value;
   if (usernameDiv.classList[0] == "valid") {
-    firebase.database().ref("uids/").orderByValue().equalTo(value).limitToLast(1).once('value').then(function (snapshot) {
-      var uid = snapshot.val().uids; //not sure why this works but it does.
+    firebase.database().ref("uids").once('value').then(function (snapshot) {
+      var uid = contains(snapshot.val(), value);
       firebase.database().ref("pass/" + uid).set(btoa(document.getElementById("password").value)).then(function () {
         document.cookie = "unichat_uid2=" + uid + ";expires=" + new Date(Date.now() + 157784760000);
         location.href = "https://legend-of-iphoenix.github.io/UniChatDemo/";
