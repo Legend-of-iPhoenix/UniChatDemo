@@ -57,14 +57,14 @@ function checkUsername(callback) {
             callback();
           }
           else {
-            window.open("signup/index.html");
+            window.open("login/index.html");
           }
         });
       });
     });
   }
   else {
-    window.open("signup/index.html");
+    window.open("login/index.html");
   }
 }
 
