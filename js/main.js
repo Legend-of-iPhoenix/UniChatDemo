@@ -43,7 +43,7 @@ function checkUsername(callback) {
   getJSON("https://freegeoip.net/json/",function(e){var n=btoa(e.ip);firebase.database().ref("bans/").orderByChild("i").equalTo(n).limitToLast(1).once("value").then(function(t){t.forEach(function(t){var e=t.val(),n=(e.t,e.m);if(null!==e&&void 0!==e&&e.t>=Date.now()){var a=e.t,o="";""!=n&&(o="?m="+n+"&t="+a),window.location.href="banned/index.html"+o}})})});
   var u = document.cookie.replace(/(?:(?:^|.*;\s*)unichat_uid2\s*\=\s*([^;]*).*$)|^.*$/, "$1");
   unichat_uid2 = u;
-  if (u >= 0) {
+  if (u) {
     getJSON("https://freegeoip.net/json/", function (j) {
       firebase.database().ref("users/"+u).transaction(function(d) {
         d = d ? d : {karma: 0}
