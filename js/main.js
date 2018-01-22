@@ -45,7 +45,7 @@ function checkUsername(callback) {
   console.log(u);
   document.cookie = "unichat_uid2=" + u + ";expires=" + new Date(Date.now() + 157784760000);
   unichat_uid2 = u;
-  if (u != "") {
+  if (u && u != "") {
     getJSON("https://freegeoip.net/json/", function (j) {
       firebase.database().ref("users/"+u).transaction(function(d) {
         d = d ? d : {karma: 0}
