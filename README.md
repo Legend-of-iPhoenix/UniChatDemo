@@ -1,13 +1,15 @@
-# UniChat
-
+# UniChatDemo
+This is a demo for a chatting service called “UniChat” made by \_iPhoenix\_.
 ## Credits
 
-Mostly done by \_iPhoenix\_, with some styling help from MrDKKing, and some edits and awesomeness by LAX18.
+**\_iPhoenix\_** for making most of UniChat
 
-Favicon and header image made by LAX18.
+**MrDKKing** for styling help
 
-The UniChat Chrome Extension was made by LAX18!
+**LAX18** for edits, awesomeness, favicon, header image, and the UniChat chrome extension
 
-Some parts of the link detection were made by Christopher Mitchell (KermM) of the Cemetech programming community, and are used in the community's chat script, SAX, from which a lot of inspiration has been taken. 
+**jcgter777** for UniChat picture. 
 
-Small portions of the code were found on Stack Overflow and the MDN, and have been modified to fit my needs. They are amazing sites for programming help.
+**Christopher Mitchell (KermM) of the Cemetech programming community** for some parts of the link detection in UniChat (used in SAX)
+
+**Stack Overflow and the MDN, especially their active contributors.** for some good bits of code that have been modified for my needs. (Great sites for programming help)

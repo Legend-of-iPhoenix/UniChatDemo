@@ -3,6 +3,22 @@
   color: #aaa;
 }
 
+input.valid[type=text] {
+  border: 3px solid #0f0;
+}
+
+input.invalid[type=text] {
+  border: 3px solid #f00;
+}
+
+input.valid[type=text]:focus {
+  border: 3px solid #0f0;
+}
+
+input.invalid[type=text]:focus {
+  border: 3px solid #f00;
+}
+
 @keyframes rgb {
   0% { color: #f00; }
   33% { color: #0f0; }
@@ -21,7 +37,7 @@
 
 body {
   color: #d8d8d8;
-  background-color: #2d2d2d;
+  background-color: #333;
 }
 
 a {
@@ -30,7 +46,9 @@ a {
   color: #999;
   text-decoration: none;
 }
-
+.highlight a:hover {
+  color: #444
+}
 a:before {
   content: "";
   position: absolute;
@@ -84,6 +102,7 @@ span {
 }
 
 .tutorial {
+  box-shadow: 0 1px 5px #222 inset,0 1px 0 #666;
   padding: 7px;
 }
 

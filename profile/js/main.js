@@ -1,7 +1,9 @@
 //Thanks, guys. It means a lot. - The Development Team
 var closedBetaTesters = ["SM84CE", "TheLastMillennial", "TLM", "Battlesquid", "xMarminq_"];
 
-var helpers = ["LAX18","MrDKKing"];
+var bot_contributors = ["SM84CE", "jcgter777", "womp"];
+
+var helpers = ["LAX18","MrDKKing","jcgter777","Drewster30"];
 
 function getMessage(tag) {
   var href = window.location.href;
@@ -56,6 +58,10 @@ function getTitle(username, karma) {
       document.getElementById("username").style.textShadow = "#999 0px 0px 100px";
       return "Closed Beta Tester";
     }
+    if (bot_contributors.indexOf(username) != -1) {
+      document.getElementById("username").style.textShadow = "#999 0px 0px 100px";
+      return "Contributed a bot!";
+    }
     if (karma < 10) {
       return "New User";
     }
@@ -75,7 +81,10 @@ function getTitle(username, karma) {
 }
 
 function getKarma(user) {
-  firebase.database().ref("usernames/"+user+"/karma").once("value").then(function(snapshot) {
-      display(user, snapshot.val());
+  firebase.database().ref("uids/"+user).once('value').then(function(s) {
+    var k = s.val();
+    firebase.database().ref("users/"+user).once("value").then(function(snapshot) {
+      display(snapshot.val().u, snapshot.val().karma);
+    });
   });
 }
