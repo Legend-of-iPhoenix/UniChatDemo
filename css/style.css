@@ -36,6 +36,7 @@ input.invalid[type=text]:focus {
 }
 
 body {
+  margin: 0;
   color: #d8d8d8;
   background-color: #333;
 }
