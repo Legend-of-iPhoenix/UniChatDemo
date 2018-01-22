@@ -399,7 +399,7 @@ function toggleNotificationOnHighlight() {
 }
 
 function interpretMessage(data, key) {
-  var unichat_uid2 = data.un;
+  var uid = data.un;
   firebase.database().ref("uids/"+uid).once('value').then(function(un) {
     data.un = un.val();
     var message = data.text;
