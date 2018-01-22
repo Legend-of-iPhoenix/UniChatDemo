@@ -180,6 +180,45 @@ input[type=button]:hover, button:hover, input[type=submit]:hover  {
   box-shadow: 5px 5px 10px 0 rgba(0,0,0,0.8);
 }
 
+.menuButton {
+  position: relative;
+  top: 0px;
+  margin-right: 5px;
+  cursor: pointer;
+  transition: all .5s ease-in-out 0s;
+}
+
+.menuButton:before {
+  position: absolute;
+  z-index: -1;
+  height: 2px;
+  bottom: 15px;
+  left: 0;
+  content: attr(value);
+  width: 100%;
+  text-align: center;
+  visibility: hidden;
+  transition: all .25s ease-in-out 0s;
+}
+
+#logo {
+  transition: all 1s ease-in-out 0s;
+}
+
+#logo:hover {
+  transform: rotateX(360deg) rotateY(360deg) rotateZ(360deg);
+}
+
+.menuButton:hover {
+  transform: translate(0, -15px);
+}
+
+.menuButton:hover:before {
+  transform: translate(0, 15px);
+  visibility: visible;
+}
+
+
 h1 {
   color: #ccc;
 }
