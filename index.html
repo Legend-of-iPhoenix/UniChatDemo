@@ -42,35 +42,21 @@
       type="image/png" 
       href="https://i.imgur.com/7POdNS3.png">
   <body>
-    
-<div>
-    <image src="https://i.imgur.com/NBU8Bxo.jpg"></image>
-    <table>
-      <tr>
-        <td>
-          <input type="button" value="Home" onclick="window.open('https://legend-of-iphoenix.github.io/UniChatDemo/', '_self')">
-        </td>
-        <td>
-          <input type="button" value="About / Rules" onclick="window.open('https://legend-of-iphoenix.github.io/UniChatDemo/about/index.html', '_self')">
-        </td>
-        <td>
-          <input type="button" value="GitHub Repository" onclick="window.open('https://github.com/Legend-of-iPhoenix/UniChatDemo', '_self')">
-        </td>
-        <td>
-          <input type="button" value="Documentation / Wiki" onclick="window.open('https://github.com/Legend-of-iPhoenix/UniChatDemo/wiki', '_self')">
-        </td>
-        <td>
-          <input type="button" value="News" onclick="window.open('https://legend-of-iphoenix.github.io/UniChatDemo/news/index.html', '_self')">
-        </td>
-        <td>
-          <input type="button" value="Download Latest Version of Chrome Extension" onclick="window.open('https://github.com/LAX18/Unichat-Chrome-Extension/archive/master.zip', '_self')">
-        </td>
-        
-       
-      </tr>
-     </table>
- 
-    </div>    <div id="centered">
+    <div style="float: left;position: fixed;background-color: #333;width: 100%;top: 0">
+         <image src="https://i.imgur.com/Wtv8VG2.png?2" style="float: left" height="50px" width="100px"></image>
+    <div style="padding-top: 15px"><input type="button" value="Home" onclick="window.open('https://legend-of-iphoenix.github.io/UniChatDemo/', '_self')" style="float: left">
+   <input type="button" value="About / Rules" onclick="window.open('https://legend-of-iphoenix.github.io/UniChatDemo/about/index.html', '_self')" style="float: left">
+   <input type="button" value="GitHub Repository" onclick="window.open('https://github.com/Legend-of-iPhoenix/UniChatDemo', '_self')" style="float: left">
+   <input type="button" value="Documentation / Wiki" onclick="window.open('https://github.com/Legend-of-iPhoenix/UniChatDemo/wiki', '_self')" style="float: left">
+   <input type="button" value="News" onclick="window.open('https://legend-of-iphoenix.github.io/UniChatDemo/news/index.html', '_self')" style="float: left">
+   <input type="button" value="Download Latest Version of Chrome Extension" onclick="window.open('https://github.com/LAX18/Unichat-Chrome-Extension/archive/master.zip', '_self')" style="float: left"></div>
+
+      </div> 
+  <br />
+     <br />
+
+    <div>
+
       <h1>Welcome to the UniChat Demo!</h1>
     </div>
     <h2>This is a demo of the latest UniChat development build, and this WILL not be bug-proof.</h2>
@@ -150,6 +136,7 @@
         /me &ltaction>
         <ul>
           <li> Appears to everyone as: *&ltyour username> &ltaction> </li>
+          <li> For example: "/me runs" becomes "*iPhoenix runs" </li>
         </ul>
       </li>
       <li>
@@ -157,6 +144,7 @@
         <ul>
           <li> Sends a private message to &ltuser>, which isn't visible to anyone besides the recipient and yourself.</li>
           <li> Is not seen by <strong>anyone</strong> else. </li>
+          <li> For example: "/pm iPhoenix Hello, what's up!" becomes "[LAX18 -> iPhoenix] Hello, what's up!"</li>
         </ul>
       </li>
     </div>

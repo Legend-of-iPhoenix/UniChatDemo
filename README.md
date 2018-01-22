@@ -6,7 +6,9 @@ This is a demo for a chatting service called “UniChat” made by \_iPhoenix\_.
 
 **MrDKKing** for styling help
 
-**LAX18** for edits, awesomeness, favicon, header image, and the UniChat chrome extension
+**LAX18** for edits, awesomeness, favicon, header image, navigation bar, and the UniChat chrome extension
+
+**jcgter777** for UniChat header image (new one). 
 
 **Christopher Mitchell (KermM) of the Cemetech programming community** for some parts of the link detection in UniChat (used in SAX)
 

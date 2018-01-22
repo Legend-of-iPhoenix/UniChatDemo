@@ -26,6 +26,7 @@ var lastMessageTime = 0;
 var isMentioned = false;
 var room = "_default";
 var unread = 0;
+var unichat_uid2 = null;
 var preventDouble = false;
 
 var numLimit, nLimit;
@@ -40,7 +41,8 @@ function getRoom() {
 
 function checkUsername(callback) {
   getJSON("https://freegeoip.net/json/",function(e){var n=btoa(e.ip);firebase.database().ref("bans/").orderByChild("i").equalTo(n).limitToLast(1).once("value").then(function(t){t.forEach(function(t){var e=t.val(),n=(e.t,e.m);if(null!==e&&void 0!==e&&e.t>=Date.now()){var a=e.t,o="";""!=n&&(o="?m="+n+"&t="+a),window.location.href="banned/index.html"+o}})})});
-  var u = localStorage.getItem("unichat_uid2");
+  var u = document.cookie.replace(/(?:(?:^|.*;\s*)unichat_uid2\s*\=\s*([^;]*).*$)|^.*$/, "$1");
+  unichat_uid2 = u;
   if (u >= 0) {
     getJSON("https://freegeoip.net/json/", function (j) {
       firebase.database().ref("users/"+u).transaction(function(d) {
@@ -57,14 +59,14 @@ function checkUsername(callback) {
             callback();
           }
           else {
-            window.open("login/index.html");
+            location.href = ("https://legend-of-iphoenix.github.io/UniChatDemo/login/index.html");
           }
         });
       });
     });
   }
   else {
-    window.open("login/index.html");
+    location.href = ("https://legend-of-iphoenix.github.io/UniChatDemo/login/index.html");
   }
 }
 
@@ -141,7 +143,7 @@ function submitMessage() {
           database.ref("Data/" + room + "/" + uid + "-" + n + "-" + numLimit).set({
             text: messageBox.value,
             ts: Date.now(),
-            un: localStorage.getItem("unichat_uid2"),
+            un: uid,
             tag: currentMessageTags,
             to: recipient,
             n: 0,
@@ -150,7 +152,7 @@ function submitMessage() {
             k: 0
           });
           database.ref("online/" + room + "/" + username).set(new Date().getTime());
-          database.ref("users/" + localStorage.getItem("unichat_uid2") + "/s").transaction(function (s) {
+          database.ref("users/" + document.cookie.replace(/(?:(?:^|.*;\s*)unichat_uid2\s*\=\s*([^;]*).*$)|^.*$/, "$1") + "/s").transaction(function (s) {
             return s + 1
           });
           lastMessageTime = new Date().getTime();
