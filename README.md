@@ -1,14 +1,25 @@
-# UniChatDemo
+```
+  |   |        _)   ___|  |             |    | 
+  |   |  __ \   |  |      __ \    _` |  __|  | 
+  |   |  |   |  |  |      | | |  (   |  |   _| 
+ \___/  _|  _| _| \____| _| |_| \__,_| \__| _) 
+```
 This is a demo for a chatting service called “UniChat” made by \_iPhoenix\_.
-## Credits
 
-**\_iPhoenix\_** for making most of UniChat
+```
+   ___|                |         _)  |             |                     
+  |       _ \   __ \   __|   __|  |  __ \   |   |  __|   _ \    __|  __| 
+  |      (   |  |   |  |    |     |  |   |  |   |  |    (   |  |   \__ \ 
+ \____| \___/  _|  _| \__| _|    _| _.__/  \__,_| \__| \___/  _|   ____/ 
+```
 
-**MrDKKing** for styling help
+**\_iPhoenix\_** for making most of UniChat.
 
-**LAX18** for edits, awesomeness, favicon, header image, navigation bar, and the UniChat chrome extension
+**MrDKKing** for styling help.
 
-**jcgter777** for UniChat header image (new one) and the new UniChat navigation bar icon. 
+**LAX18** for edits, awesomeness, favicon, header image, navigation bar, and the UniChat chrome extension.
+
+**jcgter777** for UniChat header image (old one) and the new UniChat navigation bar icon. 
 
 **Christopher Mitchell (KermM) of the Cemetech programming community** for some parts of the link detection in UniChat (used in SAX)
 
