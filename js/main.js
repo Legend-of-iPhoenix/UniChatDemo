@@ -68,7 +68,9 @@ function checkUsername(callback) {
     });
   }
   else {
-    location.href = ("https://legend-of-iphoenix.github.io/UniChatDemo/login/index.html");
+    if (!navigator.userAgent.match(/bot/g)) {
+      location.href = ("https://legend-of-iphoenix.github.io/UniChatDemo/login/index.html");
+    }
   }
 }
 
