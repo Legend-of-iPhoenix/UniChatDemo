@@ -40,7 +40,7 @@ input.invalid[type=text]:focus {
 }
 
 .md-bold {
-  font-weight: bold;
+  font-weight: bolder;
 }
 
 body {
