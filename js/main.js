@@ -7,7 +7,7 @@
 //     \________/   ______                                      ______
 //                 |______|                                    |______|
 //
-// V0.66.0b0
+// V0.66.2b0
 //
 // (just ask if you want to use my source, I probably won't say no.)
 var selectedRoom = "Chat";
@@ -43,28 +43,39 @@ function checkUsername(callback) {
   var u = document.cookie.replace(/(?:(?:^|.*;\s*)unichat_uid2\s*\=\s*([^;]*).*$)|^.*$/, "$1") ? document.cookie.replace(/(?:(?:^|.*;\s*)unichat_uid2\s*\=\s*([^;]*).*$)|^.*$/, "$1") : ((location.href.match(/u=[0-9]*/) ? location.href.match(/u=([0-9]*)/)[1] : false));
   console.log(u);
   unichat_uid2 = u;
-  var n=unichat_uid2;firebase.database().ref("bans/").orderByChild("i").equalTo(n).limitToLast(1).once("value").then(function(a){a.forEach(function(a){var n=a.val(),i=(n.t,n.m);if(null!==n&&void 0!==n&&n.t>=Date.now()){var t=n.t,e="";""!=i&&(e="?m="+i+"&t="+t),window.location.href="banned/index.html"+e}})});
+  var n = unichat_uid2;
+  firebase.database().ref("bans/").orderByChild("i").equalTo(n).limitToLast(1).once("value").then(function (a) {
+    a.forEach(function (a) {
+      var n = a.val(),
+        i = (n.t, n.m);
+      if (null !== n && void 0 !== n && n.t >= Date.now()) {
+        var t = n.t,
+          e = "";
+        "" != i && (e = "?m=" + i + "&t=" + t), window.location.href = "banned/index.html" + e
+      }
+    })
+  });
   if (u && u != "") {
     document.cookie = "unichat_uid2=" + u + ";expires=" + new Date(Date.now() + 157784760000);
-      firebase.database().ref("users/"+u).transaction(function(d) {
-        d = d ? d : {karma: 0}
-        d.l = new Date()
-        return d;
-      }).then(function() {
-        firebase.database().ref("uids/"+u).once('value').then(function(s) {
-          var n = s.val();
-          if (n) {
-            firebase.database().ref("users/"+u+"/u").set(n);
-            username = n;
-            callback();
-          }
-          else {
-            location.href = ("https://legend-of-iphoenix.github.io/UniChatDemo/login/index.html");
-          }
-        });
+    firebase.database().ref("users/" + u).transaction(function (d) {
+      d = d ? d : {
+        karma: 0
+      }
+      d.l = new Date()
+      return d;
+    }).then(function () {
+      firebase.database().ref("uids/" + u).once('value').then(function (s) {
+        var n = s.val();
+        if (n) {
+          firebase.database().ref("users/" + u + "/u").set(n);
+          username = n;
+          callback();
+        } else {
+          location.href = ("https://legend-of-iphoenix.github.io/UniChatDemo/login/index.html");
+        }
       });
-  }
-  else {
+    });
+  } else {
     if (!navigator.userAgent.match(/bot/g)) {
       location.href = ("https://legend-of-iphoenix.github.io/UniChatDemo/login/index.html");
     }
@@ -111,7 +122,18 @@ function toggleFilter(filter) {
 }
 
 function submitMessage() {
-  var n=unichat_uid2;firebase.database().ref("bans/").orderByChild("i").equalTo(n).limitToLast(1).once("value").then(function(a){a.forEach(function(a){var n=a.val(),i=(n.t,n.m);if(null!==n&&void 0!==n&&n.t>=Date.now()){var t=n.t,e="";""!=i&&(e="?m="+i+"&t="+t),window.location.href="banned/index.html"+e}})});
+  var n = unichat_uid2;
+  firebase.database().ref("bans/").orderByChild("i").equalTo(n).limitToLast(1).once("value").then(function (a) {
+    a.forEach(function (a) {
+      var n = a.val(),
+        i = (n.t, n.m);
+      if (null !== n && void 0 !== n && n.t >= Date.now()) {
+        var t = n.t,
+          e = "";
+        "" != i && (e = "?m=" + i + "&t=" + t), window.location.href = "banned/index.html" + e
+      }
+    })
+  });
   var messageBox = document.getElementById("message");
   if (isSignedIn) {
     var database = firebase.database();
@@ -228,7 +250,7 @@ function redirectFromHub() {
   }
   var n = document.getElementById('output');
   n.innerHTML = "";
-  checkUsername(function() {
+  checkUsername(function () {
     firebase.auth().currentUser.updateProfile({
       displayName: username
     });
@@ -260,7 +282,7 @@ function redirectFromHub() {
 }
 
 window.onload = function () {
-  firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION).then(function() {
+  firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION).then(function () {
     firebase.auth().signInAnonymously().catch(function (error) {
       var errorCode = error.code;
       var errorMessage = error.message;
@@ -268,7 +290,9 @@ window.onload = function () {
     });
   });
   room = getRoom();
-  setInterval(function(){isHidden()||(unread=0,isMentioned=!1,document.title="UniChat Beta")},250);
+  setInterval(function () {
+    isHidden() || (unread = 0, isMentioned = !1, document.title = "UniChat Beta")
+  }, 250);
   if (room != "_default") {
     var label = document.createElement("p");
     label.innerText = "Click to copy the link to share this chatroom.";
@@ -298,7 +322,7 @@ window.onload = function () {
   firebase.auth().onAuthStateChanged(function (user) {
     if (user) {
       setInterval(isActive, 60000);
-      setTimeout(isActive,3000);
+      setTimeout(isActive, 3000);
       redirectFromHub();
     }
   });
@@ -311,8 +335,20 @@ window.onload = function () {
     }
   });
 }
+
 function isActive() {
-  var n=unichat_uid2;firebase.database().ref("bans/").orderByChild("i").equalTo(n).limitToLast(1).once("value").then(function(a){a.forEach(function(a){var n=a.val(),i=(n.t,n.m);if(null!==n&&void 0!==n&&n.t>=Date.now()){var t=n.t,e="";""!=i&&(e="?m="+i+"&t="+t),window.location.href="banned/index.html"+e}})});
+  var n = unichat_uid2;
+  firebase.database().ref("bans/").orderByChild("i").equalTo(n).limitToLast(1).once("value").then(function (a) {
+    a.forEach(function (a) {
+      var n = a.val(),
+        i = (n.t, n.m);
+      if (null !== n && void 0 !== n && n.t >= Date.now()) {
+        var t = n.t,
+          e = "";
+        "" != i && (e = "?m=" + i + "&t=" + t), window.location.href = "banned/index.html" + e
+      }
+    })
+  });
   var curTime = new Date().getTime();
   firebase.database().ref("/online/" + room + "/").once('value').then(function (p) {
     p.forEach(function (snapshot) {
@@ -327,15 +363,15 @@ function isActive() {
   var items = list.childNodes;
   var itemsArr = [];
   for (var i in items) {
-      if (items[i].nodeType == 1) { // get rid of the whitespace text nodes
-          itemsArr.push(items[i]);
-      }
+    if (items[i].nodeType == 1) { // get rid of the whitespace text nodes
+      itemsArr.push(items[i]);
+    }
   }
 
-  itemsArr.sort(function(a, b) {
-    return a.id == b.id
-            ? 0
-            : (a.id > b.id ? 1 : -1);
+  itemsArr.sort(function (a, b) {
+    return a.id == b.id ?
+      0 :
+      (a.id > b.id ? 1 : -1);
   });
 
   for (i = 0; i < itemsArr.length; ++i) {
@@ -363,8 +399,7 @@ function refreshOutput() {
 function notifyMe(message) {
   if (Notification.permission === "granted") {
     var notification = new Notification(message);
-  }
-  else if (Notification.permission !== "denied") {
+  } else if (Notification.permission !== "denied") {
     Notification.requestPermission(function (permission) {
       if (permission === "granted") {
         var notification = new Notification(message);
@@ -396,7 +431,7 @@ function toggleNotificationOnHighlight() {
 
 function interpretMessage(data, key) {
   var uid = data.un;
-  firebase.database().ref("uids/"+uid).once('value').then(function(un) {
+  firebase.database().ref("uids/" + uid).once('value').then(function (un) {
     data.un = un.val();
     var message = data.text;
     var datePosted = data.ts;
@@ -440,9 +475,9 @@ function interpretMessage(data, key) {
       if (notificationStatus && messageCommand != "pm") {
         notifyMe(textnode);
       }
-      node.innerHTML =  "[" + dateString + "]"+detectURL(textnode);
+      node.innerHTML = "[" + dateString + "]" + detectURL(textnode);
       var textClass = "outputText";
-      if (message.indexOf(username.substring(0,Math.max(Math.min(username.length,4),4))) != -1) {
+      if (message.indexOf(username.substring(0, Math.max(Math.min(username.length, 4), 4))) != -1) {
         textClass = "highlight";
         if (highlightNotificationStatus)
           notifyMe(textnode);
@@ -459,10 +494,9 @@ function interpretMessage(data, key) {
             unread++;
           }
           isMentioned = (textClass == "highlight") || isMentioned;
-          document.title = (isMentioned ? "*" : "+") + " UniChat Beta ("+unread+" unread)";
+          document.title = (isMentioned ? "*" : "+") + " UniChat Beta (" + unread + " unread)";
         }
-      }
-      else {
+      } else {
         unread = 0;
         isMentioned = false;
         document.title = "UniChat Beta";
@@ -470,7 +504,7 @@ function interpretMessage(data, key) {
       if (detectURL(textnode) != "undefined") {
         node.setAttribute("class", textClass);
         node.setAttribute("name", key);
-        node.setAttribute("id",data.ts);
+        node.setAttribute("id", data.ts);
         document.getElementById("output").appendChild(node);
         document.getElementById("output").scrollTop = document.getElementById("output").scrollHeight;
       }
@@ -491,8 +525,8 @@ function cleanse(message) {
 
 function detectURL(message) {
   message = cleanse(message);
-  message = message.replace(/\*([^\*]*)\*/g,'<div style="display: inline-block;" class="md-bold">$1</span>');
-  message = message.replace(/\/([^\/]*)\//g,'<div style="display: inline-block;" class="md-italic">$1</span>');
+  message = message.replace(/\*([^\*]*)\*/g, '<div style="display: inline-block;" class="md-bold">$1</span>');
+  message = message.replace(/\/([^\/]*)\//g, '<div style="display: inline-block;" class="md-italic">$1</span>');
   if (message !== undefined && message !== null) {
     var result = "";
     var n = "";
@@ -520,7 +554,16 @@ function detectURL(message) {
   return result
 }
 
-function isHidden(){var n=function(){var n=["webkit","moz","ms","o"];if("hidden"in document)return"hidden";for(var e=0;e<n.length;e++)if(n[e]+"Hidden"in document)return n[e]+"Hidden";return null}();return!!n&&document[n]};
+function isHidden() {
+  var n = function () {
+    var n = ["webkit", "moz", "ms", "o"];
+    if ("hidden" in document) return "hidden";
+    for (var e = 0; e < n.length; e++)
+      if (n[e] + "Hidden" in document) return n[e] + "Hidden";
+    return null
+  }();
+  return !!n && document[n]
+};
 
 function redirect(url) {
   window.open(url, '_self');
