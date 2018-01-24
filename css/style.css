@@ -35,6 +35,14 @@ input.invalid[type=text]:focus {
   width: fit-content;
 }
 
+.md-italic {
+  font-style: italic;
+}
+
+.md-bold {
+  font-weight: bold;
+}
+
 body {
   margin: 0;
   color: #d8d8d8;
