@@ -422,7 +422,7 @@ function interpretMessage(data, key) {
       }
       var textnode;
       if (messageCommand === "me" && messageCommand !== "pm") {
-        textnode = "[" + dateString + "]" + n + "  *" + posterUsername + ' ' + message.substring(3, message.length);
+        textnode = n + "  *" + posterUsername + ' ' + message.substring(3, message.length);
       } else {
         var str = message.substring(4, message.length);
         var reg = /\w*/;
@@ -430,32 +430,32 @@ function interpretMessage(data, key) {
         var messagePM = message.substring(4 + match[0].length, message.length);
         if (messageCommand === "pm") {
           if (match[0] == username) {
-            textnode = "[" + dateString + "][PM][" + posterUsername + "-> You]: " + messagePM;
+            textnode = "[PM][" + posterUsername + "-> You]: " + messagePM;
           } else {
             if (posterUsername == username) {
-              textnode = "[" + dateString + "][PM][You -> " + match[0] + "]: " + messagePM;
+              textnode = "[PM][You -> " + match[0] + "]: " + messagePM;
             }
           }
         } else {
           if (messageCommand !== "pm") {
-            textnode = "[" + dateString + "]" + n + "  " + posterUsername + ': ' + message;
+            textnode = n + "  " + posterUsername + ': ' + message;
           }
         }
       }
       if (notificationStatus && messageCommand != "pm") {
-        notifyMe(posterUsername + ": " + message);
+        notifyMe(textnode);
       }
-      node.innerHTML = detectURL(textnode);
+      node.innerHTML =  "[" + dateString + "]"+detectURL(textnode);
       var textClass = "outputText";
       if (message.indexOf(username.substring(0,Math.max(Math.min(username.length,4),4))) != -1) {
         textClass = "highlight";
         if (highlightNotificationStatus)
-          notifyMe(posterUsername + ": " + message);
+          notifyMe(textnode);
       }
       if (username == "TheLastMillennial" && message.indexOf("TLM") != -1) {
         textClass = "highlight";
         if (highlightNotificationStatus)
-          notifyMe(posterUsername + ": " + message);
+          notifyMe(textnode);
       }
       if (isHidden()) {
         if (!message.startsWith("/pm")) {
