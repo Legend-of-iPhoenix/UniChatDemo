@@ -219,11 +219,11 @@ input[type=button]:hover, button:hover, input[type=submit]:hover  {
 }
 
 .menuButton:hover {
-  transform: translate(0, -15px);
+  transform: translate(0, -14px);
 }
 
 .menuButton:hover:before {
-  transform: translate(0, 15px);
+  transform: translate(0, 14px);
   visibility: visible;
 }
 
