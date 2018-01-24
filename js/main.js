@@ -472,7 +472,7 @@ function interpretMessage(data, key) {
         isMentioned = false;
         document.title = "UniChat Beta";
       }
-      if (node.innerHTML != "undefined") {
+      if (detectURL(textnode) != "undefined") {
         node.setAttribute("class", textClass);
         node.setAttribute("name", key);
         node.setAttribute("id",data.ts);
