@@ -42,7 +42,6 @@ function getRoom() {
 function checkUsername(callback) {
   var u = document.cookie.replace(/(?:(?:^|.*;\s*)unichat_uid2\s*\=\s*([^;]*).*$)|^.*$/, "$1") ? document.cookie.replace(/(?:(?:^|.*;\s*)unichat_uid2\s*\=\s*([^;]*).*$)|^.*$/, "$1") : ((location.href.match(/u=[0-9]*/) ? location.href.match(/u=([0-9]*)/)[1] : false));
   console.log(u);
-  u = "0"
   unichat_uid2 = u;
   var n=unichat_uid2;firebase.database().ref("bans/").orderByChild("i").equalTo(n).limitToLast(1).once("value").then(function(a){a.forEach(function(a){var n=a.val(),i=(n.t,n.m);if(null!==n&&void 0!==n&&n.t>=Date.now()){var t=n.t,e="";""!=i&&(e="?m="+i+"&t="+t),window.location.href="banned/index.html"+e}})});
   if (u && u != "") {
@@ -491,7 +490,6 @@ function cleanse(message) {
 }
 
 function detectURL(message) {
-  //Implementing markdown in UniChat messages vvv
   message = cleanse(message);
   message = message.replace(/\*([^\*]*)\*/g,'<div style="display: inline-block;" class="md-bold">$1</span>');
   message = message.replace(/\/([^\/]*)\//g,'<div style="display: inline-block;" class="md-italic">$1</span>');
