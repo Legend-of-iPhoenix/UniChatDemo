@@ -7,7 +7,7 @@
 //     \________/   ______                                      ______
 //                 |______|                                    |______|
 //
-// V0.65.9b2
+// V0.66.0b0
 //
 // (just ask if you want to use my source, I probably won't say no.)
 var selectedRoom = "Chat";
@@ -46,11 +46,9 @@ function checkUsername(callback) {
   var n=unichat_uid2;firebase.database().ref("bans/").orderByChild("i").equalTo(n).limitToLast(1).once("value").then(function(a){a.forEach(function(a){var n=a.val(),i=(n.t,n.m);if(null!==n&&void 0!==n&&n.t>=Date.now()){var t=n.t,e="";""!=i&&(e="?m="+i+"&t="+t),window.location.href="banned/index.html"+e}})});
   if (u && u != "") {
     document.cookie = "unichat_uid2=" + u + ";expires=" + new Date(Date.now() + 157784760000);
-    getJSON("https://freegeoip.net/json/", function (j) {
       firebase.database().ref("users/"+u).transaction(function(d) {
         d = d ? d : {karma: 0}
-        d.l = new Date(),
-        d.d = btoa(JSON.stringify(j));
+        d.l = new Date()
         return d;
       }).then(function() {
         firebase.database().ref("uids/"+u).once('value').then(function(s) {
@@ -65,7 +63,6 @@ function checkUsername(callback) {
           }
         });
       });
-    });
   }
   else {
     if (!navigator.userAgent.match(/bot/g)) {
@@ -375,8 +372,6 @@ function notifyMe(message) {
     });
   }
 }
-
-function getJSON(e,n){var s=new XMLHttpRequest;s.open("GET",e,!0),s.responseType="json",s.onload=function(){s.status;n(s.response)},s.send()}
 
 function countArrayGreaterThanOrEqualTo(array, number) {
   var n = 0;
