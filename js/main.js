@@ -519,8 +519,10 @@ function interpretMessage(data, key) {
 }
 
 function interpretChangedMessage(data, key) {
-  document.getElementsByName(key)[0].remove();
-  interpretMessage(data, key);
+  if (document.getElementsByName(key)[0]) {
+    document.getElementsByName(key)[0].remove();
+    interpretMessage(data, key);
+  }
 }
 
 function cleanse(message) {
@@ -532,7 +534,7 @@ function cleanse(message) {
 function detectURL(message) {
   message = cleanse(message);
   message = message.replace(/\*([^\*]*)\*/g, '<div style="display: inline-block;" class="md-bold">$1</span>');
-  message = message.replace(/\~([^\~]{1,})\~/g, '<div style="display: inline-block;" class="md-italic">$1</span>');
+  message = message.replace(/\~([^\~]*)\~/g, '<div style="display: inline-block;" class="md-italic">$1</span>');
   if (message !== undefined && message !== null) {
     var result = "";
     var n = "";
