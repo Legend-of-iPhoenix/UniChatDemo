@@ -434,7 +434,7 @@ function toggleNotificationOnHighlight() {
 
 function interpretMessage(data, key) {
   var uid = data.un;
-  firebase.database().ref("uids/" + uid).once('value').then(function (un) {
+  firebase.database().ref("uids/" + uid.replace(/\W/g,"")).once('value').then(function (un) {
     data.un = un.val();
     if (uid.startsWith('[')) {
       data.un = uid
