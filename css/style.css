@@ -247,3 +247,14 @@ ol,ul:.tags {
 strong, th {
   color: #aaa;
 }
+
+.feed-item-title {
+  font-weight: bolder;
+  color: #000;
+  font-size: 15px;
+}
+
+.feed-item-desc {
+  background-color: #222;
+  box-shadow: 0 1px 5px #222 inset,0 1px 0 #666;
+}
