@@ -250,7 +250,7 @@ strong, th {
 
 .feed-item-title {
   width: fit-content;
-  margin: 0 auto;
+  margin: 10px auto;
   font-weight: bolder;
   color: #000;
   font-size: 15px;
