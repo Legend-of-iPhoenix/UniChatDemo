@@ -533,8 +533,8 @@ function cleanse(message) {
 
 function detectURL(message) {
   message = cleanse(message);
-  message = message.replace(/\*([^\*]*)\*/g, '<div style="display: inline-block;" class="md-bold">$1</span>');
-  message = message.replace(/\~([^\~]*)\~/g, '<div style="display: inline-block;" class="md-italic">$1</span>');
+  message = message.replace(/\*([^\*]*)\*/g, '<div style="display: inline-block;" class="md-bold">$1</div>');
+  message = message.replace(/\~([^\~]*)\~/g, '<div style="display: inline-block;" class="md-italic">$1</div>');
   if (message !== undefined && message !== null) {
     var result = "";
     var n = "";
