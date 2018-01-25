@@ -2,6 +2,12 @@ var usernameDiv;
 var data;
 
 window.onload = function () {
+  if (location.href.indexOf("?logout") != -1) {
+    document.cookie="unichat_uid2=;expires=Thu, 01 Jan 1970 00:00:01 GMT;";
+    document.body.innerHTML += '<p id="logged-out">You have successfully been logged out of your account.</p>';
+    setTimeout(function(){document.getElementById("logged-out").remove();},10000);
+    location.replace("https://legend-of-iphoenix.github.io/UniChatDemo/login/");
+  }
   if (document.cookie.replace(/(?:(?:^|.*;\s*)unichat_uid2\s*\=\s*([^;]*).*$)|^.*$/, "$1") != "") {
     location.href = "https://legend-of-iphoenix.github.io/UniChatDemo/?u="+document.cookie.replace(/(?:(?:^|.*;\s*)unichat_uid2\s*\=\s*([^;]*).*$)|^.*$/, "$1");
   }
