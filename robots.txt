@@ -1,8 +1,0 @@
-User-Agent: *
-Disallow: 
-Allow: /UniChatDemo/
-Allow: /UniChatDemo/register/
-Allow: /UniChatDemo/login/
-Allow: /UniChatDemo/about/
-Allow: /UniChatDemo/news/
-Allow: /UniChatDemo/hub/
