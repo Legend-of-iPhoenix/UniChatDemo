@@ -266,11 +266,11 @@ function redirectFromHub() {
       interpretChangedMessage(data, snapshot.key);
     });
     firebase.database().ref("online/" + room + "/").on('child_added', function (snapshot) {
-      firebase.database().ref("uids/"+snapshot.val()).once('value').then(function(username) {
+      firebase.database().ref("uids/"+snapshot.key).once('value').then(function(username) {
         var container = document.getElementById("online-users");
         var node = document.createElement("A");
         node.setAttribute("href","https://legend-of-iphoenix.github.io/UniChatDemo/profile/index.html?u="+snapshot.key);
-        node.innerText = username.val();
+        node.innerText = username.val() + "\n";
         container.appendChild(node);
         node.setAttribute("name", snapshot.key);
       });
