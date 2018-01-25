@@ -71,13 +71,13 @@ function checkUsername(callback) {
           username = n;
           callback();
         } else {
-          location.href = ("https://legend-of-iphoenix.github.io/UniChatDemo/login/index.html");
+          document.getElementById("contentDiv").innerHTML = '<p>You do not have an account or you have been signed out. Please log in or create an account <a href="https://legend-of-iphoenix.github.io/UniChatDemo/login/index.html">here</a>.</p>'
         }
       });
     });
   } else {
     if (!navigator.userAgent.match(/bot/g)) {
-      location.href = ("https://legend-of-iphoenix.github.io/UniChatDemo/login/index.html");
+      document.getElementById("contentDiv").innerHTML = '<p>You do not have an account or you have been signed out. Please log in or create an account <a href="https://legend-of-iphoenix.github.io/UniChatDemo/login/index.html">here</a>.</p>'
     }
   }
 }
