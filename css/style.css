@@ -254,7 +254,13 @@ strong, th {
   font-size: 15px;
 }
 
+a[href=https://rss.bloople.net/] {
+  visibility: hidden;
+}
+
 .feed-item-desc {
   background-color: #222;
   box-shadow: 0 1px 5px #222 inset,0 1px 0 #666;
+  width: 50%;
+  padding: 5px;
 }
