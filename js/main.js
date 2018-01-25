@@ -269,7 +269,7 @@ function redirectFromHub() {
       firebase.database().ref("uids/"+snapshot.val()).once('value').then(function(username) {
         var container = document.getElementById("online-users");
         var node = document.createElement("A");
-        node.setAttribute("href","https://legend-of-iphoenix.github.io/UniChatDemo/profile/index.html?u="+snapshot.key;
+        node.setAttribute("href","https://legend-of-iphoenix.github.io/UniChatDemo/profile/index.html?u="+snapshot.key);
         node.innerText = username;
         container.appendChild(node);
         node.setAttribute("name", snapshot.key);
