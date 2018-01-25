@@ -210,6 +210,17 @@ input[type=button]:hover, button:hover, input[type=submit]:hover  {
   transition: all .25s ease-in-out 0s;
 }
 
+.navBar {
+  float: left;
+  position: sticky;
+  background-color: #000;
+  width: 100%;
+  top: 0;
+  margin: 0;
+  height: 10vh;
+  z-index: -1;
+}
+
 #logo {
   transition: all 1s ease-in-out 0s;
 }
