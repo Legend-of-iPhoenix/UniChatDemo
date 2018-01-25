@@ -270,7 +270,7 @@ function redirectFromHub() {
         var container = document.getElementById("online-users");
         var node = document.createElement("A");
         node.setAttribute("href","https://legend-of-iphoenix.github.io/UniChatDemo/profile/index.html?u="+snapshot.key);
-        node.innerText = username;
+        node.innerText = username.val();
         container.appendChild(node);
         node.setAttribute("name", snapshot.key);
       });
