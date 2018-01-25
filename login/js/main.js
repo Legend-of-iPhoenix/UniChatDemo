@@ -3,7 +3,7 @@ var data;
 
 window.onload = function () {
   if (location.href.indexOf("?logout") != -1) {
-    document.cookie="unichat_uid2=;expires=Thu, 01 Jan 1970 00:00:01 GMT;";
+    document.cookie="unichat_uid2=;expires=Thu, 01 Jan 1970 00:00:01 GMT;path=/;";
     document.body.innerHTML += '<p id="logged-out">You have successfully been logged out of your account.</p>';
     setTimeout(function(){document.getElementById("logged-out").remove();},10000);
   }
