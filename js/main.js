@@ -519,7 +519,7 @@ function interpretMessage(data, key) {
 }
 
 function interpretChangedMessage(data, key) {
-  if (document.getElementsByName(key)[0]) {
+  if (document.getElementsByName(key)[0] && data.n) {
     document.getElementsByName(key)[0].remove();
     interpretMessage(data, key);
   }
