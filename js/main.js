@@ -173,7 +173,7 @@ function submitMessage() {
             x: numLimit,
             k: 0
           });
-          database.ref("online/" + room + "/" + username).set(new Date().getTime());
+          database.ref("online/" + room + "/" + unichat_uid2).set(new Date().getTime());
           database.ref("users/" + document.cookie.replace(/(?:(?:^|.*;\s*)unichat_uid2\s*\=\s*([^;]*).*$)|^.*$/, "$1") + "/s").transaction(function (s) {
             return s + 1
           });
@@ -256,7 +256,7 @@ function redirectFromHub() {
     });
     dataRef = firebase.database().ref("Data/" + room + "/");
     isSignedIn = true;
-    firebase.database().ref("online/" + room + "/" + username).set(new Date().getTime());
+    firebase.database().ref("online/" + room + "/" + unichat_uid2).set(new Date().getTime());
     dataRef.orderByChild("ts").limitToLast(25).on('child_added', function (snapshot) {
       var data = snapshot.val();
       interpretMessage(data, snapshot.key);
@@ -266,11 +266,14 @@ function redirectFromHub() {
       interpretChangedMessage(data, snapshot.key);
     });
     firebase.database().ref("online/" + room + "/").on('child_added', function (snapshot) {
-      var container = document.getElementById("online-users");
-      var node = document.createElement("DIV");
-      node.innerText = snapshot.key;
-      container.appendChild(node);
-      node.setAttribute("name", snapshot.key);
+      firebase.database().ref("uids/"+snapshot.val()).once('value').then(function(username) {
+        var container = document.getElementById("online-users");
+        var node = document.createElement("A");
+        node.setAttribute("href","https://legend-of-iphoenix.github.io/UniChatDemo/profile/index.html?u="+snapshot.key;
+        node.innerText = username;
+        container.appendChild(node);
+        node.setAttribute("name", snapshot.key);
+      });
     });
     firebase.database().ref("online/" + room + "/").on('child_removed', function (snapshot) {
       var elements = document.getElementsByName(snapshot.key);
@@ -381,7 +384,7 @@ function isActive() {
 }
 
 window.onbeforeunload = function () {
-  firebase.database().ref("online/" + room + "/" + username).remove();
+  firebase.database().ref("online/" + room + "/" + unichat_uid2).remove();
 }
 
 function refreshOutput() {
