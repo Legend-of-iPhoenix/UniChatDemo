@@ -210,7 +210,7 @@ input[type=button]:hover, button:hover, input[type=submit]:hover  {
   transition: all .25s ease-in-out 0s;
 }
 
-.navBar {
+.nav-bar {
   float: left;
   position: sticky;
   background-color: #000;
