@@ -249,18 +249,17 @@ strong, th {
 }
 
 .feed-item-title {
+  width: fit-content;
+  margin: 0 auto;
   font-weight: bolder;
   color: #000;
   font-size: 15px;
 }
 
-a[href=https://rss.bloople.net/] {
-  visibility: hidden;
-}
-
 .feed-item-desc {
+  margin: 0 auto;
   background-color: #222;
   box-shadow: 0 1px 5px #222 inset,0 1px 0 #666;
-  width: 50%;
+  width: 75%;
   padding: 5px;
 }
