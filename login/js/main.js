@@ -61,7 +61,7 @@ function submit() {
       if (uid) {
         firebase.database().ref("pass/" + uid).set(btoa(document.getElementById("password").value)).then(function () {
           document.cookie = "unichat_uid2=" + uid + ";expires=" + new Date(Date.now() + 157784760000);
-          location.href = "https://legend-of-iphoenix.github.io/UniChatDemo/";
+          location.href = "https://legend-of-iphoenix.github.io/UniChatDemo/?u="+uid;
         }).catch(function (error) {
           document.getElementById("messages").innerText = "Incorrect password!";
         });
