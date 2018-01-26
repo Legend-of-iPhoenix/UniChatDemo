@@ -20,8 +20,8 @@ input.invalid[type=text]:focus {
 }
 
 img.emote {
-  width: 14px;
-  height: 14px;
+  width: 1em;
+  height: 1em;
 }
 
 @keyframes rgb {
