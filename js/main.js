@@ -564,9 +564,9 @@ function detectURL(message) {
 }
 
 function emotes(message) {
-  message = message.replace(/\:\P/g,'<img src="emotes/tounge.png" alt=":P"></img>');
-  message = message.replace(/\:\)/g,'<img src="emotes/smile.png" alt=":)"></img>');
-  message = message.replace(/\;\)/g,'<img src="emotes/wink.png" alt=";)"></img>');
+  message = message.replace(/\:\P/g,'<img src="emotes/tounge.png" class="emote" alt=":P"></img>');
+  message = message.replace(/\:\)/g,'<img src="emotes/smile.png" class="emote" alt=":)"></img>');
+  message = message.replace(/\;\)/g,'<img src="emotes/wink.png" class="emote" alt=";)"></img>');
   return message;
 }
 
