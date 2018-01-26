@@ -19,6 +19,11 @@ input.invalid[type=text]:focus {
   border: 3px solid #f00;
 }
 
+img {
+  width: 12px;
+  height: 12px;
+}
+
 @keyframes rgb {
   0% { color: #f00; }
   33% { color: #0f0; }
