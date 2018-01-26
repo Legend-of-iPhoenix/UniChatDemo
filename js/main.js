@@ -535,6 +535,7 @@ function detectURL(message) {
   message = cleanse(message);
   message = message.replace(/\*([^\*]*)\*/g, '<div style="display: inline-block;" class="md-bold">$1</div>');
   message = message.replace(/\~([^\~]*)\~/g, '<div style="display: inline-block;" class="md-italic">$1</div>');
+  message = emotes(message)
   if (message !== undefined && message !== null) {
     var result = "";
     var n = "";
@@ -560,6 +561,13 @@ function detectURL(message) {
     result = "";
   }
   return result
+}
+
+function emotes(message) {
+  message = message.replace(/\:\P/g,'<img src="emotes/tounge.png" alt=":P"></img>');
+  message = message.replace(/\:\)/g,'<img src="emotes/smile.png" alt=":)"></img>');
+  message = message.replace(/\;\)/g,'<img src="emotes/wink.png" alt=";)"></img>');
+  return message;
 }
 
 function isHidden() {
