@@ -19,7 +19,7 @@ input.invalid[type=text]:focus {
   border: 3px solid #f00;
 }
 
-img {
+img.emote {
   width: 14px;
   height: 14px;
 }
