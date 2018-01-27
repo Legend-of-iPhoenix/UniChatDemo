@@ -2,8 +2,15 @@ var usernameDiv;
 var data;
 
 window.onload = function () {
-  if (document.cookie.replace(/(?:(?:^|.*;\s*)unichat_uid2\s*\=\s*([^;]*).*$)|^.*$/, "$1") != "") {
-    location.href = "https://legend-of-iphoenix.github.io/UniChatDemo/?u="+document.cookie.replace(/(?:(?:^|.*;\s*)unichat_uid2\s*\=\s*([^;]*).*$)|^.*$/, "$1");
+  if (location.href.indexOf("?logout") != -1) {
+    document.cookie="unichat_uid2=;expires=Thu, 01 Jan 1970 00:00:01 GMT;path=/;";
+    document.body.innerHTML += '<p id="logged-out">You have successfully been logged out of your account.</p>';
+    setTimeout(function(){document.getElementById("logged-out").remove();},10000);
+  }
+  else {
+    if (document.cookie.replace(/(?:(?:^|.*;\s*)unichat_uid2\s*\=\s*([^;]*).*$)|^.*$/, "$1") != "") {
+      location.href = "https://legend-of-iphoenix.github.io/UniChatDemo/?u="+document.cookie.replace(/(?:(?:^|.*;\s*)unichat_uid2\s*\=\s*([^;]*).*$)|^.*$/, "$1");
+    }
   }
   usernameDiv = document.getElementById("username");
   usernameDiv.oninput = function () {
@@ -54,7 +61,7 @@ function submit() {
       if (uid) {
         firebase.database().ref("pass/" + uid).set(btoa(document.getElementById("password").value)).then(function () {
           document.cookie = "unichat_uid2=" + uid + ";expires=" + new Date(Date.now() + 157784760000);
-          location.href = "https://legend-of-iphoenix.github.io/UniChatDemo/";
+          location.href = "https://legend-of-iphoenix.github.io/UniChatDemo/?u="+uid;
         }).catch(function (error) {
           document.getElementById("messages").innerText = "Incorrect password!";
         });

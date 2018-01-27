@@ -19,6 +19,11 @@ input.invalid[type=text]:focus {
   border: 3px solid #f00;
 }
 
+img.emote {
+  width: 1em;
+  height: 1em;
+}
+
 @keyframes rgb {
   0% { color: #f00; }
   33% { color: #0f0; }
@@ -33,6 +38,14 @@ input.invalid[type=text]:focus {
 .centered {
   margin: 0 auto;
   width: fit-content;
+}
+
+.md-italic {
+  font-style: italic;
+}
+
+.md-bold {
+  font-weight: bolder;
 }
 
 body {
@@ -158,7 +171,7 @@ input[type=text]:focus,input[type=password]:focus {
 }
 
 input[type=button], button, input[type=submit] {
-  border-radius: 5px;
+  /* border-radius: 5px; */
   color: #000;
   font-size: 16px;
   cursor: pointer;
@@ -202,6 +215,17 @@ input[type=button]:hover, button:hover, input[type=submit]:hover  {
   transition: all .25s ease-in-out 0s;
 }
 
+.nav-bar {
+  float: left;
+  position: sticky;
+  background-color: #000;
+  width: 100%;
+  top: 0;
+  margin: 0;
+  height: 10vh;
+  z-index: 9001;
+}
+
 #logo {
   transition: all 1s ease-in-out 0s;
 }
@@ -211,11 +235,11 @@ input[type=button]:hover, button:hover, input[type=submit]:hover  {
 }
 
 .menuButton:hover {
-  transform: translate(0, -15px);
+  transform: translate(0, -14px);
 }
 
 .menuButton:hover:before {
-  transform: translate(0, 15px);
+  transform: translate(0, 14px);
   visibility: visible;
 }
 
@@ -238,4 +262,20 @@ ol,ul:.tags {
 
 strong, th {
   color: #aaa;
+}
+
+.feed-item-title {
+  width: fit-content;
+  margin: 10px auto;
+  font-weight: bolder;
+  color: #000;
+  font-size: 15px;
+}
+
+.feed-item-desc {
+  margin: 0 auto;
+  background-color: #222;
+  box-shadow: 0 1px 5px #222 inset,0 1px 0 #666;
+  width: 75%;
+  padding: 5px;
 }

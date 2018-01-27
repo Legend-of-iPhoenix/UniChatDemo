@@ -1,158 +1,210 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title> UniChat Beta</title>
-    <!-- Google Tag Manager --> 
-    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start': new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0], j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src= 'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f); })(window,document,'script','dataLayer','GTM-NJR6RD8');</script> 
-    <!-- End Google Tag Manager -->
-    <!--<script src="https://www.gstatic.com/firebasejs/4.6.2/firebase.js"></script>
-    <script>
-      // Initialize Firebase
-      var config = {
-        apiKey: "AIzaSyC9eUkCvbKv7nzQocRelivvyvWAlmiORsg",
-        authDomain: "unichat-10bbd.firebaseapp.com",
-        databaseURL: "https://unichat-10bbd.firebaseio.com",
-        projectId: "unichat-10bbd",
-        storageBucket: "unichat-10bbd.appspot.com",
-        messagingSenderId: "847148140589"
-      };
-      firebase.initializeApp(config);
-    </script>-->
-    
-<script src="https://www.gstatic.com/firebasejs/4.8.0/firebase.js"></script>
-    <base target="_blank">
-    <meta name="google-site-verification" content="ZsgMIexS5rrxOICB8RwSwdrZtuzgz2DFZ51cBwtKcWU" />
-<script>
-  // Initialize Firebase
-  var config = {
-    apiKey: "AIzaSyBhhzNlObAwm6hqm62NI6BRikA2o5pYhkg",
-    authDomain: "unichat-demo.firebaseapp.com",
-    databaseURL: "https://unichat-demo.firebaseio.com",
-    projectId: "unichat-demo",
-    storageBucket: "",
-    messagingSenderId: "712992764474"
-  };
-  firebase.initializeApp(config);
-</script>
-    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="css/style.css">
-    <script src="js/main.js"></script>
-    <link rel="icon" 
-      type="image/png" 
-      href="https://i.imgur.com/7POdNS3.png">
-  </head>
-  <body style="margin: 0;">
-    <div style="float: left;position: sticky;background-color: #000;width: 100%;top: 0; margin: 0; height: 10vh">
+   <head>
+      <title> UniChat Beta</title>
+      <!-- Google Tag Manager --> 
+      <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start': new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0], j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src= 'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f); })(window,document,'script','dataLayer','GTM-NJR6RD8');</script> 
+      <!-- End Google Tag Manager -->
+      <!--<script src="https://www.gstatic.com/firebasejs/4.6.2/firebase.js"></script>
+         <script>
+           // Initialize Firebase
+           var config = {
+             apiKey: "AIzaSyC9eUkCvbKv7nzQocRelivvyvWAlmiORsg",
+             authDomain: "unichat-10bbd.firebaseapp.com",
+             databaseURL: "https://unichat-10bbd.firebaseio.com",
+             projectId: "unichat-10bbd",
+             storageBucket: "unichat-10bbd.appspot.com",
+             messagingSenderId: "847148140589"
+           };
+           firebase.initializeApp(config);
+         </script>-->
+      <script src="https://www.gstatic.com/firebasejs/4.8.0/firebase.js"></script>
+      <base target="_blank">
+      <meta name="google-site-verification" content="ZsgMIexS5rrxOICB8RwSwdrZtuzgz2DFZ51cBwtKcWU" />
+      <script>
+         // Initialize Firebase
+         var config = {
+           apiKey: "AIzaSyBhhzNlObAwm6hqm62NI6BRikA2o5pYhkg",
+           authDomain: "unichat-demo.firebaseapp.com",
+           databaseURL: "https://unichat-demo.firebaseio.com",
+           projectId: "unichat-demo",
+           storageBucket: "",
+           messagingSenderId: "712992764474"
+         };
+         firebase.initializeApp(config);
+      </script>
+      <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+      <link rel="stylesheet" type="text/css" href="css/style.css">
+      <script src="js/main.js"></script>
+      <link rel="icon" 
+         type="image/png" 
+         href="https://i.imgur.com/7POdNS3.png">
+   </head>
+   <body style="margin: auto 0; padding: auto 0;">
+      <div  class="nav-bar">
          <img src="https://i.imgur.com/WZx8wHC.png" style="float: left; margin: auto 0;" height="50px" width="100px" id="logo"></img>
-    <div style="padding-top: 15px; margin: auto; display: flex; justify-content: space-around;">
-      <div onclick="window.open('https://legend-of-iphoenix.github.io/UniChatDemo/', '_self')" value="Home" class="menuButton"><img width="30" height="32" src="https://i.imgur.com/ZJ7Jtbd.png"></div>
-      <div onclick="window.open('https://legend-of-iphoenix.github.io/UniChatDemo/about/index.html', '_self')" value="About" class="menuButton"><svg width="30" height="32" viewBox="0 0 14 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"> <!-- Generator: Sketch 40.3 (33839) - http://www.bohemiancoding.com/sketch --> <title>question</title> <desc>Created with Sketch.</desc> <defs></defs> <g id="Octicons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"> <g id="question" fill="#8905d0"> <path d="M6,10 L8,10 L8,12 L6,12 L6,10 L6,10 Z M10,6.5 C10,8.64 8,9 8,9 L6,9 C6,8.45 6.45,8 7,8 L7.5,8 C7.78,8 8,7.78 8,7.5 L8,6.5 C8,6.22 7.78,6 7.5,6 L6.5,6 C6.22,6 6,6.22 6,6.5 L6,7 L4,7 C4,5.5 5.5,4 7,4 C8.5,4 10,5 10,6.5 L10,6.5 Z M7,2.3 C10.14,2.3 12.7,4.86 12.7,8 C12.7,11.14 10.14,13.7 7,13.7 C3.86,13.7 1.3,11.14 1.3,8 C1.3,4.86 3.86,2.3 7,2.3 L7,2.3 Z M7,1 C3.14,1 0,4.14 0,8 C0,11.86 3.14,15 7,15 C10.86,15 14,11.86 14,8 C14,4.14 10.86,1 7,1 L7,1 Z" id="Shape"></path> </g> </g></svg></div>
-      <div onclick="window.open('https://github.com/Legend-of-iPhoenix/UniChatDemo', '_self')" value="GitHub Repo" class="menuButton"><svg width="32" height="32" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"> <!-- Generator: Sketch 40.3 (33839) - http://www.bohemiancoding.com/sketch --> <title>mark-github</title> <desc>Created with Sketch.</desc> <defs></defs> <g id="Octicons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"> <g id="mark-github" fill="#fff"> <path d="M8,0 C3.58,0 0,3.58 0,8 C0,11.54 2.29,14.53 5.47,15.59 C5.87,15.66 6.02,15.42 6.02,15.21 C6.02,15.02 6.01,14.39 6.01,13.72 C4,14.09 3.48,13.23 3.32,12.78 C3.23,12.55 2.84,11.84 2.5,11.65 C2.22,11.5 1.82,11.13 2.49,11.12 C3.12,11.11 3.57,11.7 3.72,11.94 C4.44,13.15 5.59,12.81 6.05,12.6 C6.12,12.08 6.33,11.73 6.56,11.53 C4.78,11.33 2.92,10.64 2.92,7.58 C2.92,6.71 3.23,5.99 3.74,5.43 C3.66,5.23 3.38,4.41 3.82,3.31 C3.82,3.31 4.49,3.1 6.02,4.13 C6.66,3.95 7.34,3.86 8.02,3.86 C8.7,3.86 9.38,3.95 10.02,4.13 C11.55,3.09 12.22,3.31 12.22,3.31 C12.66,4.41 12.38,5.23 12.3,5.43 C12.81,5.99 13.12,6.7 13.12,7.58 C13.12,10.65 11.25,11.33 9.47,11.53 C9.76,11.78 10.01,12.26 10.01,13.01 C10.01,14.08 10,14.94 10,15.21 C10,15.42 10.15,15.67 10.55,15.59 C13.71,14.53 16,11.53 16,8 C16,3.58 12.42,0 8,0 L8,0 Z" id="Shape"></path> </g> </g></svg></div>
-      <div onclick="window.open('https://github.com/Legend-of-iPhoenix/UniChatDemo/wiki', '_self')" value="Wiki" class="menuButton"><svg width="32" height="32" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"> <!-- Generator: Sketch 40.3 (33839) - http://www.bohemiancoding.com/sketch --> <title>book</title> <desc>Created with Sketch.</desc> <defs></defs> <g id="Octicons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"> <g id="book" fill="#de4405"> <path d="M3,5 L7,5 L7,6 L3,6 L3,5 L3,5 Z M3,8 L7,8 L7,7 L3,7 L3,8 L3,8 Z M3,10 L7,10 L7,9 L3,9 L3,10 L3,10 Z M14,5 L10,5 L10,6 L14,6 L14,5 L14,5 Z M14,7 L10,7 L10,8 L14,8 L14,7 L14,7 Z M14,9 L10,9 L10,10 L14,10 L14,9 L14,9 Z M16,3 L16,12 C16,12.55 15.55,13 15,13 L9.5,13 L8.5,14 L7.5,13 L2,13 C1.45,13 1,12.55 1,12 L1,3 C1,2.45 1.45,2 2,2 L7.5,2 L8.5,3 L9.5,2 L15,2 C15.55,2 16,2.45 16,3 L16,3 Z M8,3.5 L7.5,3 L2,3 L2,12 L8,12 L8,3.5 L8,3.5 Z M15,3 L9.5,3 L9,3.5 L9,12 L15,12 L15,3 L15,3 Z" id="Shape"></path> </g> </g></svg></div>
-      <div onclick="window.open('https://legend-of-iphoenix.github.io/UniChatDemo/news/index.html', '_self')" value="News" class="menuButton"><svg height="32" width="32" fill="#e3de08" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 16"> <path d="M6 5H2v-1h4v1zM2 8h7v-1H2v1z m0 2h7v-1H2v1z m0 2h7v-1H2v1z m10-7.5v9.5c0 0.55-0.45 1-1 1H1c-0.55 0-1-0.45-1-1V2c0-0.55 0.45-1 1-1h7.5l3.5 3.5z m-1 0.5L8 2H1v12h10V5z" /></svg></div>
-      <div onclick="window.open('https://github.com/LAX18/Unichat-Chrome-Extension/archive/master.zip', '_self')" value="Chrome Extension" class="menuButton"><svg width="32" height="32" viewBox="0 0 10 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"> <!-- Generator: Sketch 40.3 (33839) - http://www.bohemiancoding.com/sketch --> <title>bookmark</title> <desc>Created with Sketch.</desc> <defs></defs> <g id="Octicons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"> <g id="bookmark" fill="#10a6de"> <path d="M9,0 L1,0 C0.27,0 0,0.27 0,1 L0,16 L5,12.91 L10,16 L10,1 C10,0.27 9.73,0 9,0 L9,0 Z M8.22,4.25 L6.36,5.61 L7.08,7.77 C7.14,7.99 7.06,8.05 6.88,7.94 L5,6.6 L3.12,7.94 C2.93,8.05 2.87,7.99 2.92,7.77 L3.64,5.61 L1.78,4.25 C1.61,4.09 1.64,4.02 1.87,4.02 L4.17,3.99 L4.87,1.83 L5.12,1.83 L5.82,3.99 L8.12,4.02 C8.35,4.02 8.39,4.1 8.21,4.25 L8.22,4.25 Z" id="Shape"></path> </g> </g></svg></div>
-  </div>
-
-      </div> 
-  <br />
-     <br />
-
-    <div>
-
-      <h1>Welcome to the UniChat Demo!</h1>
+         <div style="padding-top: 15px; margin: auto; display: flex; justify-content: space-around;">
+            <div onclick="window.open('https://legend-of-iphoenix.github.io/UniChatDemo/', '_self')" value="Home" class="menuButton"><img width="30" height="32" src="https://i.imgur.com/ZJ7Jtbd.png"></div>
+            <div onclick="window.open('https://legend-of-iphoenix.github.io/UniChatDemo/about/index.html', '_self')" value="About" class="menuButton">
+               <svg width="30" height="32" viewBox="0 0 14 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                  <!-- Generator: Sketch 40.3 (33839) - http://www.bohemiancoding.com/sketch --> 
+                  <title>question</title>
+                  <desc>Created with Sketch.</desc>
+                  <defs></defs>
+                  <g id="Octicons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                     <g id="question" fill="#8905d0">
+                        <path d="M6,10 L8,10 L8,12 L6,12 L6,10 L6,10 Z M10,6.5 C10,8.64 8,9 8,9 L6,9 C6,8.45 6.45,8 7,8 L7.5,8 C7.78,8 8,7.78 8,7.5 L8,6.5 C8,6.22 7.78,6 7.5,6 L6.5,6 C6.22,6 6,6.22 6,6.5 L6,7 L4,7 C4,5.5 5.5,4 7,4 C8.5,4 10,5 10,6.5 L10,6.5 Z M7,2.3 C10.14,2.3 12.7,4.86 12.7,8 C12.7,11.14 10.14,13.7 7,13.7 C3.86,13.7 1.3,11.14 1.3,8 C1.3,4.86 3.86,2.3 7,2.3 L7,2.3 Z M7,1 C3.14,1 0,4.14 0,8 C0,11.86 3.14,15 7,15 C10.86,15 14,11.86 14,8 C14,4.14 10.86,1 7,1 L7,1 Z" id="Shape"></path>
+                     </g>
+                  </g>
+               </svg>
+            </div>
+            <div onclick="window.open('https://github.com/Legend-of-iPhoenix/UniChatDemo', '_self')" value="GitHub Repo" class="menuButton">
+               <svg width="32" height="32" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                  <!-- Generator: Sketch 40.3 (33839) - http://www.bohemiancoding.com/sketch --> 
+                  <title>mark-github</title>
+                  <desc>Created with Sketch.</desc>
+                  <defs></defs>
+                  <g id="Octicons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                     <g id="mark-github" fill="#fff">
+                        <path d="M8,0 C3.58,0 0,3.58 0,8 C0,11.54 2.29,14.53 5.47,15.59 C5.87,15.66 6.02,15.42 6.02,15.21 C6.02,15.02 6.01,14.39 6.01,13.72 C4,14.09 3.48,13.23 3.32,12.78 C3.23,12.55 2.84,11.84 2.5,11.65 C2.22,11.5 1.82,11.13 2.49,11.12 C3.12,11.11 3.57,11.7 3.72,11.94 C4.44,13.15 5.59,12.81 6.05,12.6 C6.12,12.08 6.33,11.73 6.56,11.53 C4.78,11.33 2.92,10.64 2.92,7.58 C2.92,6.71 3.23,5.99 3.74,5.43 C3.66,5.23 3.38,4.41 3.82,3.31 C3.82,3.31 4.49,3.1 6.02,4.13 C6.66,3.95 7.34,3.86 8.02,3.86 C8.7,3.86 9.38,3.95 10.02,4.13 C11.55,3.09 12.22,3.31 12.22,3.31 C12.66,4.41 12.38,5.23 12.3,5.43 C12.81,5.99 13.12,6.7 13.12,7.58 C13.12,10.65 11.25,11.33 9.47,11.53 C9.76,11.78 10.01,12.26 10.01,13.01 C10.01,14.08 10,14.94 10,15.21 C10,15.42 10.15,15.67 10.55,15.59 C13.71,14.53 16,11.53 16,8 C16,3.58 12.42,0 8,0 L8,0 Z" id="Shape"></path>
+                     </g>
+                  </g>
+               </svg>
+            </div>
+            <div onclick="window.open('https://github.com/Legend-of-iPhoenix/UniChatDemo/wiki', '_self')" value="Wiki" class="menuButton">
+               <svg width="32" height="32" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                  <!-- Generator: Sketch 40.3 (33839) - http://www.bohemiancoding.com/sketch --> 
+                  <title>book</title>
+                  <desc>Created with Sketch.</desc>
+                  <defs></defs>
+                  <g id="Octicons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                     <g id="book" fill="#de4405">
+                        <path d="M3,5 L7,5 L7,6 L3,6 L3,5 L3,5 Z M3,8 L7,8 L7,7 L3,7 L3,8 L3,8 Z M3,10 L7,10 L7,9 L3,9 L3,10 L3,10 Z M14,5 L10,5 L10,6 L14,6 L14,5 L14,5 Z M14,7 L10,7 L10,8 L14,8 L14,7 L14,7 Z M14,9 L10,9 L10,10 L14,10 L14,9 L14,9 Z M16,3 L16,12 C16,12.55 15.55,13 15,13 L9.5,13 L8.5,14 L7.5,13 L2,13 C1.45,13 1,12.55 1,12 L1,3 C1,2.45 1.45,2 2,2 L7.5,2 L8.5,3 L9.5,2 L15,2 C15.55,2 16,2.45 16,3 L16,3 Z M8,3.5 L7.5,3 L2,3 L2,12 L8,12 L8,3.5 L8,3.5 Z M15,3 L9.5,3 L9,3.5 L9,12 L15,12 L15,3 L15,3 Z" id="Shape"></path>
+                     </g>
+                  </g>
+               </svg>
+            </div>
+            <div onclick="window.open('https://legend-of-iphoenix.github.io/UniChatDemo/news/index.html', '_self')" value="News" class="menuButton">
+               <svg height="32" width="32" fill="#e3de08" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 16">
+                  <path d="M6 5H2v-1h4v1zM2 8h7v-1H2v1z m0 2h7v-1H2v1z m0 2h7v-1H2v1z m10-7.5v9.5c0 0.55-0.45 1-1 1H1c-0.55 0-1-0.45-1-1V2c0-0.55 0.45-1 1-1h7.5l3.5 3.5z m-1 0.5L8 2H1v12h10V5z" />
+               </svg>
+            </div>
+            <div onclick="window.open('https://github.com/LAX18/Unichat-Chrome-Extension/archive/master.zip', '_self')" value="Chrome Extension" class="menuButton">
+               <svg width="32" height="32" viewBox="0 0 10 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                  <!-- Generator: Sketch 40.3 (33839) - http://www.bohemiancoding.com/sketch --> 
+                  <title>bookmark</title>
+                  <desc>Created with Sketch.</desc>
+                  <defs></defs>
+                  <g id="Octicons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                     <g id="bookmark" fill="#10a6de">
+                        <path d="M9,0 L1,0 C0.27,0 0,0.27 0,1 L0,16 L5,12.91 L10,16 L10,1 C10,0.27 9.73,0 9,0 L9,0 Z M8.22,4.25 L6.36,5.61 L7.08,7.77 C7.14,7.99 7.06,8.05 6.88,7.94 L5,6.6 L3.12,7.94 C2.93,8.05 2.87,7.99 2.92,7.77 L3.64,5.61 L1.78,4.25 C1.61,4.09 1.64,4.02 1.87,4.02 L4.17,3.99 L4.87,1.83 L5.12,1.83 L5.82,3.99 L8.12,4.02 C8.35,4.02 8.39,4.1 8.21,4.25 L8.22,4.25 Z" id="Shape"></path>
+                     </g>
+                  </g>
+               </svg>
+            </div>
+         </div>
+      </div>
+      <br />
+      <br />
+      <div id="contentDiv" style="margin: 0 auto; width:fit-content;">
+      <div>
+         <h1>Welcome to the UniChat Demo!</h1>
+      </div>
+      <h2>This is a demo of the latest UniChat development build, and this WILL not be bug-proof.</h2>
+      <br />
+      <div id="output" style="width: 75%; float: left; display: inline-block;"></div>
+      <div id="online-users" style="display: inline-block; float: left; width: 15%; padding: 10px; box-shadow: 0 1px 5px #222 inset,0 1px 0 #666; background-color: #222; height: 48vh; overflow-y: scroll; border-radius: 5px;"></div>
+      <div id="IN" style="width: 75%">
+         <input type="text" id="message">
+         <input type="button" value="Send" onclick="submitMessage()">
+      </div>
+      <br />
+      <div id="settingsDiv">
+         Settings:
+         <br />
+         <input type="button" value="Toggle Notifications" onclick="toggleNotifications()">
+         <input type="button" value="Toggle Highlight Notifications" onclick="toggleNotificationOnHighlight()">
+      </div>
+      <input type="button" value="Create Random Chatroom" onclick="redirectToNewPrivateRoom()">
+      <br />
+      <p>Go to Chatroom/Create Chatroom:</p>
+      <form action="/UniChatDemo/" method="GET">
+         <input type="text" name="room" style="width: 25%; display: inline-block;" placeholder="Chatroom Name" required pattern="\w{1,64}" minlength="1" maxlength="64">
+         <input type="submit" style="width: auto; display: inline-block;">
+      </form>
+      <div id="share-chatroom"></div>
+      <br />
+      <br />
+      <div class="tags">
+         <p> Optionally, you can click on one or more of the tags below to make sure your message reaches your audience! </p>
+         <input type="button" value="Programming" onclick="addTag(this)">
+         <input type="button" value="Chat" onclick="addTag(this)">
+         <input type="button" value="HELP" onclick="addTag(this)">
+         <input type="button" value="Suggestions" onclick="addTag(this)">
+         <input type="button" value="Gaming" onclick="addTag(this)">
+         <input type="button" value="Rant" onclick="addTag(this)">
+         <input type="button" value="LOL" onclick="addTag(this)">
+         <input type="button" value="Athletics" onclick="addTag(this)">
+         <input type="button" value="School" onclick="addTag(this)">
+         <input type="button" value="TI-Basic" onclick="addTag(this)">
+         <input type="button" value="Assembly" onclick="addTag(this)">
+         <input type="button" value="C[++]" onclick="addTag(this)">
+         <input type="button" value="Java/C#" onclick="addTag(this)">
+         <input type="button" value="Hate-Mail" onclick="addTag(this)">
+         <input type="button" value="Music" onclick="addTag(this)">
+         <input type="button" value="Art" onclick="addTag(this)">
+         <input type="button" value="Languages" onclick="addTag(this)">
+      </div>
+      <p> Current Tags: </p>
+      <p id="tagDisplay"></p>
+      <br />
+      <div class="filters">
+         <p> To filter messages, you can optionally select a tag. Only messages with that tag will be displayed, if it is not a PM directed at you. </p>
+         <input type="button" value="Programming" onclick="toggleFilter(this)">
+         <input type="button" value="Chat" onclick="toggleFilter(this)">
+         <input type="button" value="HELP" onclick="toggleFilter(this)">
+         <input type="button" value="Suggestions" onclick="toggleFilter(this)">
+         <input type="button" value="Gaming" onclick="toggleFilter(this)">
+         <input type="button" value="Rant" onclick="toggleFilter(this)">
+         <input type="button" value="LOL" onclick="toggleFilter(this)">
+         <input type="button" value="Athletics" onclick="toggleFilter(this)">
+         <input type="button" value="School" onclick="toggleFilter(this)">
+         <input type="button" value="TI-Basic" onclick="toggleFilter(this)">
+         <input type="button" value="Assembly" onclick="toggleFilter(this)">
+         <input type="button" value="C[++]" onclick="toggleFilter(this)">
+         <input type="button" value="Java/C#" onclick="toggleFilter(this)">
+         <input type="button" value="Hate-Mail" onclick="toggleFilter(this)">
+         <input type="button" value="Music" onclick="toggleFilter(this)">
+         <input type="button" value="Art" onclick="toggleFilter(this)">
+         <input type="button" value="Languages" onclick="toggleFilter(this)">
+      </div>
+      <p> Current Filters: </p>
+      <p id="filterDisplay"></p>
+      <div class="tutorial">
+         <p>Commands:</p>
+         <ul>
+         <li>
+            /me &ltaction>
+            <ul>
+               <li> Appears to everyone as: *&ltyour username> &ltaction> </li>
+               <li> For example: "/me runs" becomes "*iPhoenix runs" </li>
+            </ul>
+         </li>
+         <li>
+            /pm &ltuser> &ltmessage>
+            <ul>
+               <li> Sends a private message to &ltuser>, which isn't visible to anyone besides the recipient and yourself.</li>
+               <li> Is not seen by <strong>anyone</strong> else. </li>
+               <li> For example: "/pm iPhoenix Hello, what's up!" becomes "[LAX18 -> iPhoenix] Hello, what's up!"</li>
+            </ul>
+         </li>
+       </ul>
+      </div>
     </div>
-    <h2>This is a demo of the latest UniChat development build, and this WILL not be bug-proof.</h2>
-    <br />
-    <div id="output" style="width: 75%; float: left; display: inline-block;"></div>
-    <div id="online-users" style="display: inline-block; float: left; width: 15%; padding: 10px; box-shadow: 0 1px 5px #222 inset,0 1px 0 #666; background-color: #222; height: 48vh; overflow-y: scroll; border-radius: 5px;"></div>
-    <div id="IN" style="width: 75%">
-      <input type="text" id="message">
-      <input type="button" value="Send" onclick="submitMessage()">
-    </div>
-    <br />
-    <div id="settingsDiv">
-       Settings:
-       <br />
-       <input type="button" value="Toggle Notifications" onclick="toggleNotifications()">
-       <input type="button" value="Toggle Highlight Notifications" onclick="toggleNotificationOnHighlight()">
-    </div>
-    <input type="button" value="Create Random Chatroom" onclick="redirectToNewPrivateRoom()">
-    <br />
-    <p>Go to Chatroom/Create Chatroom:</p>
-    <form action="/UniChatDemo/" method="GET">
-      <input type="text" name="room" style="width: 25%; display: inline-block;" placeholder="Chatroom Name" required pattern="\w{1,64}" minlength="1" maxlength="64">
-      <input type="submit" style="width: auto; display: inline-block;">
-    </form>
-    <div id="share-chatroom"></div>
-    <br />
-    <br />
-    <div class="tags">
-      <p> Optionally, you can click on one or more of the tags below to make sure your message reaches your audience! </p>
-      <input type="button" value="Programming" onclick="addTag(this)">
-      <input type="button" value="Chat" onclick="addTag(this)">
-      <input type="button" value="HELP" onclick="addTag(this)">
-      <input type="button" value="Suggestions" onclick="addTag(this)">
-      <input type="button" value="Gaming" onclick="addTag(this)">
-      <input type="button" value="Rant" onclick="addTag(this)">
-      <input type="button" value="LOL" onclick="addTag(this)">
-      <input type="button" value="Athletics" onclick="addTag(this)">
-      <input type="button" value="School" onclick="addTag(this)">
-      <input type="button" value="TI-Basic" onclick="addTag(this)">
-      <input type="button" value="Assembly" onclick="addTag(this)">
-      <input type="button" value="C[++]" onclick="addTag(this)">
-      <input type="button" value="Java/C#" onclick="addTag(this)">
-      <input type="button" value="Hate-Mail" onclick="addTag(this)">
-      <input type="button" value="Music" onclick="addTag(this)">
-      <input type="button" value="Art" onclick="addTag(this)">
-      <input type="button" value="Languages" onclick="addTag(this)">
-    </div>
-    <p> Current Tags: </p>
-    <p id="tagDisplay"></p>
-    <br />
-    <div class="filters">
-      <p> To filter messages, you can optionally select a tag. Only messages with that tag will be displayed, if it is not a PM directed at you. </p>
-      <input type="button" value="Programming" onclick="toggleFilter(this)">
-      <input type="button" value="Chat" onclick="toggleFilter(this)">
-      <input type="button" value="HELP" onclick="toggleFilter(this)">
-      <input type="button" value="Suggestions" onclick="toggleFilter(this)">
-      <input type="button" value="Gaming" onclick="toggleFilter(this)">
-      <input type="button" value="Rant" onclick="toggleFilter(this)">
-      <input type="button" value="LOL" onclick="toggleFilter(this)">
-      <input type="button" value="Athletics" onclick="toggleFilter(this)">
-      <input type="button" value="School" onclick="toggleFilter(this)">
-      <input type="button" value="TI-Basic" onclick="toggleFilter(this)">
-      <input type="button" value="Assembly" onclick="toggleFilter(this)">
-      <input type="button" value="C[++]" onclick="toggleFilter(this)">
-      <input type="button" value="Java/C#" onclick="toggleFilter(this)">
-      <input type="button" value="Hate-Mail" onclick="toggleFilter(this)">
-      <input type="button" value="Music" onclick="toggleFilter(this)">
-      <input type="button" value="Art" onclick="toggleFilter(this)">
-      <input type="button" value="Languages" onclick="toggleFilter(this)">
-    </div>
-    <p> Current Filters: </p>
-    <p id="filterDisplay"></p>
-     <div class="tutorial">
-      <p>Commands:</p>
-      <ul>
-      <li>
-        /me &ltaction>
-        <ul>
-          <li> Appears to everyone as: *&ltyour username> &ltaction> </li>
-          <li> For example: "/me runs" becomes "*iPhoenix runs" </li>
-        </ul>
-      </li>
-      <li>
-        /pm &ltuser> &ltmessage>
-        <ul>
-          <li> Sends a private message to &ltuser>, which isn't visible to anyone besides the recipient and yourself.</li>
-          <li> Is not seen by <strong>anyone</strong> else. </li>
-          <li> For example: "/pm iPhoenix Hello, what's up!" becomes "[LAX18 -> iPhoenix] Hello, what's up!"</li>
-        </ul>
-      </li>
-    </div>
-      <h2> Having Issues? </h3><br />
+      <h2>
+      Having Issues? </h2><br />
       <h3> You can contact _iPhoenix_ or LAX18 or post in the Cemetech thread titled <a href="https://www.cemetech.net/forum/viewtopic.php?t=14216">"UniChat"</a> </h3>
       <image src="https://www.cemetech.net/img/sigs/forumsig.php?uid=17249" onclick="location.href = 'https://www.cemetech.net/forum/profile.php?mode=viewprofile&u=17249'"></image>
       <image src="https://www.cemetech.net/img/sigs/forumsig.php?uid=21274" onclick="window.open("https://www.cemetech.net/forum/profile.php?mode=viewprofile&u=21274", "_self")"></image>
-  </body>
+   </body>
 </html>
