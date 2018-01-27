@@ -3,7 +3,7 @@ var closedBetaTesters = ["SM84CE", "TheLastMillennial", "TLM", "Battlesquid", "x
 
 var bot_contributors = ["SM84CE", "jcgter777", "womp"];
 
-var helpers = ["LAX18","MrDKKing","jcgter777","Drewster30"];
+var helpers = ["LAX18","MrDKKing","jcgter777","Drewster30","mets11rap"];
 
 function getMessage(tag) {
   var href = window.location.href;
