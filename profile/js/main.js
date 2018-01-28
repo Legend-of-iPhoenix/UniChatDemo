@@ -1,7 +1,7 @@
 //Thanks, guys. It means a lot. - The Development Team
 var closedBetaTesters = ["SM84CE", "TheLastMillennial", "TLM", "Battlesquid", "xMarminq_"];
 
-var bot_contributors = ["SM84CE", "jcgter777", "womp"];
+var bot_contributors = ["SM84CE", "jcgter777", "womp", "123outerme"];
 
 var helpers = ["LAX18","MrDKKing","jcgter777","Drewster30","mets11rap"];
 
