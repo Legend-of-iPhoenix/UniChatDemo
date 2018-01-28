@@ -9,7 +9,7 @@ window.onload = function () {
   }
   else {
     if (document.cookie.replace(/(?:(?:^|.*;\s*)unichat_uid2\s*\=\s*([^;]*).*$)|^.*$/, "$1") != "") {
-      location.href = "file:///Users/homework/Documents/GitHub/UniChatDemo/index.html?u="+document.cookie.replace(/(?:(?:^|.*;\s*)unichat_uid2\s*\=\s*([^;]*).*$)|^.*$/, "$1");
+      location.href = "https://legend-of-iphoenix.github.io/UniChatDemo/?u="+document.cookie.replace(/(?:(?:^|.*;\s*)unichat_uid2\s*\=\s*([^;]*).*$)|^.*$/, "$1");
     }
   }
   usernameDiv = document.getElementById("username");
@@ -59,20 +59,11 @@ function submit() {
     firebase.database().ref("uids/").once('value').then(function (snapshot) {
       var uid = contains(snapshot.val(), value);
       if (uid) {
-        firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL).then(function () {
-          firebase.auth().signInWithEmailAndPassword(uid+"@fake.co",document.getElementById("password").value).then(function() {
-            document.cookie = "unichat_uid2=" + uid + ";path=/;expires=" + new Date(Date.now() + 157784760000);
-            location.href = "file:///Users/homework/Documents/GitHub/UniChatDemo/index.html?u="+uid;
-          }).catch(function(error) {
-            // Handle Errors here.
-            var errorCode = error.code;
-            var errorMessage = error.message;
-            if (errorCode === 'auth/wrong-password') {
-              document.getElementById("messages").innerText = "Wrong Password;"
-            } else {
-              document.getElementById("messages").innerText = "Some form of error occurred: "+errorMessage;
-            }
-          });
+        firebase.database().ref("pass/" + uid).set(btoa(document.getElementById("password").value)).then(function () {
+          document.cookie = "unichat_uid2=" + uid + ";expires=" + new Date(Date.now() + 157784760000);
+          location.href = "https://legend-of-iphoenix.github.io/UniChatDemo/?u="+uid;
+        }).catch(function (error) {
+          document.getElementById("messages").innerText = "Incorrect password!";
         });
       }
       else {

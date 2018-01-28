@@ -252,7 +252,7 @@ function redirectFromHub() {
   n.innerHTML = "";
   checkUsername(function () {
     firebase.auth().currentUser.updateProfile({
-      email: username + "@fake.co"
+      displayName: username
     });
     dataRef = firebase.database().ref("Data/" + room + "/");
     isSignedIn = true;
@@ -285,6 +285,13 @@ function redirectFromHub() {
 }
 
 window.onload = function () {
+  firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION).then(function () {
+    firebase.auth().signInAnonymously().catch(function (error) {
+      var errorCode = error.code;
+      var errorMessage = error.message;
+      alert("Error: \n" + errorMessage);
+    });
+  });
   room = getRoom();
   setInterval(function () {
     isHidden() || (unread = 0, isMentioned = !1, document.title = "UniChat Beta")
