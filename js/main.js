@@ -7,7 +7,7 @@
 //     \________/   ______                                      ______
 //                 |______|                                    |______|
 //
-// V0.66.2b0
+// V0.67.0b1
 //
 // (just ask if you want to use my source, I probably won't say no.)
 var selectedRoom = "Chat";
@@ -252,7 +252,7 @@ function redirectFromHub() {
   n.innerHTML = "";
   checkUsername(function () {
     firebase.auth().currentUser.updateProfile({
-      displayName: username
+      email: username + "@fake.co"
     });
     dataRef = firebase.database().ref("Data/" + room + "/");
     isSignedIn = true;
@@ -285,13 +285,6 @@ function redirectFromHub() {
 }
 
 window.onload = function () {
-  firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION).then(function () {
-    firebase.auth().signInAnonymously().catch(function (error) {
-      var errorCode = error.code;
-      var errorMessage = error.message;
-      alert("Error: \n" + errorMessage);
-    });
-  });
   room = getRoom();
   setInterval(function () {
     isHidden() || (unread = 0, isMentioned = !1, document.title = "UniChat Beta")
@@ -327,6 +320,8 @@ window.onload = function () {
       setInterval(isActive, 60000);
       setTimeout(isActive, 3000);
       redirectFromHub();
+    } else {
+      document.getElementById("contentDiv").innerHTML = '<p>You do not have an account or you have been signed out. Please log in or create an account <a href="https://legend-of-iphoenix.github.io/UniChatDemo/login/index.html">here</a>.</p>'
     }
   });
   document.getElementById("message").addEventListener("keyup", function (event) {
@@ -341,46 +336,50 @@ window.onload = function () {
 
 function isActive() {
   var n = unichat_uid2;
-  firebase.database().ref("bans/").orderByChild("i").equalTo(n).limitToLast(1).once("value").then(function (a) {
-    a.forEach(function (a) {
-      var n = a.val(),
-        i = (n.t, n.m);
-      if (null !== n && void 0 !== n && n.t >= Date.now()) {
-        var t = n.t,
-          e = "";
-        "" != i && (e = "?m=" + i + "&t=" + t), window.location.href = "banned/index.html" + e
-      }
-    })
-  });
-  var curTime = new Date().getTime();
-  firebase.database().ref("/online/" + room + "/").once('value').then(function (p) {
-    p.forEach(function (snapshot) {
-      //5 minutes
-      if (curTime > 5 * 60 * 1000 + snapshot.val()) {
-        firebase.database().ref("online/" + room + "/" + snapshot.key).remove();
-      }
-    })
-  });
-  var list = document.getElementById('output');
+  if (firebase.auth().currentUser.email == unichat_uid2 + "@fake.co") {
+    firebase.database().ref("bans/").orderByChild("i").equalTo(n).limitToLast(1).once("value").then(function (a) {
+      a.forEach(function (a) {
+        var n = a.val(),
+          i = (n.t, n.m);
+        if (null !== n && void 0 !== n && n.t >= Date.now()) {
+          var t = n.t,
+            e = "";
+          "" != i && (e = "?m=" + i + "&t=" + t), window.location.href = "banned/index.html" + e
+        }
+      })
+    });
+    var curTime = new Date().getTime();
+    firebase.database().ref("/online/" + room + "/").once('value').then(function (p) {
+      p.forEach(function (snapshot) {
+        //5 minutes
+        if (curTime > 5 * 60 * 1000 + snapshot.val()) {
+          firebase.database().ref("online/" + room + "/" + snapshot.key).remove();
+        }
+      })
+    });
+    var list = document.getElementById('output');
 
-  var items = list.childNodes;
-  var itemsArr = [];
-  for (var i in items) {
-    if (items[i].nodeType == 1) { // get rid of the whitespace text nodes
-      itemsArr.push(items[i]);
+    var items = list.childNodes;
+    var itemsArr = [];
+    for (var i in items) {
+      if (items[i].nodeType == 1) { // get rid of the whitespace text nodes
+        itemsArr.push(items[i]);
+      }
+    }
+
+    itemsArr.sort(function (a, b) {
+      return a.id == b.id ?
+        0 :
+        (a.id > b.id ? 1 : -1);
+    });
+
+    for (i = 0; i < itemsArr.length; ++i) {
+      list.appendChild(itemsArr[i]);
     }
   }
-
-  itemsArr.sort(function (a, b) {
-    return a.id == b.id ?
-      0 :
-      (a.id > b.id ? 1 : -1);
-  });
-
-  for (i = 0; i < itemsArr.length; ++i) {
-    list.appendChild(itemsArr[i]);
+  else {
+    firebase.auth().signOut();
   }
-
 }
 
 window.onbeforeunload = function () {

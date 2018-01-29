@@ -1,16 +1,8 @@
 var usernameDiv;
 var data;
-
 window.onload = function () {
-  if (location.href.indexOf("?logout") != -1) {
-    document.cookie="unichat_uid2=;expires=Thu, 01 Jan 1970 00:00:01 GMT;path=/;";
-    document.body.innerHTML += '<p id="logged-out">You have successfully been logged out of your account.</p>';
-    setTimeout(function(){document.getElementById("logged-out").remove();},10000);
-  }
-  else {
-    if (document.cookie.replace(/(?:(?:^|.*;\s*)unichat_uid2\s*\=\s*([^;]*).*$)|^.*$/, "$1") != "") {
-      location.href = "https://legend-of-iphoenix.github.io/UniChatDemo/?u="+document.cookie.replace(/(?:(?:^|.*;\s*)unichat_uid2\s*\=\s*([^;]*).*$)|^.*$/, "$1");
-    }
+  if (document.cookie.replace(/(?:(?:^|.*;\s*)unichat_uid2\s*\=\s*([^;]*).*$)|^.*$/, "$1") != "") {
+    location.href = "https://legend-of-iphoenix.github.io/UniChatDemo/?u=" + document.cookie.replace(/(?:(?:^|.*;\s*)unichat_uid2\s*\=\s*([^;]*).*$)|^.*$/, "$1");
   }
   usernameDiv = document.getElementById("username");
   usernameDiv.oninput = function () {
@@ -59,14 +51,22 @@ function submit() {
     firebase.database().ref("uids/").once('value').then(function (snapshot) {
       var uid = contains(snapshot.val(), value);
       if (uid) {
-        firebase.database().ref("pass/" + uid).set(btoa(document.getElementById("password").value)).then(function () {
-          document.cookie = "unichat_uid2=" + uid + ";expires=" + new Date(Date.now() + 157784760000);
-          location.href = "https://legend-of-iphoenix.github.io/UniChatDemo/?u="+uid;
-        }).catch(function (error) {
-          document.getElementById("messages").innerText = "Incorrect password!";
+        firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL).then(function () {
+          firebase.auth().signInWithEmailAndPassword(uid + "@fake.co", document.getElementById("password").value).then(function () {
+            document.cookie = "unichat_uid2=" + uid + ";path=/;expires=" + new Date(Date.now() + 157784760000);
+            location.href = "https://legend-of-iphoenix.github.io/UniChatDemo/?u=" + uid;
+          }).catch(function (error) {
+            // Handle Errors here.
+            var errorCode = error.code;
+            var errorMessage = error.message;
+            if (errorCode === 'auth/wrong-password') {
+              document.getElementById("messages").innerText = "Wrong Password;"
+            } else {
+              document.getElementById("messages").innerText = "Some form of error occurred: " + errorMessage;
+            }
+          });
         });
-      }
-      else {
+      } else {
         document.getElementById("messages").innerText = "Username does not exist. Please click the register link and sign up!";
       }
     });
