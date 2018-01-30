@@ -36,10 +36,8 @@ The following behaviors are considered harassment and are unacceptable within ou
 *   Posting or displaying sexually explicit or violent material.
 *   Posting or threatening to post other people’s personally identifying information ("doxing").
 *   Personal insults, particularly those related to gender, sexual orientation, race, religion, or disability.
-*   Inappropriate photography or recording.
-*   Inappropriate physical contact. You should have someone’s consent before touching them.
-*   Unwelcome sexual attention. This includes, sexualized comments or jokes; inappropriate touching, groping, and unwelcomed sexual advances.
-*   Deliberate intimidation, stalking or following (online or in person).
+*   Unwelcome sexual attention. This includes, sexualized comments or jokes;
+*   Deliberate intimidation, stalking or following (online).
 *   Advocating for, or encouraging, any of the above behavior.
 *   Sustained disruption of community events, including talks and presentations.
 
@@ -47,22 +45,19 @@ The following behaviors are considered harassment and are unacceptable within ou
 
 Unacceptable behavior from any community member, including sponsors and those with decision-making authority, will not be tolerated.
 
-Anyone asked to stop unacceptable behavior is expected to comply immediately.
+Anyone asked to stop unacceptable behavior is expected to comply immediately. 
 
 If a community member engages in unacceptable behavior, the community organizers may take any action they deem appropriate, up to and including a temporary ban or permanent expulsion from the community without warning (and without refund in the case of a paid event).
 
 ## 6. Reporting Guidelines
 
-If you are subject to or witness unacceptable behavior, or have any other concerns, please notify a community organizer as soon as possible. .
-
-
+If you are subject to or witness unacceptable behavior, or have any other concerns, please notify a community organizer as soon as possible.
 
 Additionally, community organizers are available to help community members engage with local law enforcement or to otherwise help those experiencing unacceptable behavior feel safe. In the context of in-person events, organizers will also provide escorts as desired by the person experiencing distress.
 
 ## 7. Addressing Grievances
 
-If you feel you have been falsely or unfairly accused of violating this Code of Conduct, you should notify Legend Of IPhoenix or LAX18 with a concise description of your grievance. Your grievance will be handled in accordance with our existing governing policies.
-
+If you feel you have been falsely or unfairly accused of violating this Code of Conduct, you should notify Legend-Of-iPhoenix or LAX18 with a concise description of your grievance. Your grievance will be handled in accordance with our existing governing policies.
 
 
 ## 8. Scope
@@ -73,7 +68,7 @@ This code of conduct and its related procedures also applies to unacceptable beh
 
 ## 9. Contact info
 
-
+You can reach either LAX18 (The Real LAX18) or \_iPhoenix\_ through a private message on Cemetech. _iPhoenix_ can also be contacted through the CodeWalrus community. 
 
 ## 10. License and attribution
 

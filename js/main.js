@@ -566,6 +566,16 @@ function emotes(message) {
   message = message.replace(/\:\P/g,'<img src="emotes/tounge.png" class="emote" alt=":P"></img>');
   message = message.replace(/\:\)/g,'<img src="emotes/smile.png" class="emote" alt=":)"></img>');
   message = message.replace(/\;\)/g,'<img src="emotes/wink.png" class="emote" alt=";)"></img>');
+  message = message.replace(/\:roll:/g,'<img src="emotes/eyeroll.png" class="emote" alt=":roll:"></img>');
+  message = message.replace(/\:D/g,'<img src="emotes/happy.png" class="emote" alt=":D"></img>');
+  message = message.replace(/\:O\=/g,'<img src="emotes/vomit.png" class="emote" alt=":O="></img>');
+  message = message.replace(/\?\?\?/g,'<img src="emotes/what.png" class="emote" alt="???"></img>');
+  message = message.replace(/\:o/g,'<img src="emotes/whistle.png" class="emote" alt=":o"></img>');
+  message = message.replace(/\!\!\!/g,'<img src="emotes/exclamationpoint.png" class="emote" alt=":o"></img>');
+  message = message.replace(/\:S/g,'<img src="emotes/confused.png" class="emote" alt=":S"></img>');
+  message = message.replace(/\:rofl\:/g,'<img src="emotes/rofl.png" class="emote" alt=":rolf:"></img>');
+  message = message.replace(/\:\(/g,'<img src="emotes/sad.png" class="emote" alt=":("></img>');
+  message = message.replace(/\X\(/g,'<img src="emotes/angry.png" class="emote" alt="X("></img>');
   return message;
 }
 
