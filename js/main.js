@@ -574,7 +574,7 @@ function emotes(message) {
   message = message.replace(/\:o/g,'<img src="emotes/whistle.png" class="emote" alt=":o"></img>');
   message = message.replace(/\!\!\!/g,'<img src="emotes/exclamationpoint.png" class="emote" alt=":o"></img>');
   message = message.replace(/\:S/g,'<img src="emotes/confused.png" class="emote" alt=":S"></img>');
-  message = message.replace(/\:rofl:/g,'<img src="emotes/rofl.png" class="emote" alt=":rolf:"></img>');
+  message = message.replace(/\:rofl\:/g,'<img src="emotes/rofl.png" class="emote" alt=":rolf:"></img>');
   message = message.replace(/\:\(/g,'<img src="emotes/sad.png" class="emote" alt=":("></img>');
   message = message.replace(/\X\(/g,'<img src="emotes/angry.png" class="emote" alt=">:("></img>');
   return message;
