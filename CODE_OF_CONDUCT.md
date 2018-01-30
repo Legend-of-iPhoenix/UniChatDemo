@@ -53,8 +53,6 @@ If a community member engages in unacceptable behavior, the community organizers
 
 If you are subject to or witness unacceptable behavior, or have any other concerns, please notify a community organizer as soon as possible.
 
-/* This part I feel needs to be fixed. vv*/
-
 Additionally, community organizers are available to help community members engage with local law enforcement or to otherwise help those experiencing unacceptable behavior feel safe. In the context of in-person events, organizers will also provide escorts as desired by the person experiencing distress.
 
 ## 7. Addressing Grievances
@@ -70,7 +68,7 @@ This code of conduct and its related procedures also applies to unacceptable beh
 
 ## 9. Contact info
 
-You can reach either LAX18 (The Real LAX18) or \_iPhoenix\_ through a private message on Cemetech. 
+You can reach either LAX18 (The Real LAX18) or \_iPhoenix\_ through a private message on Cemetech. _iPhoenix_ can also be contacted through the CodeWalrus community. 
 
 ## 10. License and attribution
 
