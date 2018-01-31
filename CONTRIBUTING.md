@@ -4,7 +4,7 @@
 Press the fork button. You now have your own copy of UniChat, where you can test things out before committing.
 When you are done, create a pull request with your changes.
 
-**IT IS YOUR RESPONSIBILITY TO KEEP YOUR LOCAL REPOSITORY UP TO DATE WITH THE OFFICIAL ONE**
+***IT IS YOUR RESPONSIBILITY TO KEEP YOUR LOCAL REPOSITORY UP TO DATE WITH THE OFFICIAL ONE!!***
 
 ## When creating a pull request:
 - Make sure your code actually works.
