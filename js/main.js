@@ -29,8 +29,8 @@ var emoteReplacements = [
   ["O.o","confused"],
   [":rofl:","rofl"],
   [":(","sad"],
-  [":X","angry"],
-  [":p","tounge2"]
+  ["D:<","angry"],
+  [";P","tounge2"]
 ];
 
 var selectedRoom = "Chat";
