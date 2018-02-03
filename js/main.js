@@ -7,9 +7,10 @@
 //     \________/   ______                                      ______
 //                 |______|                                    |______|
 //
-// V0.66.2b0
+// V0.67.0b0
 //
 // (just ask if you want to use my source, I probably won't say no.)
+
 var selectedRoom = "Chat";
 var isSignedIn = false;
 var dataRef;
@@ -32,6 +33,28 @@ var preventDouble = false;
 var numLimit, nLimit;
 
 var username = "anonymous";
+
+/*
+ * Format: [<replacenment>,<name of file>]
+ * <replacement> is the text you want the image to replace.
+ * <name of file> is the name of the file in the /emotes/ folder, minus the .png at the end.
+*/
+var emoteReplacements = [
+  [":P","tounge"],
+  [":)","smile"],
+  [";)","wink"],
+  [":roll:","eyeroll"],
+  [":D","happy"],
+  [":O=","vomit"],
+  ["???","what"],
+  [":o","whistle"],
+  ["!!!","exclamationpoint"],
+  ["O.o","confused"],
+  [":rofl:","rofl"],
+  [":(","sad"],
+  [":X","angry"],
+  [":p","tounge2"]
+];
 
 function getRoom() {
   var str = location.href;
@@ -564,19 +587,10 @@ function detectURL(message) {
 }
 
 function emotes(message) {
-  message = message.replace(/\:\P/g,'<img src="emotes/tounge.png" class="emote" alt=":P"></img>');
-  message = message.replace(/\:\)/g,'<img src="emotes/smile.png" class="emote" alt=":)"></img>');
-  message = message.replace(/\;\)/g,'<img src="emotes/wink.png" class="emote" alt=";)"></img>');
-  message = message.replace(/\:roll:/g,'<img src="emotes/eyeroll.png" class="emote" alt=":roll:"></img>');
-  message = message.replace(/\:D/g,'<img src="emotes/happy.png" class="emote" alt=":D"></img>');
-  message = message.replace(/\:O\=/g,'<img src="emotes/vomit.png" class="emote" alt=":O="></img>');
-  message = message.replace(/\?\?\?/g,'<img src="emotes/what.png" class="emote" alt="???"></img>');
-  message = message.replace(/\:o/g,'<img src="emotes/whistle.png" class="emote" alt=":o"></img>');
-  message = message.replace(/\!\!\!/g,'<img src="emotes/exclamationpoint.png" class="emote" alt=":o"></img>');
-  message = message.replace(/\:S/g,'<img src="emotes/confused.png" class="emote" alt=":S"></img>');
-  message = message.replace(/\:rofl\:/g,'<img src="emotes/rofl.png" class="emote" alt=":rolf:"></img>');
-  message = message.replace(/\:\(/g,'<img src="emotes/sad.png" class="emote" alt=":("></img>');
-  message = message.replace(/\X\(/g,'<img src="emotes/angry.png" class="emote" alt="X("></img>');
+  //Replace each of the emotes with an image tag pointing towards the file name given.
+  emoteReplacements.forEach(function(emote){
+      message = message.split(emote[0]).join('<img src="emotes/'+emote[1]+'.png" class="emote" alt="'+emote[0]+'"></img>');
+  });
   return message;
 }
 
