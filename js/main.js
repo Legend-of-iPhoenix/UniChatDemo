@@ -29,7 +29,7 @@ var emoteReplacements = [
   ["O.o","confused"],
   [":rofl:","rofl"],
   [":(","sad"],
-  ["D:<","angry"],
+  ["D:&lt;","angry"],
   [";P","tounge2"]
 ];
 
