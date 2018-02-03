@@ -11,6 +11,28 @@
 //
 // (just ask if you want to use my source, I probably won't say no.)
 
+/*
+ * Format: [<replacenment>,<name of file>]
+ * <replacement> is the text you want the image to replace.
+ * <name of file> is the name of the file in the /emotes/ folder, minus the .png at the end.
+*/
+var emoteReplacements = [
+  [":P","tounge"],
+  [":)","smile"],
+  [";)","wink"],
+  [":roll:","eyeroll"],
+  [":D","happy"],
+  [":O=","vomit"],
+  ["???","what"],
+  [":o","whistle"],
+  ["!!!","exclamationpoint"],
+  ["O.o","confused"],
+  [":rofl:","rofl"],
+  [":(","sad"],
+  [":X","angry"],
+  [":p","tounge2"]
+];
+
 var selectedRoom = "Chat";
 var isSignedIn = false;
 var dataRef;
@@ -33,28 +55,6 @@ var preventDouble = false;
 var numLimit, nLimit;
 
 var username = "anonymous";
-
-/*
- * Format: [<replacenment>,<name of file>]
- * <replacement> is the text you want the image to replace.
- * <name of file> is the name of the file in the /emotes/ folder, minus the .png at the end.
-*/
-var emoteReplacements = [
-  [":P","tounge"],
-  [":)","smile"],
-  [";)","wink"],
-  [":roll:","eyeroll"],
-  [":D","happy"],
-  [":O=","vomit"],
-  ["???","what"],
-  [":o","whistle"],
-  ["!!!","exclamationpoint"],
-  ["O.o","confused"],
-  [":rofl:","rofl"],
-  [":(","sad"],
-  [":X","angry"],
-  [":p","tounge2"]
-];
 
 function getRoom() {
   var str = location.href;
