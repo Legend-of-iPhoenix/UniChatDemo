@@ -31,8 +31,8 @@ var emoteReplacements = [
   [":(","sad"],
   ["D:&lt;","angry"],
   [";P","tounge2"],
-  ["Oo","suspicious"],
-  ["oO","suspicious"],
+  ["0o","suspicious"],
+  ["o0","suspicious"],
   [":..(","cry"],
   ["DX","cry"]
 ];
