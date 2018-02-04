@@ -33,7 +33,8 @@ var emoteReplacements = [
   [";P","tounge2"],
   ["Oo","suspicious"],
   ["oO","suspicious"],
-  [":..(","cry"]
+  [":..(","cry"],
+  ["DX","cry"]
 ];
 
 var selectedRoom = "Chat";
