@@ -1,1 +1,54 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title> UniChat Beta Extension </title>
+    <!-- Google Tag Manager --> 
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start': new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0], j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src= 'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f); })(window,document,'script','dataLayer','GTM-NJR6RD8');</script> 
+    <!-- End Google Tag Manager -->
+    <!--<script src="https://www.gstatic.com/firebasejs/4.6.2/firebase.js"></script>
+    <script>
+      // Initialize Firebase
+      var config = {
+        apiKey: "AIzaSyC9eUkCvbKv7nzQocRelivvyvWAlmiORsg",
+        authDomain: "unichat-10bbd.firebaseapp.com",
+        databaseURL: "https://unichat-10bbd.firebaseio.com",
+        projectId: "unichat-10bbd",
+        storageBucket: "unichat-10bbd.appspot.com",
+        messagingSenderId: "847148140589"
+      };
+      firebase.initializeApp(config);
+    </script>-->
+    
+<script src="https://www.gstatic.com/firebasejs/4.8.0/firebase.js"></script>
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyBhhzNlObAwm6hqm62NI6BRikA2o5pYhkg",
+    authDomain: "unichat-demo.firebaseapp.com",
+    databaseURL: "https://unichat-demo.firebaseio.com",
+    projectId: "unichat-demo",
+    storageBucket: "",
+    messagingSenderId: "712992764474"
+  };
+  firebase.initializeApp(config);
+</script>
+    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://legend-of-iphoenix.github.io/UniChatDemo/css/style.css">
+  </head>
+  <link rel="icon" 
+      type="image/png" 
+      href="https://i.imgur.com/7POdNS3.png">
+  <body id="body">
+   <base target="_blank">
+   <a href="https://legend-of-iphoenix.github.io/UniChatDemo/"><h3>UniChat Extension by LAX18</h3></a>
+    <div id="output" style="width: 75%; float: left; display: inline-block;"></div>
+    <div id="online-users" style="display: inline-block; float: left; width: 15%; padding: 10px; box-shadow: 0 1px 5px #222 inset,0 1px 0 #666; background-color: #222; height: 48vh; overflow-y: scroll; border-radius: 5px;"></div>
+    <div id="IN" style="width: 75%">
 
+      <input type="text" id="message" style="display: block; float: left; width: 85%;">
+      <input type="button" value="Send" onclick="submitMessage()" style="float: right;">
+    </div>
+    <!--I don't think we should have anything besides the bare minimum.-->
+  <script src="https://legend-of-iphoenix.github.io/UniChatDemo/Chrome%20Extension/js/main.js"></script>
+  </body>
+</html>
