@@ -19,7 +19,9 @@ This is a demo for a chatting service called “UniChat” made by \_iPhoenix\_.
 
 **LAX18** for edits, awesomeness, favicon, header image, navigation bar, and the UniChat chrome extension.
 
-**jcgter777** for UniChat header image (old one) and the new UniChat navigation bar icon. 
+**jcgter777** for the UniChat header image (old one) and the new UniChat navigation bar icon. 
+
+**mets11rap** for the UniChat emotes.
 
 **Christopher Mitchell (KermM) of the Cemetech programming community** for some parts of the link detection in UniChat (used in SAX)
 
