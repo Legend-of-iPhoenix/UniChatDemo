@@ -20,7 +20,7 @@ var emoteReplacements = [
   [":P","tounge"],
   [":)","smile"],
   [";)","wink"],
-  [":roll:","eyeroll"],
+  ["i_i","eyeroll"],
   [":D","happy"],
   [":O=","vomit"],
   ["???","what"],
@@ -33,7 +33,7 @@ var emoteReplacements = [
   ["o0","suspicious"],
   [":..(","cry"],
   ["DX","cry"],
-  ["O.o","upset"]
+  [":/","upset"]
 ];
 
 var selectedRoom = "Chat";
