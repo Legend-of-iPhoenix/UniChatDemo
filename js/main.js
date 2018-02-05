@@ -11,6 +11,31 @@
 //
 // (just ask if you want to use my source, I probably won't say no.)
 
+/*
+ * Format: [<replacenment>,<name of file>]
+ * <replacement> is the text you want the image to replace.
+ * <name of file> is the name of the file in the /emotes/ folder, minus the .png at the end.
+*/
+var emoteReplacements = [
+  [":P","tounge"],
+  [":)","smile"],
+  [";)","wink"],
+  [":roll:","eyeroll"],
+  [":D","happy"],
+  [":O=","vomit"],
+  ["???","what"],
+  [":o","whistle"],
+  ["!!!","exclamationpoint"],
+  [":(","sad"],
+  ["D:&lt;","angry"],
+  [";P","tounge2"],
+  ["0o","suspicious"],
+  ["o0","suspicious"],
+  [":..(","cry"],
+  ["DX","cry"],
+  ["O.o","upset"]
+];
+
 var selectedRoom = "Chat";
 var isSignedIn = false;
 var dataRef;
@@ -33,28 +58,6 @@ var preventDouble = false;
 var numLimit, nLimit;
 
 var username = "anonymous";
-
-/*
- * Format: [<replacenment>,<name of file>]
- * <replacement> is the text you want the image to replace.
- * <name of file> is the name of the file in the /emotes/ folder, minus the .png at the end.
-*/
-var emoteReplacements = [
-  [":P","tounge"],
-  [":)","smile"],
-  [";)","wink"],
-  [":roll:","eyeroll"],
-  [":D","happy"],
-  [":O=","vomit"],
-  ["???","what"],
-  [":o","whistle"],
-  ["!!!","exclamationpoint"],
-  ["O.o","confused"],
-  [":rofl:","rofl"],
-  [":(","sad"],
-  [":X","angry"],
-  [":p","tounge2"]
-];
 
 function getRoom() {
   var str = location.href;
@@ -588,7 +591,7 @@ function detectURL(message) {
 function emotes(message) {
   //Replace each of the emotes with an image tag pointing towards the file name given.
   emoteReplacements.forEach(function(emote){
-      message = message.split(emote[0]).join('<img src="emotes/'+emote[1]+'.png" class="emote" alt="'+emote[0]+'"></img>');
+      message = message.split(emote[0]).join('<img src="https://legend-of-iphoenix.github.io/UniChatDemo/emotes/'+emote[1]+'.png" class="emote" alt="'+emote[0]+'"></img>');
   });
   return message;
 }

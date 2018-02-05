@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <title> UniChat Beta </title>
+      <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start': new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0], j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src= 'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f); })(window,document,'script','dataLayer','GTM-NJR6RD8');</script> 
+      <script src="https://www.gstatic.com/firebasejs/4.8.0/firebase.js"></script>
+      <base target="_blank">
+      <meta name="google-site-verification" content="ZsgMIexS5rrxOICB8RwSwdrZtuzgz2DFZ51cBwtKcWU" />
+      <script>
+         var config = {
+           apiKey: "AIzaSyBhhzNlObAwm6hqm62NI6BRikA2o5pYhkg",
+           authDomain: "unichat-demo.firebaseapp.com",
+           databaseURL: "https://unichat-demo.firebaseio.com",
+           projectId: "unichat-demo",
+           storageBucket: "",
+           messagingSenderId: "712992764474"
+         };
+         firebase.initializeApp(config);
+      </script>
+      <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+      <link rel="stylesheet" type="text/css" href="../css/style.css">
+      <script src="../js/main.js"></script>
+      <link rel="icon" 
+         type="image/png" 
+         href="https://i.imgur.com/7POdNS3.png">
+   </head>
+   <body style="margin: auto 0; padding: auto 0;">
+      
+      <div id="output" style="width: 100%; float: left; display: inline-block;"></div><br />
+      <div id="IN" style="width: 100%">
+         <input type="text" id="message" style="float: left;">
+         <input type="button" value="Send" onclick="submitMessage()" style="float: left;">
+      </div>
+      <div id="online-users" style="visibility: hidden"></div>
+   </body>
+</html>
