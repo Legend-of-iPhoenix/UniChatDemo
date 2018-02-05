@@ -26,7 +26,6 @@ var emoteReplacements = [
   ["???","what"],
   [":o","whistle"],
   ["!!!","exclamationpoint"],
-  ["O.o","confused"],
   ["XD","rofl"],
   [":(","sad"],
   ["D:&lt;","angry"],
