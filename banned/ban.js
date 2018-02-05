@@ -32,7 +32,7 @@ function formatTime(ts) {
 
     function format(n, unit) {
       n = Math.floor(n);
-      return n + " " + unit + (n == 1 ? "" : "s") + ", "
+      return n === 0 ? "" : n + " " + unit + (n == 1 ? "" : "s") + ", "
     }
     sec = format(sec, "second");
     min = format(min, "minute");
