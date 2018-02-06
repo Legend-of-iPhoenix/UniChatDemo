@@ -33,7 +33,7 @@ var emoteReplacements = [
   ["o0","suspicious"],
   [":..(","cry"],
   ["DX","cry"],
-  [":/","upset"]
+  [":/ ","upset"]
 ];
 
 var selectedRoom = "Chat";
@@ -590,6 +590,7 @@ function detectURL(message) {
 }
 
 function emotes(message) {
+  message += " ";
   //Replace each of the emotes with an image tag pointing towards the file name given.
   emoteReplacements.forEach(function(emote){
       message = message.split(emote[0]).join('<img src="emotes/'+emote[1]+'.png" class="emote" alt="'+emote[0]+'"></img>');
